@@ -68,7 +68,7 @@ class LineChart extends Component {
         }
         return (
             <React.Fragment>
-                <Line width={479} height={300} data={data} options={option} />
+                <Line width={400} height={150} data={data} options={option} />
             </React.Fragment>
         );
     }

@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 
 import { MDBDataTable } from 'mdbreact';
 
+
 //Import datatable css
 
 
@@ -76,10 +77,10 @@ class Enduser extends Component {
                     width: 100
                 },
                 {
-                    label: 'Action',
+                    label: '',
                     field: 'buttons',
                     sort: 'but',
-                    width: 150
+                    width: 250
                 },
             ],rows: [
                 {
@@ -89,6 +90,8 @@ class Enduser extends Component {
                     email: 'tiger@gmail.com',
                     password: 'tiger123',
                     plan: 'monthly',
+                    buttons: [ <Button type="button" color="primary" style = {{marginRight: 10}} className="waves-effect waves-light"><i className="ti-pencil"></i></Button>, 
+                    <Button type="button" color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button> ],
                    
                 },
                 {
@@ -97,7 +100,9 @@ class Enduser extends Component {
                     lastname: 'Goel',
                     email: 'parthg@gmail.com',
                     password: 'goel123',
-                    plan: 'monthly'
+                    plan: 'monthly',
+                    buttons: [ <Button type="button" color="primary" style = {{marginRight: 10}} className="waves-effect waves-light"><i className="ti-pencil"></i></Button>, 
+                    <Button type="button" color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button> ],
                 },
                 {
                     username: 'Atulk',
@@ -105,7 +110,10 @@ class Enduser extends Component {
                     lastname: 'Shah',
                     email: 'shah@gmail.com',
                     password: 'shah123',
-                    plan: 'unlimited'
+                    plan: 'unlimited',
+                    buttons: [ <Button type="button" color="primary" style = {{marginRight: 10}} className="waves-effect waves-light"><i className="ti-pencil"></i></Button>, 
+                    <Button type="button" color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button> ],
+                    
                 },
                 {
                     username: 'mitull',
@@ -113,7 +121,9 @@ class Enduser extends Component {
                     lastname: 'Patel',
                     email: 'mitul@gmail.com',
                     password: 'mitul123',
-                    plan: 'monthly'
+                    plan: 'monthly',
+                    buttons: [ <Button type="button" color="primary" style = {{marginRight: 10}} className="waves-effect waves-light"><i className="ti-pencil"></i></Button>, 
+                    <Button type="button" color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button> ],
                 },
                 {
                     username: 'Atikk',
@@ -121,7 +131,9 @@ class Enduser extends Component {
                     lastname: 'Khan',
                     email: 'atik@gmail.com',
                     password: 'atik123',
-                    plan: 'monthly'
+                    plan: 'monthly',
+                    buttons: [ <Button type="button" color="primary" style = {{marginRight: 10}} className="waves-effect waves-light"><i className="ti-pencil"></i></Button>, 
+                    <Button type="button" color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button> ],
                 },,
                 {
                     username: 'Kinjall',
@@ -129,7 +141,9 @@ class Enduser extends Component {
                     lastname: 'Prajapati',
                     email: 'kinjal@gmail.com',
                     password: 'kinjal123',
-                    plan: 'unlimited'
+                    plan: 'unlimited',
+                    buttons: [ <Button type="button" color="primary" style = {{marginRight: 10}} className="waves-effect waves-light"><i className="ti-pencil"></i></Button>, 
+                    <Button type="button" color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button> ],
                 },
             ]
         };
@@ -137,13 +151,15 @@ class Enduser extends Component {
             <React.Fragment>
                     <h1>Enduser Details</h1>
                     <Button type="button" color="info" className="waves-effect waves-light">Add User</Button>
-                    <Row>
+                    <Row lg = "12">
                         
 
-                        <Col lg = "10">
+                        <Col lg = "12">
                            
                                 <MDBDataTable
                                 responsive
+                                btn
+                                hover
                                 bordered
                                 data={data}
                                 />

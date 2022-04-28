@@ -91,6 +91,13 @@ import Subscriptionreport from "../pages/Subscription Management/report"
 import Dailysubscriber from "../pages/Subscription Management/dailysubscriber"
 import Individualreport from "../pages/Subscription Management/individualreport";
 import Userprofile from "../pages/User Management/userprofile"
+import Faq from "../pages/faq/faq"
+import Tax from "../pages/tax management/taxmanagement"
+import ProjectManagement from "../pages/project management/main"
+import ProductReport from "../pages/project management/productreport"
+import Plans from "../pages/Subscription Management/plans"
+import Media from "../pages/media management/index"
+import Marketing from "../pages/marketing/index"
 
 
 const authProtectedRoutes = [
@@ -103,6 +110,13 @@ const authProtectedRoutes = [
   { path: "/subscriptionreport", component: Subscriptionreport},
   { path: "/ireport", component: Individualreport},
   { path: "/userprofile", component: Userprofile},
+  { path: "/faq", component: Faq},
+  { path: "/taxmanagement", component: Tax},
+  { path: "/productreport", component: ProductReport},
+  { path: "/project", component: ProjectManagement},
+  { path: "/plans", component: Plans},
+  { path: "/media", component: Media},
+  { path: "/marketing", component: Marketing},
 
   // DashBoard
   { path: "/dashboard", component: Dashboard },

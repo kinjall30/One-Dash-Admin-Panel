@@ -6,28 +6,28 @@ import {
     CardBody,
     TabContent,
     TabPane,
-    Collapse,
+
     NavLink,
     NavItem,
     Nav,
-    Button
+
   } from "reactstrap";
   import classnames from "classnames";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 
-import { MDBDataTable } from 'mdbreact';
+
+
 
 import Enduser from "./enduser"
 import Businessuser from "./businessuser"
-import TableEditablePage from "./table"
+
 
 //Import datatable css
 
 
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
-import { AvForm, AvField } from "availity-reactstrap-validation";
+
 
 class Usermanagement extends Component {
     constructor(props) {
@@ -145,13 +145,13 @@ class Usermanagement extends Component {
         
         return (
             <React.Fragment>
-                <Card>
+                {/* <Card>
                     <CardBody>
                         <h4 className="card-title">User Details</h4>
                         <p className="card-title-desc">Parsley is a javascript form validation library. It helps you provide your users with feedback on their form submission before sending it to your server.</p>
                     </CardBody>
-                </Card> 
-                <Row> 
+                </Card>  */}
+                <Row lg = "12"> 
                     <Col lg="12">
                         <Card>
                             <CardBody>

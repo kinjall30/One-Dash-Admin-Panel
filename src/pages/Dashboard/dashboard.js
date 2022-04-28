@@ -23,9 +23,9 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             breadcrumbItems : [
-                { title : "Lexa", link : "#" },
+                { title : "One Dash", link : "#" },
                 { title : "Dashboard", link : "#" },
-                { title : "Dashboard", link : "#" },
+                
             ],
             reports : [
                 { title : "Roles Management", icon : "mdi-cube-outline", result : "+11%", value : "1,587", desc : "From previous period", color : "info" },
@@ -69,39 +69,7 @@ class Dashboard extends Component {
                         </Col>
 
                     </Row>
-                    
-
-                    <Row>
-
-                        <Col xl="4" lg="6">
-                            {/* inbox */}
-                            <Inbox/>
-                        </Col>
-                        <Col xl="4" lg="6">
-                            {/* recent activity */}
-                            <RecentActivity/>
-
-                        </Col>
-                        <Col xl="4">
-                            {/* widget user */}
-                            <WidgetUser/>
-
-                            {/* yearly sales */}
-                            <YearlySales/>
-                        </Col>
-                    </Row>
-                    
-                    <Row>
-                        <Col xl="6">
-                            {/* latest transactions */}
-                            <LatestTransactions/>
-                        </Col>
-
-                        <Col xl="6">
-                            {/* latest orders */}
-                            <LatestOrders/>
-                        </Col>
-                    </Row>
+                   
             </React.Fragment>
         );
     }
