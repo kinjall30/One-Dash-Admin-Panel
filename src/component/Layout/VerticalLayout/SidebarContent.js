@@ -301,7 +301,7 @@ class SidebarContent extends Component {
             </Link>
         </li>
 
-        {/* <li>
+         <li>
             <Link to="/#" className="waves-effect">
                 <i className="mdi mdi-clipboard-outline"></i>
                 <span className="badge badge-pill badge-success float-right">6</span>
@@ -315,7 +315,7 @@ class SidebarContent extends Component {
                 <li><Link to="form-uploads">Form File Upload</Link></li>
                 <li><Link to="form-xeditable">Form Xeditable</Link></li>
             </ul>
-        </li> */}
+        </li> 
         {/* <li>
             <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-album"></i>

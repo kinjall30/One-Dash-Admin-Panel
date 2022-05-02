@@ -42,45 +42,71 @@ class Marketing extends Component {
   
     render() {
         
+    const cardStyle ={
+        height: "100px",
+        color: "white",
+        width: "300px",
+        fontSize: "20px",
+        textAline: "center"
+    }
 
         return (
             <React.Fragment>
                 <Row>
-                    <Col md="6" lg="6" xl="3">
-                        <Card>
-                            <CardBody>
-                                Email
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md="6" lg="6" xl="3">
-                        <Card>
-                            <CardBody>
-                                SMS
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md="6" lg="6" xl="3">
-                        <Card>
-                            <CardBody>
-                                In-app
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md="6" lg="6" xl="3">
-                        <Card>
-                            <CardBody>
-                                Browser
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md="6" lg="6" xl="3">
-                        <Card>
-                            <CardBody>
-                                whatsapp
-                            </CardBody>
-                        </Card>
-                    </Col>
+                    <Link to='emailmarketing'>
+                        <div>
+                            <Col>
+                                <Card  style={cardStyle}>
+                                    <CardBody>
+                                        Email
+                                    </CardBody>
+                                </Card>
+                            </Col>
+                        </div>
+                    </Link>
+           
+                    <Link to='smsmarketing'>
+                    <div>
+                        <Col>
+                            <Card  style={cardStyle}>
+                                <CardBody>
+                                    SMS
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </div>
+                    </Link>
+                    <Link to='appmarketing'>
+                    <div >
+                        <Col>
+                            <Card style={cardStyle}>
+                                <CardBody>
+                                    In-app
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </div>
+                    </Link>
+                    <Link to='websitemarketing'>
+                    <div >
+                        <Col>
+                            <Card style={cardStyle}>
+                                <CardBody>
+                                    Browser
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </div>
+                    </Link>
+                    <Link to='whatsappmarketing'>
+                        <Col >
+                            <Card style={cardStyle}>
+                                <CardBody>
+                                        Whatsapp
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Link>
                 </Row> 
             </React.Fragment>
         );

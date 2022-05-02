@@ -98,6 +98,12 @@ import ProductReport from "../pages/project management/productreport"
 import Plans from "../pages/Subscription Management/plans"
 import Media from "../pages/media management/index"
 import Marketing from "../pages/marketing/index"
+import SmsMarketing from '../pages/marketing/sms'
+import EmailMarketing from "../pages/marketing/email"
+import WhatsappMarketing from "../pages/marketing/whatsapp"
+import WebsiteMarketing from "../pages/marketing/browser"
+import AppMarketing from "../pages/marketing/in-app"
+
 
 
 const authProtectedRoutes = [
@@ -117,6 +123,12 @@ const authProtectedRoutes = [
   { path: "/plans", component: Plans},
   { path: "/media", component: Media},
   { path: "/marketing", component: Marketing},
+  { path: "/smsmarketing", component: SmsMarketing},
+  { path: "/appmarketing", component: AppMarketing},
+  { path: "/websitemarketing", component: WebsiteMarketing},
+  { path: "/emailmarketing", component: EmailMarketing},
+  { path: "/whatsappmarketing", component: WhatsappMarketing},
+
 
   // DashBoard
   { path: "/dashboard", component: Dashboard },
