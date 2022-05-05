@@ -4,7 +4,10 @@ import {
     Row,
     Card,
     CardBody,
-    Button
+    Button,
+    FormGroup,
+    Input,
+    Label,
   } from "reactstrap";
   import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -38,7 +41,23 @@ class WebsiteMarketing extends Component {
 
         return (
             <React.Fragment>
-                    
+                <h1>Push Notofication</h1>  
+                <FormGroup>
+                    <Label className="col-sm-2 col-form-label">Select</Label>
+                        <div>
+                            <select className="form-control">
+                                <option>Users</option>
+                                <option>Admin</option>
+                                <option>Management Team</option>
+                            </select>
+                        </div>
+                </FormGroup>  
+                <FormGroup>
+                    <div>
+                        <textarea required placeholder='Enter Message' className="form-control" rows="5"></textarea>
+                    </div>
+                </FormGroup>
+                <Button color="primary">Send</Button>
             </React.Fragment>
         );
     }

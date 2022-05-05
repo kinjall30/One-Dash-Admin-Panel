@@ -299,65 +299,22 @@ class SidebarContent extends Component {
                 <i className="mdi mdi-calendar-check"></i>
                 <span>FAQ</span>
             </Link>
-        </li>
-
-         <li>
-            <Link to="/#" className="waves-effect">
-                <i className="mdi mdi-clipboard-outline"></i>
-                <span className="badge badge-pill badge-success float-right">6</span>
-                <span>Forms</span>
-            </Link>
-            <ul className="sub-menu" aria-expanded="false">
-                <li><Link to="form-elements">Form Elements</Link></li>
-                <li><Link to="form-validation">Form Validation</Link></li>
-                <li><Link to="form-advanced">Form Advanced</Link></li>
-                <li><Link to="form-editors">Form Editors</Link></li>
-                <li><Link to="form-uploads">Form File Upload</Link></li>
-                <li><Link to="form-xeditable">Form Xeditable</Link></li>
-            </ul>
         </li> 
-        {/* <li>
-            <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-album"></i>
-                <span>Icons</span>
-            </Link>
-            <ul className="sub-menu" aria-expanded="false">
-                <li><Link to="icons-material">Material Design</Link></li>
-                <li><Link to="icons-ion">Ion Icons</Link></li>
-                <li><Link to="icons-fontawesome">Font Awesome</Link></li>
-                <li><Link to="icons-themify">Themify Icons</Link></li>
-                <li><Link to="icons-dripicons">Dripicons</Link></li>
-                <li><Link to="icons-typicons">Typicons Icons</Link></li>
-            </ul>
-        </li> */}
 
-<li>
-            <Link to="/#" className="has-arrow waves-effect">
-                <i className="mdi mdi-buffer"></i>
-                <span>UI Elements</span>
-            </Link>
-            <ul className="sub-menu" aria-expanded="false">
-                    <li><Link to="ui-alerts">Alerts</Link></li>
-                    <li><Link to="ui-buttons">Buttons</Link></li>
-                    <li><Link to="ui-badge">Badge</Link></li>
-                    <li><Link to="ui-cards">Cards</Link></li>
-                    <li><Link to="ui-carousel">Carousel</Link></li>
-                    <li><Link to="ui-dropdowns">Dropdowns</Link></li>
-                    <li><Link to="ui-grid">Grid</Link></li>
-                    <li><Link to="ui-images">Images</Link></li>
-                    <li><Link to="ui-lightbox">Lightbox</Link></li>
-                    <li><Link to="ui-modals">Modals</Link></li>
-                    <li><Link to="ui-pagination">Pagination</Link></li>
-                    <li><Link to="ui-popover-tooltips">Popover &amp; Tooltips</Link></li>
-                    <li><Link to="ui-rangeslider">Range Slider</Link></li>
-                    <li><Link to="ui-session-timeout">Session Timeout</Link></li>
-                    <li><Link to="ui-progressbars">Progress Bars</Link></li>
-                    <li><Link to="ui-sweet-alert">Sweet-Alert</Link></li>
-                    <li><Link to="ui-tabs-accordions">Tabs &amp; Accordions</Link></li>
-                    <li><Link to="ui-typography">Typography</Link></li>
-                    <li><Link to="ui-video">Video</Link></li>
-            </ul>
-        </li>
+        <li>
+        <Link to="/#" className="has-arrow waves-effect">
+            <i className="mdi mdi-album"></i>
+            <span>Icons</span>
+        </Link>
+        <ul className="sub-menu" aria-expanded="false">
+            <li><Link to="icons-material">Material Design</Link></li>
+            <li><Link to="icons-ion">Ion Icons</Link></li>
+            <li><Link to="icons-fontawesome">Font Awesome</Link></li>
+            <li><Link to="icons-themify">Themify Icons</Link></li>
+            <li><Link to="icons-dripicons">Dripicons</Link></li>
+            <li><Link to="icons-typicons">Typicons Icons</Link></li>
+        </ul>
+    </li>
     </ul>
 </div>
             </React.Fragment>
