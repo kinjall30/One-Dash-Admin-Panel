@@ -167,11 +167,14 @@ class SidebarContent extends Component {
                 <span> Integration Management </span>
             </Link>
             <ul className="sub-menu" aria-expanded="false">
-                <li><Link to="ecommercestore">Ecommerce Store</Link></li>
-                <li><Link to="pages-invoice">Social Media</Link></li>
-                <li><Link to="pages-invoice">Payment Gateway</Link></li>
-                <li><Link to="pages-invoice">Wowza</Link></li>
-                <li><Link to="pages-invoice">Integration Report</Link></li>
+                <li><Link to="stripeintegration">Stripe</Link></li>
+                <li><Link to="shofiyintegration">Shopify</Link></li>
+                <li><Link to="bigcommerceintegration">BigCommerce</Link></li>
+                <li><Link to="woocommerceintegration">WooCommerce</Link></li>
+                <li><Link to="amazonintegration">Amazon</Link></li>
+                <li><Link to="vexprointegration">VExpro</Link></li>
+                <li><Link to="onedashsaleintegration">OneDash Sales</Link></li>
+                <li><Link to="integrationreport">Integration Report</Link></li>
             </ul>
         </li>
 
@@ -199,15 +202,7 @@ class SidebarContent extends Component {
             </ul>
         </li>
 
-        <li>
-            <Link to="/#" className=" waves-effect">
-                <i className="mdi mdi-calendar-check"></i>
-                <span>Marketing</span> 
-            </Link>
-            <ul className="sub-menu" aria-expanded="false">
-                <li><Link to="marketing">Campaign</Link></li>
-            </ul>
-        </li>
+       
         
         <li>
             <Link to="/#" className=" waves-effect">
@@ -248,6 +243,15 @@ class SidebarContent extends Component {
 
         <li className="menu-title">Others</li>
         <li>
+        <Link to="/#" className=" waves-effect">
+            <i className="mdi mdi-calendar-check"></i>
+            <span>Marketing</span> 
+        </Link>
+        <ul className="sub-menu" aria-expanded="false">
+            <li><Link to="marketing">Campaign</Link></li>
+        </ul>
+    </li>
+        <li>
             <Link to="calendar" className=" waves-effect">
                 <i className="mdi mdi-calendar-check"></i>
                 <span>Api Rate Limiting</span>
@@ -262,13 +266,6 @@ class SidebarContent extends Component {
         </li>
 
         <li>
-            <Link to="calendar" className=" waves-effect">
-                <i className="mdi mdi-calendar-check"></i>
-                <span>Customer Support</span>
-            </Link>
-        </li>
-
-        <li>
             <Link to="/#" className=" waves-effect">
                 <i className="mdi mdi-google-pages"></i>
                 <span> Reports </span>
@@ -278,13 +275,6 @@ class SidebarContent extends Component {
                 <li><Link to="pages-invoice">Customised Report</Link></li>
                 
             </ul>
-        </li>
-
-        <li>
-            <Link to="calendar" className=" waves-effect">
-                <i className="mdi mdi-calendar-check"></i>
-                <span>Marketing</span>
-            </Link>
         </li>
 
         <li>

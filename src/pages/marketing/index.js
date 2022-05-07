@@ -47,7 +47,8 @@ class Marketing extends Component {
         color: "white",
         width: "300px",
         fontSize: "20px",
-        textAline: "center"
+        textAline: "center",
+        backgroundColor: "#7a6fbe"
     }
 
         return (
@@ -56,9 +57,12 @@ class Marketing extends Component {
                     <Link to='emailmarketing'>
                         <div>
                             <Col>
-                                <Card  style={cardStyle}>
-                                    <CardBody>
-                                        Email
+                                <Card className="mini-stat" style={cardStyle}>
+                                    <CardBody className="mini-stat-img">
+                                        <div className='mini-stat-icon'>
+                                            <i className="fas fa-envelope float-right"></i>
+                                        </div>
+                                        <h5>Email</h5>
                                     </CardBody>
                                 </Card>
                             </Col>
@@ -68,9 +72,12 @@ class Marketing extends Component {
                     <Link to='smsmarketing'>
                     <div>
                         <Col>
-                            <Card  style={cardStyle}>
-                                <CardBody>
-                                    SMS
+                            <Card  className="mini-stat" style={cardStyle}>
+                                <CardBody className="mini-stat-img">
+                                    <div className='mini-stat-icon'>
+                                        <i className="far fa-comment-alt float-right"></i>
+                                    </div>
+                                    <h5>SMS</h5>
                                 </CardBody>
                             </Card>
                         </Col>
@@ -79,9 +86,12 @@ class Marketing extends Component {
                     <Link to='appmarketing'>
                     <div >
                         <Col>
-                            <Card style={cardStyle}>
-                                <CardBody>
-                                    In-app
+                            <Card  className="mini-stat" style={cardStyle}>
+                                <CardBody className="mini-stat-img">
+                                    <div className='mini-stat-icon'>
+                                        <i className="fab fa-android float-right"></i>
+                                    </div>
+                                    <h5>In-app</h5>
                                 </CardBody>
                             </Card>
                         </Col>
@@ -90,9 +100,12 @@ class Marketing extends Component {
                     <Link to='websitemarketing'>
                     <div >
                         <Col>
-                            <Card style={cardStyle}>
-                                <CardBody>
-                                    Browser
+                            <Card  className="mini-stat" style={cardStyle}>
+                                <CardBody className="mini-stat-img">
+                                    <div className='mini-stat-icon'>
+                                        <i className="fab fa-chrome float-right"></i>
+                                    </div>
+                                    <h5>Browser</h5>
                                 </CardBody>
                             </Card>
                         </Col>
@@ -100,9 +113,12 @@ class Marketing extends Component {
                     </Link>
                     <Link to='whatsappmarketing'>
                         <Col >
-                            <Card style={cardStyle}>
-                                <CardBody>
-                                        Whatsapp
+                            <Card  className="mini-stat" style={cardStyle}>
+                                <CardBody className="mini-stat-img">
+                                    <div className='mini-stat-icon'>
+                                        <i className=" fas fa-comments float-right"></i>
+                                    </div>
+                                    <h5>Whatsapp</h5>
                                 </CardBody>
                             </Card>
                         </Col>

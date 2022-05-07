@@ -83,20 +83,33 @@ import Pages500 from "../pages/Extra Pages/pages-500";
 
 //My Pages
 import Rolesmanagement from "../pages/Roles Management/rolesmanagement";
-import ecommercestore from "../pages/Intergration Management/ecommercestore";
+
+import StripeIntegration from "../pages/Intergration Management/stripeintegration";
+import ShofiyIntegration from "../pages/Intergration Management/shopifyintegration";
+import WooCommerceIntegration from "../pages/Intergration Management/woocommerceintegration";
+import VexproIntegration from "../pages/Intergration Management/vexprointegration";
+import OneDashSaleIntegration from "../pages/Intergration Management/onedashsalesintegration";
+import BigCommerceIntegration from "../pages/Intergration Management/bigcommerceintegration";
+import AmazonIntegration from "../pages/Intergration Management/amazonintegration";
+import IntegrationReport from "../pages/Intergration Management/integrationreport"
+
 import Subscription from "../pages/Subscription Management/subscription";
 import Usermanagement from "../pages/User Management/usermanagement";
 import TableEditablePage from "../pages/User Management/table"
 import Subscriptionreport from "../pages/Subscription Management/report"
 import Dailysubscriber from "../pages/Subscription Management/dailysubscriber"
 import Individualreport from "../pages/Subscription Management/individualreport";
-import Userprofile from "../pages/User Management/userprofile"
+import Userprofile from "../pages/User Management/userprofile";
+
 import Faq from "../pages/faq/faq"
+
 import Tax from "../pages/tax management/taxmanagement"
+
 import ProjectManagement from "../pages/project management/main"
 import ProductReport from "../pages/project management/productreport"
 import Plans from "../pages/Subscription Management/plans"
 import Media from "../pages/media management/index"
+
 import Marketing from "../pages/marketing/index"
 import SmsMarketing from '../pages/marketing/sms'
 import EmailMarketing from "../pages/marketing/email"
@@ -110,18 +123,31 @@ const authProtectedRoutes = [
 
   //My Pages
   { path: "/rolesmanagement", component: Rolesmanagement},
-  { path: "/ecommercestore", component: ecommercestore},
+
+  { path: "/stripeintegration", component: StripeIntegration},
+  {path: "/shofiyintegration", component: ShofiyIntegration},
+  {path: "/woocommerceintegration", component: WooCommerceIntegration},
+  {path: "/vexprointegration", component: VexproIntegration},
+  {path: "/onedashsaleintegration", component: OneDashSaleIntegration},
+  {path: "/bigcommerceintegration", component: BigCommerceIntegration},
+  {path: "/amazonintegration", component: AmazonIntegration},
+  {path: "/integrationreport", component: IntegrationReport},
+
   { path: "/subscription", component: Subscription},
   { path: "/user", component: Usermanagement},
   { path: "/subscriptionreport", component: Subscriptionreport},
   { path: "/ireport", component: Individualreport},
   { path: "/userprofile", component: Userprofile},
+
   { path: "/faq", component: Faq},
+
   { path: "/taxmanagement", component: Tax},
+
   { path: "/productreport", component: ProductReport},
   { path: "/project", component: ProjectManagement},
   { path: "/plans", component: Plans},
   { path: "/media", component: Media},
+
   { path: "/marketing", component: Marketing},
   { path: "/smsmarketing", component: SmsMarketing},
   { path: "/appmarketing", component: AppMarketing},

@@ -44,34 +44,51 @@ class SmsMarketing extends Component {
         return (
             <React.Fragment>
                 <Row> 
-                    <Col md='3'>
-                        <Card>
-                            <CardBody>
-                                <h4>Active Campaign</h4>
+                    <Col md='3' >
+                        <Card className="mini-stat" style={{backgroundColor: "#f5b225"}}>
+                            <CardBody className="mini-stat-img">
+                            <div className='mini-stat-icon'>
+                            <i className="ti-export float-right"></i>
+                            </div>
+                            
+                                <h5>Active Campaign</h5>
                                 <h5>5</h5>
                             </CardBody>
                         </Card>
                     </Col>
                     <Col md='3'>
-                    <Card>
-                        <CardBody>
-                            <h4>In-Active Campaign</h4>
+                    <Card className="mini-stat" style={{backgroundColor: "#58db83"}}>
+                        <CardBody className="mini-stat-img">
+                        <div className='mini-stat-icon'>
+                        <i className="ti-import float-right"></i>
+                        </div>
+                        
+                            <h5>In-Active Campaign</h5>
                             <h5>3</h5>
                         </CardBody>
                     </Card>
                 </Col>
                 <Col md='3'>
-                <Card>
-                    <CardBody>
-                        <h4>Total Messages</h4>
+                <Card className="mini-stat" style={{backgroundColor: "#29bbe3"}}>
+                    <CardBody className="mini-stat-img">
+                    <div className='mini-stat-icon'>
+                    <i className="ti-comment-alt float-right"></i>
+                    </div>
+                        
+                        <h5>Total Messages</h5>
+                        <p>                       </p>
                         <h5>200</h5>
                     </CardBody>
                 </Card>
             </Col>
             <Col md='3'>
-            <Card>
-                <CardBody>
-                    <h4>Effect</h4>
+            <Card className="mini-stat" style={{backgroundColor: "#e83e8c"}}>
+                <CardBody className="mini-stat-img">
+                <div className='mini-stat-icon'>
+                <i className="ti-wand float-right"></i> 
+                </div>
+               
+                    <h5>Effect</h5>
                     <h5>50%</h5>
                 </CardBody>
             </Card>
