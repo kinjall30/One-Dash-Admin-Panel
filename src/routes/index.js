@@ -117,6 +117,11 @@ import WhatsappMarketing from "../pages/marketing/whatsapp"
 import WebsiteMarketing from "../pages/marketing/browser"
 import AppMarketing from "../pages/marketing/in-app"
 
+import CustomerService from "../pages/customer support/index"
+import CustomerServiceReport from "../pages/customer support/report"
+
+import IpManagement from "../pages/ip management/index"
+
 
 
 const authProtectedRoutes = [
@@ -155,6 +160,10 @@ const authProtectedRoutes = [
   { path: "/emailmarketing", component: EmailMarketing},
   { path: "/whatsappmarketing", component: WhatsappMarketing},
 
+  { path: "/customerservice", component: CustomerService},
+  { path: "/customerservicereport", component: CustomerServiceReport},
+
+  {path: "/ipmanagemnet", component: IpManagement},
 
   // DashBoard
   { path: "/dashboard", component: Dashboard },
