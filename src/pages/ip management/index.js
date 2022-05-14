@@ -37,16 +37,19 @@ class IpManagement extends Component {
                 { title : "IP", link : "#" },
                 { title : "Managemnet", link : "#" },
             ],
-            
+           checked: false, 
         }
-       
+      this.handleChange= this.handleChange.bind(this); 
     }  
 
     componentDidMount(){
       this.props.setBreadcrumbItems("IP Management", this.state.breadcrumbItems);
     }
 
-  
+    handleChange(checked) {
+      this.setState({ checked });
+    }
+
     render() {
         function Offsymbol(text){
             return (
@@ -114,9 +117,9 @@ class IpManagement extends Component {
                                 checkedIcon={OnSymbol("On")}
                                 onColor="#626ed4"
                                 onChange={() =>
-                                this.setState({ switch1: !this.state.switch1 })
+                                this.setState({ switch1: !this.state.switch2 })
                                 }
-                                checked={this.state.switch1}
+                                checked={this.state.switch2}
                                 className="mr-1 mt-1"
                             />
                         </td>
@@ -129,9 +132,9 @@ class IpManagement extends Component {
                                 checkedIcon={OnSymbol("On")}
                                 onColor="#626ed4"
                                 onChange={() =>
-                                this.setState({ switch1: !this.state.switch1 })
+                                this.setState({ switch1: !this.state.switch3 })
                                 }
-                                checked={this.state.switch1}
+                                checked={this.state.switch3}
                                 className="mr-1 mt-1"
                             />
                         </td>
@@ -144,9 +147,9 @@ class IpManagement extends Component {
                                 checkedIcon={OnSymbol("On")}
                                 onColor="#626ed4"
                                 onChange={() =>
-                                this.setState({ switch1: !this.state.switch1 })
+                                this.setState({ switch1: !this.state.switch4 })
                                 }
-                                checked={this.state.switch1}
+                                checked={this.state.switch4}
                                 className="mr-1 mt-1"
                             />
                         </td>

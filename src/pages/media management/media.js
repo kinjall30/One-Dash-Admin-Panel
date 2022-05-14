@@ -25,7 +25,7 @@ import { MDBDataTable } from 'mdbreact';
 import BootstrapTable from "react-bootstrap-table-next";
 import cellEditFactory from "react-bootstrap-table2-editor";
 
-class Media extends Component {
+class MediaFile extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -139,4 +139,4 @@ class Media extends Component {
     }
 }
 
-export default connect(null, { setBreadcrumbItems })(Media);
+export default connect(null, { setBreadcrumbItems })(MediaFile);

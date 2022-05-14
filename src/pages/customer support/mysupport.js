@@ -6,43 +6,41 @@ import {
     CardBody,
     TabContent,
     TabPane,
-    FormGroup,
-    Input,
-    Label,
     Collapse,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    Button,
+    NavLink,
+    NavItem,
+    Nav,
+    Button
   } from "reactstrap";
   import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
-
 import { MDBDataTable } from 'mdbreact';
 
 // Editable
 import BootstrapTable from "react-bootstrap-table-next";
 import cellEditFactory from "react-bootstrap-table2-editor";
 
-class CustomerService extends Component {
+class MySupport extends Component {
     constructor(props) {
         super(props);
         this.state = {
             breadcrumbItems : [
                 { title : "One Dash", link : "#" },
-                { title : "Customer", link : "#" },
-                { title : "Service", link : "#" },
+                { title : "My", link : "#" },
+                { title : "Support", link : "#" },
             ],
+            
         }
+       
     }  
 
     componentDidMount(){
-      this.props.setBreadcrumbItems("Customer Service", this.state.breadcrumbItems);
+      this.props.setBreadcrumbItems("My Support", this.state.breadcrumbItems);
     }
+
   
     render() {
         const data = {
@@ -102,7 +100,6 @@ class CustomerService extends Component {
                     oname: 'Atul Shah',
                     buttons: [ <Link to="customercomplain"><Button type="button" onClick={this.tog_standard} style = {{marginRight: 10}} color="primary" className="waves-effect waves-light">Open</Button> </Link>, 
                     ],
-                   
                 },
                 {
                     priority: 'On hold',
@@ -111,7 +108,7 @@ class CustomerService extends Component {
                     created: '8th May 2022',
                     oname: 'Shivani Patel',
                     buttons: [ <Link to="customercomplain"><Button type="button" onClick={this.tog_standard} style = {{marginRight: 10}} color="primary" className="waves-effect waves-light">Open</Button> </Link>, 
-                    ],
+                ],
                    
                 },
             ]
@@ -119,70 +116,7 @@ class CustomerService extends Component {
 
         return (
             <React.Fragment>
-                <Row> 
-                    <Col md='3' >
-                        <Card className="mini-stat" style={{backgroundColor: "#f5b225"}}>
-                            <CardBody className="mini-stat-img">
-                            <div className='mini-stat-icon'>
-                            
-                            </div>
-                            
-                                <h5>Unsolved</h5>
-                                <h5>50</h5>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md='3'>
-                        <Card className="mini-stat" style={{backgroundColor: "#58db83"}}>
-                            <CardBody className="mini-stat-img">
-                            <div className='mini-stat-icon'>
-                            
-                            </div>
-                            
-                                <h5>OverDue</h5>
-                                <h5>10</h5>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md='3'>
-                        <Card className="mini-stat" style={{backgroundColor: "#29bbe3"}}>
-                            <CardBody className="mini-stat-img">
-                            <div className='mini-stat-icon'>
-                            
-                            </div>
-                                
-                                <h5>Due Today</h5>
-                                <p>                       </p>
-                                <h5>5</h5>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md='3'>
-                        <Card className="mini-stat" style={{backgroundColor: "#e83e8c"}}>
-                            <CardBody className="mini-stat-img">
-                            <div className='mini-stat-icon'>
-                            
-                            </div>
-                        
-                                <h5>Open</h5>
-                                <h5>60</h5>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md='3'>
-                        <Card className="mini-stat" style={{backgroundColor: "#f1734f"}}>
-                            <CardBody className="mini-stat-img">
-                            <div className='mini-stat-icon'>
-                            
-                            </div>
-                        
-                                <h5>Onhold</h5>
-                                <h5>50</h5>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </Row>   
-                
+                <h3>My Tickets</h3> 
                 <Row lg="12">
                     <Col lg = "12">
                         <MDBDataTable
@@ -199,4 +133,4 @@ class CustomerService extends Component {
     }
 }
 
-export default connect(null, { setBreadcrumbItems })(CustomerService);
+export default connect(null, { setBreadcrumbItems })(MySupport);

@@ -83,6 +83,7 @@ class Marketing extends Component {
                         </Col>
                     </div>
                     </Link>
+                     {/*
                     <Link to='appmarketing'>
                     <div >
                         <Col>
@@ -97,6 +98,7 @@ class Marketing extends Component {
                         </Col>
                     </div>
                     </Link>
+                   
                     <Link to='websitemarketing'>
                     <div >
                         <Col>
@@ -111,6 +113,7 @@ class Marketing extends Component {
                         </Col>
                     </div>
                     </Link>
+                */}
                     <Link to='whatsappmarketing'>
                         <Col >
                             <Card  className="mini-stat" style={cardStyle}>

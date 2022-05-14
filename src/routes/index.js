@@ -119,6 +119,8 @@ import AppMarketing from "../pages/marketing/in-app"
 
 import CustomerService from "../pages/customer support/index"
 import CustomerServiceReport from "../pages/customer support/report"
+import ComplainDetails from "../pages/customer support/details"
+import MySupport from "../pages/customer support/mysupport"
 
 import IpManagement from "../pages/ip management/index"
 
@@ -162,6 +164,8 @@ const authProtectedRoutes = [
 
   { path: "/customerservice", component: CustomerService},
   { path: "/customerservicereport", component: CustomerServiceReport},
+  { path: "/customercomplain", component: ComplainDetails},
+  {path: "/mysupport", component: MySupport},
 
   {path: "/ipmanagemnet", component: IpManagement},
 

@@ -284,8 +284,8 @@ class SidebarContent extends Component {
             </Link>
             <ul className="sub-menu" aria-expanded="false">
                 <li><Link to="customerservice">Ticket Management</Link></li>
+                <li><Link to="mysupport">My Support</Link></li>
                 <li><Link to="customerservicereport">Report</Link></li>
-                
             </ul>
         </li>
 
@@ -295,36 +295,6 @@ class SidebarContent extends Component {
                 <span>FAQ</span>
             </Link>
         </li> 
-
-        <li>
-        <Link to="/#" className="has-arrow waves-effect">
-            <i className="mdi mdi-album"></i>
-            <span>Icons</span>
-        </Link>
-        <ul className="sub-menu" aria-expanded="false">
-            <li><Link to="icons-material">Material Design</Link></li>
-            <li><Link to="icons-ion">Ion Icons</Link></li>
-            <li><Link to="icons-fontawesome">Font Awesome</Link></li>
-            <li><Link to="icons-themify">Themify Icons</Link></li>
-            <li><Link to="icons-dripicons">Dripicons</Link></li>
-            <li><Link to="icons-typicons">Typicons Icons</Link></li>
-        </ul>
-    </li>
-    <li>
-            <Link to="/#" className="waves-effect">
-                <i className="mdi mdi-clipboard-outline"></i>
-                <span className="badge badge-pill badge-success float-right">6</span>
-                <span>Forms</span>
-            </Link>
-            <ul className="sub-menu" aria-expanded="false">
-                <li><Link to="form-elements">Form Elements</Link></li>
-                <li><Link to="form-validation">Form Validation</Link></li>
-                <li><Link to="form-advanced">Form Advanced</Link></li>
-                <li><Link to="form-editors">Form Editors</Link></li>
-                <li><Link to="form-uploads">Form File Upload</Link></li>
-                <li><Link to="form-xeditable">Form Xeditable</Link></li>
-            </ul>
-        </li>
     </ul>
 </div>
             </React.Fragment>
