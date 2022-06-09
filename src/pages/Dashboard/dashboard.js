@@ -47,6 +47,7 @@ class Dashboard extends Component {
     render() {
         return (
             <React.Fragment>
+            {/* 
                     <Link to="">
                         <Row>
                             <MiniCard reports={this.state.reports} />
@@ -60,7 +61,7 @@ class Dashboard extends Component {
                         </Col>
 
                         <Col xl="6">
-                            {/* Email sent */}
+                             Email sent 
                             <EmailSent/>
                         </Col>
 
@@ -69,7 +70,7 @@ class Dashboard extends Component {
                         </Col>
 
                     </Row>
-                   
+                */}
             </React.Fragment>
         );
     }

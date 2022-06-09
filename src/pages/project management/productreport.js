@@ -312,12 +312,6 @@ class ProductReport extends Component {
                                             <Input className="form-control" type="number" id="example-tel-input"/>
                                         </Col>
                                     </FormGroup>
-                                    <FormGroup row>
-                                        <Label for="example-password-input" className="col-sm-2 col-form-label">Password</Label>
-                                        <Col sm="10">
-                                            <Input className="form-control" type="password" id="example-password-input"/>
-                                        </Col>
-                                    </FormGroup>
                                                             
                             </ModalBody>
                             <ModalFooter>

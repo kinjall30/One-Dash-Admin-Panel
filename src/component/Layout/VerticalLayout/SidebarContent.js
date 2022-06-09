@@ -161,22 +161,7 @@ class SidebarContent extends Component {
             </Link>
         </li>
 
-        <li>
-            <Link to="/#" className=" waves-effect">
-                <i className="mdi mdi-google-pages"></i>
-                <span> Integration Management </span>
-            </Link>
-            <ul className="sub-menu" aria-expanded="false">
-                <li><Link to="stripeintegration">Stripe</Link></li>
-                <li><Link to="shofiyintegration">Shopify</Link></li>
-                <li><Link to="bigcommerceintegration">BigCommerce</Link></li>
-                <li><Link to="woocommerceintegration">WooCommerce</Link></li>
-                <li><Link to="amazonintegration">Amazon</Link></li>
-                <li><Link to="vexprointegration">VExpro</Link></li>
-                <li><Link to="onedashsaleintegration">OneDash Sales</Link></li>
-                <li><Link to="integrationreport">Integration Report</Link></li>
-            </ul>
-        </li>
+        
 
         <li>
             <Link to="/#" className=" waves-effect">
@@ -184,24 +169,20 @@ class SidebarContent extends Component {
                 <span>Project Management</span> 
             </Link>
             <ul className="sub-menu" aria-expanded="false">
-                <li><Link to="">Interactive</Link></li>
-                <li><Link to="">Email</Link></li>
-                <li><Link to="">Campaign</Link></li>
-                <li><Link to="productreport">Product Reports</Link></li>
-                
+                <li><Link to="interactive">Interactive</Link></li>
+                <li><Link to="campaign">Campaign</Link></li>
+                <li><Link to="email">Email</Link></li>
             </ul>
         </li>
 
         <li>
-            <Link to="/#" className=" waves-effect">
+            <Link to="productreport" className=" waves-effect">
                 <i className="mdi mdi-calendar-check"></i>
-                <span>Media Management</span> 
+                <span>Product Management</span> 
             </Link>
-            <ul className="sub-menu" aria-expanded="false">
-                <li><Link to="media">Media</Link></li>
-            </ul>
         </li>
 
+       
        
         
         <li>
@@ -213,10 +194,18 @@ class SidebarContent extends Component {
                 <li><Link to="subscription">Subscription Management</Link></li>
                 <li><Link to="subscriptionreport">Report</Link></li>
                 <li><Link to="ireport">Individual Report</Link></li>
-                <li><Link to="plans">Plan</Link></li>
             </ul>
         </li>
     
+        <li>
+        <Link to="/#" className=" waves-effect">
+            <i className="mdi mdi-calendar-check"></i>
+            <span>Payment Gateway</span> 
+        </Link>
+        <ul className="sub-menu" aria-expanded="false">
+            <li><Link to="plans">Plan</Link></li>
+        </ul>
+    </li>
 
         <li>
             <Link to="/#" className=" waves-effect">
@@ -230,6 +219,15 @@ class SidebarContent extends Component {
                 
             </ul>
         </li>
+        <li>
+            <Link to="/#" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>Tax Management</span> 
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="taxmanagement">Tax Management</Link></li>
+            </ul>
+        </li> 
 {/* 
         <li>
             <Link to="/#" className=" waves-effect">
@@ -239,7 +237,20 @@ class SidebarContent extends Component {
             <ul className="sub-menu" aria-expanded="false">
                 <li><Link to="taxmanagement">Tax Management</Link></li>
             </ul>
-        </li> */}
+        </li> 
+            
+         <li>
+            <Link to="/#" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>Media Management</span> 
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="media">Media</Link></li>
+            </ul>
+        </li>
+
+    
+*/}
 
         <li className="menu-title">Others</li>
         <li>
@@ -248,15 +259,11 @@ class SidebarContent extends Component {
             <span>Marketing</span> 
         </Link>
         <ul className="sub-menu" aria-expanded="false">
-            <li><Link to="marketing">Campaign</Link></li>
+            <li><Link to="existingcampaign">Campaign</Link></li>
+            <li><Link to="marketing">New Campaign</Link></li>
         </ul>
     </li>
-        <li>
-            <Link to="calendar" className=" waves-effect">
-                <i className="mdi mdi-calendar-check"></i>
-                <span>Api Rate Limiting</span>
-            </Link>
-        </li>
+        
 
         <li>
             <Link to="ipmanagemnet" className=" waves-effect">
@@ -264,19 +271,8 @@ class SidebarContent extends Component {
                 <span>IP Management</span>
             </Link>
         </li>
-
-        <li>
-            <Link to="/#" className=" waves-effect">
-                <i className="mdi mdi-google-pages"></i>
-                <span> Reports </span>
-            </Link>
-            <ul className="sub-menu" aria-expanded="false">
-                <li><Link to="pages-timeline">Commission Report</Link></li>
-                <li><Link to="pages-invoice">Customised Report</Link></li>
-                
-            </ul>
-        </li>
-
+{/*
+    */}
         <li>
             <Link to="calendar" className=" waves-effect">
                 <i className="mdi mdi-calendar-check"></i>
@@ -295,6 +291,18 @@ class SidebarContent extends Component {
                 <span>FAQ</span>
             </Link>
         </li> 
+        <li>
+        <Link to="/#" className="has-arrow waves-effect">
+            <i className="mdi mdi-format-list-bulleted-type"></i>
+            <span>Tables</span>
+        </Link>
+        <ul className="sub-menu" aria-expanded="false">
+            <li><Link to="tables-basic">Basic Tables</Link></li>
+            <li><Link to="tables-datatable">Data Table</Link></li>
+            <li><Link to="tables-responsive">Responsive Table</Link></li>
+            <li><Link to="tables-editable">Editable Table</Link></li>
+        </ul>
+    </li>
     </ul>
 </div>
             </React.Fragment>
@@ -319,7 +327,24 @@ export default withRouter(connect(mapStatetoProps, {
 })(SidebarContent));
 
 
-  {/* <li>
+  {/* 
+        <li>
+            <Link to="/#" className=" waves-effect">
+                <i className="mdi mdi-google-pages"></i>
+                <span> Integration Management </span>
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="stripeintegration">Stripe</Link></li>
+                <li><Link to="shofiyintegration">Shopify</Link></li>
+                <li><Link to="bigcommerceintegration">BigCommerce</Link></li>
+                <li><Link to="woocommerceintegration">WooCommerce</Link></li>
+                <li><Link to="amazonintegration">Amazon</Link></li>
+                <li><Link to="vexprointegration">VExpro</Link></li>
+                <li><Link to="onedashsaleintegration">OneDash Sales</Link></li>
+                <li><Link to="integrationreport">Integration Report</Link></li>
+            </ul>
+        </li>
+        <li>
             <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-format-list-bulleted-type"></i>
                 <span>Tables</span>

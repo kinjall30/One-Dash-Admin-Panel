@@ -100,12 +100,16 @@ import Subscriptionreport from "../pages/Subscription Management/report"
 import Dailysubscriber from "../pages/Subscription Management/dailysubscriber"
 import Individualreport from "../pages/Subscription Management/individualreport";
 import Userprofile from "../pages/User Management/userprofile";
+import Integration from "../pages/User Management/integration"
 
 import Faq from "../pages/faq/faq"
 
 import Tax from "../pages/tax management/taxmanagement"
 
 import ProjectManagement from "../pages/project management/main"
+import EmailProjectMan from "../pages/project management/email"
+import CampaignProjectMan from "../pages/project management/campaign"
+import InteractiveProjectMan from "../pages/project management/interactive"
 import ProductReport from "../pages/project management/productreport"
 import Plans from "../pages/Subscription Management/plans"
 import Media from "../pages/media management/index"
@@ -116,6 +120,7 @@ import EmailMarketing from "../pages/marketing/email"
 import WhatsappMarketing from "../pages/marketing/whatsapp"
 import WebsiteMarketing from "../pages/marketing/browser"
 import AppMarketing from "../pages/marketing/in-app"
+import ExistingCampaign from "../pages/marketing/main"
 
 import CustomerService from "../pages/customer support/index"
 import CustomerServiceReport from "../pages/customer support/report"
@@ -139,16 +144,22 @@ const authProtectedRoutes = [
   {path: "/bigcommerceintegration", component: BigCommerceIntegration},
   {path: "/amazonintegration", component: AmazonIntegration},
   {path: "/integrationreport", component: IntegrationReport},
+  
 
   { path: "/subscription", component: Subscription},
   { path: "/user", component: Usermanagement},
   { path: "/subscriptionreport", component: Subscriptionreport},
   { path: "/ireport", component: Individualreport},
   { path: "/userprofile", component: Userprofile},
+  {path: "/integration", component: Integration},
 
   { path: "/faq", component: Faq},
 
   { path: "/taxmanagement", component: Tax},
+
+  { path: "/interactive", component: InteractiveProjectMan},
+  { path: "/email", component: EmailProjectMan},
+  { path: "/campaign", component: CampaignProjectMan},
 
   { path: "/productreport", component: ProductReport},
   { path: "/project", component: ProjectManagement},
@@ -161,6 +172,7 @@ const authProtectedRoutes = [
   { path: "/websitemarketing", component: WebsiteMarketing},
   { path: "/emailmarketing", component: EmailMarketing},
   { path: "/whatsappmarketing", component: WhatsappMarketing},
+  { path: "/existingcampaign", component: ExistingCampaign},
 
   { path: "/customerservice", component: CustomerService},
   { path: "/customerservicereport", component: CustomerServiceReport},

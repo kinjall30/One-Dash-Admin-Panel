@@ -76,10 +76,22 @@ class Businessuser extends Component {
                     width: 100
                 },
                 {
+                    label: 'Integration',
+                    field: 'idetails',
+                    sort: 'asc',
+                    width: 100
+                },
+                {
+                    label: 'Project Overview',
+                    field: 'poverview',
+                    sort: 'asc',
+                    width: 100
+                },
+                {
                     label: '',
                     field: 'buttons',
                     sort: 'asc',
-                    width: 100
+                    width: 10
                 }
             ],rows: [
                 {
@@ -89,6 +101,8 @@ class Businessuser extends Component {
                     email: 'tiger@gmail.com',
                     password: 'tiger123',
                     plan: 'monthly',
+                    idetails: [<Link to="integration"><Button type="button" color="success" style = {{marginLeft: 25}} className="waves-effect waves-light"><i className="ion ion-md-eye"></i></Button></Link> ],
+                    poverview: [<Link><Button type="button" color="info" style = {{marginLeft: 10}} className=" waves-effect waves-light">Open</Button></Link>],
                     buttons: [ <Button type="button" color="primary" style = {{marginRight: 10}} className="waves-effect waves-light"><i className="ti-pencil"></i></Button>, 
                     <Button type="button" color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button> ],
                 },
@@ -99,6 +113,8 @@ class Businessuser extends Component {
                     email: 'parthg@gmail.com',
                     password: 'goel123',
                     plan: 'monthly',
+                    idetails: [<Link to="integration"><Button type="button" color="success" style = {{marginLeft: 25}} className="waves-effect waves-light"><i className="ion ion-md-eye"></i></Button></Link> ],
+                    poverview: [<Link><Button type="button" color="info" style = {{marginLeft: 10}} className=" waves-effect waves-light">Open</Button></Link>],
                     buttons: [ <Button type="button" color="primary" style = {{marginRight: 10}} className="waves-effect waves-light"><i className="ti-pencil"></i></Button>, 
                     <Button type="button" color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button> ],
                 },
@@ -109,6 +125,8 @@ class Businessuser extends Component {
                     email: 'shah@gmail.com',
                     password: 'shah123',
                     plan: 'unlimited',
+                    idetails: [<Link to="integration"><Button type="button" color="success" style = {{marginLeft: 25}} className="waves-effect waves-light"><i className="ion ion-md-eye"></i></Button></Link> ],
+                    poverview: [<Link><Button type="button" color="info" style = {{marginLeft: 10}} className=" waves-effect waves-light">Open</Button></Link>],
                     buttons: [ <Button type="button" color="primary" style = {{marginRight: 10}} className="waves-effect waves-light"><i className="ti-pencil"></i></Button>, 
                     <Button type="button" color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button> ],
                 },
@@ -119,6 +137,8 @@ class Businessuser extends Component {
                     email: 'mitul@gmail.com',
                     password: 'mitul123',
                     plan: 'monthly',
+                    idetails: [<Link to="integration"><Button type="button" color="success" style = {{marginLeft: 25}} className="waves-effect waves-light"><i className="ion ion-md-eye"></i></Button></Link> ],
+                    poverview: [<Link><Button type="button" color="info" style = {{marginLeft: 10}} className=" waves-effect waves-light">Open</Button></Link>],
                     buttons: [ <Button type="button" color="primary" style = {{marginRight: 10}} className="waves-effect waves-light"><i className="ti-pencil"></i></Button>, 
                     <Button type="button" color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button> ],
                 },
@@ -129,9 +149,11 @@ class Businessuser extends Component {
                     email: 'atik@gmail.com',
                     password: 'atik123',
                     plan: 'monthly',
+                    idetails: [<Link to="integration"><Button type="button" color="success" style = {{marginLeft: 25}} className="waves-effect waves-light"><i className="ion ion-md-eye"></i></Button></Link> ],
+                    poverview: [<Link><Button type="button" color="info" style = {{marginLeft: 10}} className=" waves-effect waves-light">Open</Button></Link>],
                     buttons: [ <Button type="button" color="primary" style = {{marginRight: 10}} className="waves-effect waves-light"><i className="ti-pencil"></i></Button>, 
                     <Button type="button" color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button> ],
-                },,
+                },
                 {
                     username: 'Kinjall',
                     firstname: 'Kinjal',
@@ -139,6 +161,8 @@ class Businessuser extends Component {
                     email: 'kinjal@gmail.com',
                     password: 'kinjal123',
                     plan: 'unlimited',
+                    idetails: [<Link to="integration"><Button type="button" color="success" style = {{marginLeft: 25}} className="waves-effect waves-light"><i className="ion ion-md-eye"></i></Button></Link> ],
+                    poverview: [<Link><Button type="button" color="info" style = {{marginLeft: 10}} className=" waves-effect waves-light">Open</Button></Link>],
                     buttons: [ <Button type="button" color="primary" style = {{marginRight: 10}} className="waves-effect waves-light"><i className="ti-pencil"></i></Button>, 
                     <Button type="button" color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button> ],
                 },
@@ -147,9 +171,9 @@ class Businessuser extends Component {
         return (
             <React.Fragment>
                     <h1>Businessuser Details</h1>
-                    <Button type="button" color="info" className="waves-effect waves-light">Add User</Button>
-                    <Row lg = "20">
-                        <Col lg = "10">
+                    {/*<Button type="button" color="info" className="waves-effect waves-light">Add User</Button> */}
+                    <Row lg = "12">
+                        <Col lg = "12">
                            
                                 <MDBDataTable
                                 responsive
