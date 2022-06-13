@@ -11,22 +11,42 @@ class Pageslogin extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "admin@themesbrand.com",
-            password: "123456"
+            username: "masud@girofintech.com",
+            password: "Admin@123",
+            items: [],
+            DataisLoaded: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.fetchApi = this.fetchApi.bind(this);
     }
 
     handleSubmit(event, values) {
         this.props.checkLogin(values.username, values.password, this.props.history);
     }
 
+    fetchApi(){
+
+    }
+
     componentDidMount() {
         this.props.clearErrorLogin();
         this.props.clearError();
+        fetch("")
+        .then((res) => res.json())
+        .then((json) => {
+            this.setState({
+                items: json,
+                DataisLoaded: true
+            });
+        })
+
     }
 
     render() {
+        const { DataisLoaded, items } = this.state;
+        if (!DataisLoaded) return <div>
+            <h1> Pleses wait some time.... </h1> </div> ;
+
         return (
             <React.Fragment>
                 <div className="account-pages my-5 pt-sm-5">

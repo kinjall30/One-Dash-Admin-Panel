@@ -156,13 +156,44 @@ class SidebarContent extends Component {
 
         <li>
             <Link to="rolesmanagement" className=" waves-effect">
-                <i className="mdi mdi-calendar-check"></i>
-                <span>Roles Management</span>
+                <i className="fas fa-user"></i>
+                <span>Portal Users</span>
             </Link>
         </li>
 
-        
+        <li>
+            <Link to="/#" className=" waves-effect">
+                <i className="far fa-user"></i>
+                <span>User Management</span> 
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="user">User Management</Link></li>
+                <li><Link to="integration">Integration</Link></li>
+                <li><Link to="project">Projects</Link></li>
+                {/*<li><Link to="userprofile">Profile</Link></li>
+                 <li><Link to="ireport">Individual Report</Link></li> */}
+                
+            </ul>
+        </li>
 
+        <li>
+            <Link to="/#" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>Subscriptions</span> 
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="subscription">Subscription Management</Link></li>
+                {/* <li><Link to="subscriptionreport">Report</Link></li>
+                <li><Link to="ireport">Individual Report</Link></li> */}
+            </ul>
+        </li>
+
+        <li>
+            <Link to="noaccess">
+                <span>No access</span>
+            </Link>
+        </li>
+        {/*
         <li>
             <Link to="/#" className=" waves-effect">
                 <i className="mdi mdi-calendar-check"></i>
@@ -185,17 +216,7 @@ class SidebarContent extends Component {
        
        
         
-        <li>
-            <Link to="/#" className=" waves-effect">
-                <i className="mdi mdi-calendar-check"></i>
-                <span>Subscriptions</span> 
-            </Link>
-            <ul className="sub-menu" aria-expanded="false">
-                <li><Link to="subscription">Subscription Management</Link></li>
-                <li><Link to="subscriptionreport">Report</Link></li>
-                <li><Link to="ireport">Individual Report</Link></li>
-            </ul>
-        </li>
+        
     
         <li>
         <Link to="/#" className=" waves-effect">
@@ -207,18 +228,7 @@ class SidebarContent extends Component {
         </ul>
     </li>
 
-        <li>
-            <Link to="/#" className=" waves-effect">
-                <i className="mdi mdi-calendar-check"></i>
-                <span>User Management</span> 
-            </Link>
-            <ul className="sub-menu" aria-expanded="false">
-                <li><Link to="user">User Management</Link></li>
-                <li><Link to="userprofile">Profile</Link></li>
-                {/* <li><Link to="ireport">Individual Report</Link></li> */}
-                
-            </ul>
-        </li>
+        
         <li>
             <Link to="/#" className=" waves-effect">
                 <i className="mdi mdi-calendar-check"></i>
@@ -248,10 +258,6 @@ class SidebarContent extends Component {
                 <li><Link to="media">Media</Link></li>
             </ul>
         </li>
-
-    
-*/}
-
         <li className="menu-title">Others</li>
         <li>
         <Link to="/#" className=" waves-effect">
@@ -271,9 +277,7 @@ class SidebarContent extends Component {
                 <span>IP Management</span>
             </Link>
         </li>
-{/*
-    */}
-        <li>
+         <li>
             <Link to="calendar" className=" waves-effect">
                 <i className="mdi mdi-calendar-check"></i>
                 <span>Customer Support</span>
@@ -284,6 +288,13 @@ class SidebarContent extends Component {
                 <li><Link to="customerservicereport">Report</Link></li>
             </ul>
         </li>
+    
+*/}
+
+
+{/*
+    */}
+       
 
         <li>
             <Link to="faq" className=" waves-effect">
@@ -291,18 +302,7 @@ class SidebarContent extends Component {
                 <span>FAQ</span>
             </Link>
         </li> 
-        <li>
-        <Link to="/#" className="has-arrow waves-effect">
-            <i className="mdi mdi-format-list-bulleted-type"></i>
-            <span>Tables</span>
-        </Link>
-        <ul className="sub-menu" aria-expanded="false">
-            <li><Link to="tables-basic">Basic Tables</Link></li>
-            <li><Link to="tables-datatable">Data Table</Link></li>
-            <li><Link to="tables-responsive">Responsive Table</Link></li>
-            <li><Link to="tables-editable">Editable Table</Link></li>
-        </ul>
-    </li>
+        
     </ul>
 </div>
             </React.Fragment>

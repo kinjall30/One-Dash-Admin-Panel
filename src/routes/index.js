@@ -94,6 +94,7 @@ import AmazonIntegration from "../pages/Intergration Management/amazonintegratio
 import IntegrationReport from "../pages/Intergration Management/integrationreport"
 
 import Subscription from "../pages/Subscription Management/subscription";
+import UserSubscription from "../pages/Subscription Management/usersubscription"
 import Usermanagement from "../pages/User Management/usermanagement";
 import TableEditablePage from "../pages/User Management/table"
 import Subscriptionreport from "../pages/Subscription Management/report"
@@ -101,6 +102,9 @@ import Dailysubscriber from "../pages/Subscription Management/dailysubscriber"
 import Individualreport from "../pages/Subscription Management/individualreport";
 import Userprofile from "../pages/User Management/userprofile";
 import Integration from "../pages/User Management/integration"
+import Project from "../pages/User Management/project"
+import UserProject from "../pages/User Management/userproject"
+
 
 import Faq from "../pages/faq/faq"
 
@@ -129,6 +133,7 @@ import MySupport from "../pages/customer support/mysupport"
 
 import IpManagement from "../pages/ip management/index"
 
+import NoAccess from "../pages/noexcess"
 
 
 const authProtectedRoutes = [
@@ -147,13 +152,17 @@ const authProtectedRoutes = [
   
 
   { path: "/subscription", component: Subscription},
+  {path: "/usersubscription", component: UserSubscription},
   { path: "/user", component: Usermanagement},
   { path: "/subscriptionreport", component: Subscriptionreport},
   { path: "/ireport", component: Individualreport},
   { path: "/userprofile", component: Userprofile},
   {path: "/integration", component: Integration},
+  {path: "/project", component: Project},
+  {path: "/userproject", component: UserProject},
 
   { path: "/faq", component: Faq},
+  {path: "/noaccess", component: NoAccess},
 
   { path: "/taxmanagement", component: Tax},
 

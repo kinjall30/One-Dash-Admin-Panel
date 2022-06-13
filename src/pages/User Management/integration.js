@@ -21,6 +21,7 @@ import {
   } from "reactstrap";
   import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import SearchBar from "../../component/Layout/Menus/search-bar";
 
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
@@ -37,9 +38,11 @@ class Integration extends Component {
                 { title : "One Dash", link : "#" },
                 { title : "Integration", link : "#" },
             ],
-            modal_standard: false,  
+            modal_standard: false,
+            modal_standards: false,  
         }
         this.tog_standard = this.tog_standard.bind(this);
+        this.tog_standards = this.tog_standards.bind(this);
     }  
 
     componentDidMount(){
@@ -50,6 +53,11 @@ class Integration extends Component {
     tog_standard() {
         this.setState(prevState => ({
           modal_standard: !prevState.modal_standard
+        }));
+    }
+    tog_standards() {
+        this.setState(prevState => ({
+          modal_standards: !prevState.modal_standards
         }));
     }
   
@@ -74,29 +82,22 @@ class Integration extends Component {
 
         return (
             <React.Fragment>
-               <Row>
+                <Col xs="4">
+                    <SearchBar/>
+                </Col>
+
+                <div style={{marginBottom: 20}}>
+                    <h4>Kinjal Parajapati's Integration</h4>
+                </div>
+                <Col>
                     <Col >
                         <Card className="mini-stat" style={cardStyle}>
                             <CardBody className="mini-stat-img">
                                 <div style={mainStyle}>
                                     <h3>Stripe</h3>
                                     <div style={iconStyle}>
-                                        <Link onClick={this.tog_standard}> <i style={{color: "white"}}  className="ion ion-md-create"></i></Link>
-                                        <Link> <i style={{color: "white"}} className="ti-trash"></i></Link>
+                                        <Link onClick={this.tog_standard}> <i style={{color: "white"}} className="ti-eye"></i></Link>
                                     </div>  
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col >
-                        <Card className="mini-stat" style={cardStyle}>
-                            <CardBody className="mini-stat-img">
-                                <div style={mainStyle}>
-                                    <h3>BigCommerce</h3>
-                                    <div style={iconStyle}>
-                                        <Link onClick={this.tog_standard}> <i style={{color: "white"}} className="ion ion-md-create"></i></Link>
-                                        <Link> <i style={{color: "white"}} className="ti-trash"></i></Link>
-                                    </div> 
                                 </div>
                             </CardBody>
                         </Card>
@@ -107,15 +108,29 @@ class Integration extends Component {
                                 <div style={mainStyle}>
                                     <h3>WooCommerce</h3>
                                     <div style={iconStyle}>
-                                        <Link onClick={this.tog_standard}> <i style={{color: "white"}} className="ion ion-md-create"></i></Link>
-                                        <Link> <i style={{color: "white"}} className="ti-trash"></i></Link>
+                                        <Link onClick={this.tog_standards}> <i style={{color: "white"}} className="ti-eye"></i></Link>
                                     </div> 
                                 </div>
                             </CardBody>
                         </Card>
                     </Col>
-               </Row> 
-               
+        {/*
+                    <Col >
+                        <Card className="mini-stat" style={cardStyle}>
+                            <CardBody className="mini-stat-img">
+                                <div style={mainStyle}>
+                                    <h3>BigCommerce</h3>
+                                    <div style={iconStyle}>
+                                        <Link onClick={this.tog_standard}> <i style={{color: "white"}} className="ti-eye"></i></Link>
+                                    </div> 
+                                </div>
+                            </CardBody>
+                        </Card>
+                    </Col>
+                    
+                     */} 
+               </Col> 
+          
                
                 <Row>
                         
@@ -126,26 +141,14 @@ class Integration extends Component {
                         size = "lg"
                     >
                         <ModalHeader toggle={this.tog_standard}>
-                            Edit Details
+                            Details
                         </ModalHeader>
                         <ModalBody>
-                            <h3>Stripe</h3>
+                            
                             <FormGroup row>
-                                <Label for="example-text-input" className="col-sm-2 col-form-label">Customer Id</Label>
+                                <Label for="example-search-input" className="col-sm-2 col-form-label">Name</Label>
                                 <Col sm="10">
-                                    <Input className="form-control" type="number" defaultValue="1" id="example-text-input"/>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-search-input" className="col-sm-2 col-form-label">Username</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="search" defaultValue="TigerNixon" id="example-search-input"/>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-email-input" className="col-sm-2 col-form-label">Email</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="email" defaultValue="abc@gmail.com"  id="example-email-input"/>
+                                    <Input className="form-control" type="search" defaultValue="Stripe" id="example-search-input"/>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
@@ -162,8 +165,54 @@ class Integration extends Component {
                             </FormGroup>                     
                         </ModalBody>
                         <ModalFooter>
-                                <Button type="button" color="secondary" className="waves-effect" onClick={this.tog_standard}>Close</Button>
-                                <Button type="button" color="primary" className="waves-effect waves-light">Save changes</Button>
+                                <Button type="button" color="primary" className="waves-effect" onClick={this.tog_standard}>Close</Button>
+                                
+                        </ModalFooter>                      
+                    </Modal>
+                </Row>
+                <Row>
+                        
+                    <Modal
+                        isOpen={this.state.modal_standards}
+                        toggle={this.tog_standards}
+                        autoFocus={true}
+                        size = "lg"
+                    >
+                        <ModalHeader toggle={this.tog_standards}>
+                            Details
+                        </ModalHeader>
+                        <ModalBody>
+                          
+                           
+                            <FormGroup row>
+                                <Label for="example-search-input" className="col-sm-2 col-form-label">Shop Name</Label>
+                                <Col sm="10">
+                                    <Input className="form-control" type="search" defaultValue="WooCommerce" id="example-search-input"/>
+                                </Col>
+                            </FormGroup>
+                            
+                            <FormGroup row>
+                                <Label for="example-url-input" className="col-sm-2 col-form-label">Shop URL</Label>
+                                <Col sm="10">
+                                    <Input className="form-control" type="url" defaultValue="https://vexprotech.wpcomstaging.com"  id="example-url-input"/>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label for="example-url-input" className="col-sm-2 col-form-label">Consumer Key</Label>
+                                <Col sm="10">
+                                    <Input className="form-control" type="text" defaultValue="ck_9ebaba2a5ee139308811b149c489c4e5696fc562"  id="example-url-input"/>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label for="example-tel-input" className="col-sm-2 col-form-label">Consumer Secret</Label>
+                                <Col sm="10">
+                                    <Input className="form-control" type="text" defaultValue="cs_6caa188ec72f593bfd04f4e7796b3d0a82c57d26" id="example-search-input"/>
+                                </Col>
+                            </FormGroup>                     
+                        </ModalBody>
+                        <ModalFooter>
+                                <Button type="button" color="primary" className="waves-effect" onClick={this.tog_standard}>Close</Button>
+                                
                         </ModalFooter>                      
                     </Modal>
                 </Row>

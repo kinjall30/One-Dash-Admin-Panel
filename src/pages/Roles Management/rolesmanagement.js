@@ -16,10 +16,10 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 
+import SweetAlert from "react-bootstrap-sweetalert";
+
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
-import { AvForm, AvField } from "availity-reactstrap-validation";
-import { MDBDataTable } from 'mdbreact';
 
 class Rolesmanagement extends Component {
     constructor(props) {
@@ -27,18 +27,35 @@ class Rolesmanagement extends Component {
         this.state = {
             breadcrumbItems : [
                 { title : "One Dash", link : "#" },
-                { title : "Roles Management", link : "#" },
+                { title : "Users", link : "#" },
             ],
             modal_edit: false,
             modal_add: false,
+            success_confirm : false,
+            alert_confirm : false,
+            hidden: true,
+            password: '', 
         }
         this.tog_edit = this.tog_edit.bind(this);
         this.tog_add = this.tog_add.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.toggleShow = this.toggleShow.bind(this);
     }
 
     componentDidMount(){
-        this.props.setBreadcrumbItems("Roles Management", this.state.breadcrumbItems);
+        this.props.setBreadcrumbItems("Portal Users", this.state.breadcrumbItems);
+        if (this.props.password) {
+            this.setState({ password: this.props.password });
+        }
     }
+
+    handlePasswordChange(e) {
+        this.setState({ password: e.target.value });
+      }
+    
+      toggleShow() {
+        this.setState({ hidden: !this.state.hidden });
+      }
 
     tog_edit() {
         this.setState(prevState => ({
@@ -52,6 +69,7 @@ class Rolesmanagement extends Component {
     }
 
     render() {
+
         const data = {
             columns: [
                 {
@@ -113,9 +131,23 @@ class Rolesmanagement extends Component {
         };
         return (
             <React.Fragment>
+                {
+                    this.state.success_confirm ? (
+                        <SweetAlert
+                        success
+                        title={this.state.dynamic_title}
+                        confirmBtnBsStyle="success"
+                        cancelBtnBsStyle="danger"
+                        onConfirm={() => this.setState({ success_confirm: false, alert_confirm : false })}
+                        >
+                            {this.state.dynamic_description}
+                        </SweetAlert>
+                    )
+                    : null
+                }
                   {/*  <h4 className="card-title" >Permission Details</h4> */}
                 <div style={{marginTop: 20, marginBottom: 30}}>
-                    <Button type="button" onClick={this.tog_add} color="info"  className="waves-effect waves-light">Add Roles</Button>
+                    <Button type="button" onClick={this.tog_add} color="info"  className="waves-effect waves-light"><i className="ion ion-md-person-add" style={{marginRight: 10}}></i>Add User</Button>
                 </div>
                 {/* 
                 <Row lg="12"> 
@@ -142,11 +174,8 @@ class Rolesmanagement extends Component {
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Username</th>
+                                                <th>Name</th>
                                                 <th>Email</th>
-                                                <th>Phone No.</th>
                                                 <th>Password</th>
                                                 <th>Role</th>
                                                 <th>Status</th>
@@ -159,28 +188,46 @@ class Rolesmanagement extends Component {
                                             <tr>
                                                 <th scope="row">1</th>
                                                 <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
                                                 <td>mark@gmail.com</td>
-                                                <td>+91 6547891587</td>
-                                                <td>mark@123</td>
+                                                <td>{this.state.hidden ? '*********' : 'text'}</td>
                                                 <td>Admin</td>
                                                 <td>Active</td>
                                                 <td>12th June 2021</td>
                                                 <td>15th June 2021</td>
                                                 <td>
                                                     <Button type="button" onClick={this.tog_edit} style = {{marginRight: 10}} color="primary" className="waves-effect waves-light"><i className="ti-pencil"></i></Button>
-                                                    <Button type="button" color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button>
+                                                    <Button type="button" onClick={() => this.setState({ alert_confirm: true })} color="danger" className="waves-effect waves-light"><i className="ti-trash"></i></Button>
+                                                    {this.state.alert_confirm ? (
+                                                        <SweetAlert
+                                                        title="Are you sure you want to delete this user?"
+                                                        warning
+                                                        showCancel
+                                                        confirmBtnBsStyle="success"
+                                                        cancelBtnBsStyle="danger"
+                                                        onConfirm={() =>
+                                                            this.setState({
+                                                            success_confirm: true,
+                                                            alert_confirm : false,
+                                                            dynamic_title: "Deleted!",
+                                                            dynamic_description: "This user has been deleted."
+                                                            })
+                                                        }
+                                                        onCancel={() =>
+                                                            this.setState({
+                                                                alert_confirm: false,
+                                                            })
+                                                        }
+                                                        >
+                                                        You won't be able to revert this!
+                                                        </SweetAlert>
+                                                    ) : null}
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">2</th>
                                                 <td>Jacob</td>
-                                                <td>Thornton</td>
-                                                <td>@fat</td>
                                                 <td>jacob@gmail.com</td>
-                                                <td>+91 6542311587</td>
-                                                <td>jacob@123</td>
+                                                <td>{this.state.hidden ? '*********' : 'text'}</td>
                                                 <td>Support</td>
                                                 <td>Active</td>
                                                 <td>12th June 2021</td>
@@ -193,11 +240,8 @@ class Rolesmanagement extends Component {
                                             <tr>
                                                 <th scope="row">3</th>
                                                 <td>Larry</td>
-                                                <td>the Bird</td>
-                                                <td>@twitter</td>
                                                 <td>larry@gmail.com</td>
-                                                <td>+91 5478918997</td>
-                                                <td>larry@123</td>
+                                                <td>{this.state.hidden ? '*********' : 'text'}</td>
                                                 <td>Marketing</td>
                                                 <td>Inactive</td>
                                                 <td>12th June 2021</td>
@@ -229,52 +273,28 @@ class Rolesmanagement extends Component {
                         </ModalHeader>
                         <ModalBody>
                             <FormGroup row>
-                                <Label for="example-text-input" className="col-sm-2 col-form-label">ID</Label>
+                                <Label for="example-text-input" className="col-sm-2 col-form-label">Name</Label>
                                 <Col sm="10">
-                                    <Input className="form-control" type="number"  id="example-text-input"/>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-text-input" className="col-sm-2 col-form-label">Firstname</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="text"  id="example-text-input"/>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-email-input" className="col-sm-2 col-form-label">Lastname</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="text"  id="example-email-input"/>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-email-input" className="col-sm-2 col-form-label">Username</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="text"  id="example-email-input"/>
+                                    <Input className="form-control" type="text" defaultValue="Mark"  id="example-text-input"/>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
                                 <Label for="example-tel-input" className="col-sm-2 col-form-label">Email</Label>
                                 <Col sm="10">
-                                    <Input className="form-control" type="email"  id="example-search-input"/>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-url-input" className="col-sm-2 col-form-label">Phone Number</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="number"  id="example-url-input"/>
+                                    <Input className="form-control" type="email" defaultValue="mark@gmail.com"  id="example-search-input"/>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
                                 <Label for="example-url-input" className="col-sm-2 col-form-label">Password</Label>
                                 <Col sm="10">
-                                    <Input className="form-control" type="password"  id="example-url-input"/>
+                                    <Input className="form-control" type="password" defaultValue="mark@123"  id="example-url-input"/>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
                                 <Label for="example-password-input" className="col-sm-2 col-form-label">Role</Label>
                                 <Col sm="10">
                                     <select className="form-control">
-                                        <option>Select</option>
+                                      
                                         <option>Admin</option>
                                         <option>Support</option>
                                         <option>Marketing</option>
@@ -285,24 +305,12 @@ class Rolesmanagement extends Component {
                                 <Label for="example-password-input" className="col-sm-2 col-form-label">Status</Label>
                                 <Col sm="10">
                                     <select className="form-control">
-                                        <option>Select</option>
+                                       
                                         <option>Active</option>
                                         <option>Inactive</option>
                                     </select>
                                 </Col>
-                            </FormGroup> 
-                            <FormGroup row>
-                                <Label for="example-url-input" className="col-sm-2 col-form-label">Created At</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="date"  id="example-url-input"/>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-url-input" className="col-sm-2 col-form-label">Updated At</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="date"  id="example-url-input"/>
-                                </Col>
-                            </FormGroup>                       
+                            </FormGroup>                        
                         </ModalBody>
                         <ModalFooter>
                             <Button type="button" color="secondary" className="waves-effect" onClick={this.tog_standard}>Close</Button>
@@ -324,45 +332,21 @@ class Rolesmanagement extends Component {
                         </ModalHeader>
                         <ModalBody>
                             <FormGroup row>
-                                <Label for="example-text-input" className="col-sm-2 col-form-label">ID</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="number"  id="example-text-input"/>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-text-input" className="col-sm-2 col-form-label">Firstname</Label>
+                                <Label for="example-text-input" className="col-sm-2 col-form-label">Name</Label>
                                 <Col sm="10">
                                     <Input className="form-control" type="text"  id="example-text-input"/>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
-                                <Label for="example-email-input" className="col-sm-2 col-form-label">Lastname</Label>
+                                <Label for="example-text-input" className="col-sm-2 col-form-label">Email</Label>
                                 <Col sm="10">
-                                    <Input className="form-control" type="text"  id="example-email-input"/>
+                                    <Input className="form-control" defaultValue=" " type="email" />
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
-                                <Label for="example-email-input" className="col-sm-2 col-form-label">Username</Label>
+                                <Label for="example-email-input" className="col-sm-2 col-form-label">Password</Label>
                                 <Col sm="10">
-                                    <Input className="form-control" type="text"  id="example-email-input"/>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-tel-input" className="col-sm-2 col-form-label">Email</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="email"  id="example-search-input"/>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-url-input" className="col-sm-2 col-form-label">Phone Number</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="number"  id="example-url-input"/>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-url-input" className="col-sm-2 col-form-label">Password</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="password"  id="example-url-input"/>
+                                    <Input className="form-control" type="password" defaultValue=" " id="example-email-input"/>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
@@ -376,32 +360,10 @@ class Rolesmanagement extends Component {
                                     </select>
                                 </Col>
                             </FormGroup> 
-                            <FormGroup row>
-                                <Label for="example-password-input" className="col-sm-2 col-form-label">Status</Label>
-                                <Col sm="10">
-                                    <select className="form-control">
-                                        <option>Select</option>
-                                        <option>Active</option>
-                                        <option>Inactive</option>
-                                    </select>
-                                </Col>
-                            </FormGroup> 
-                            <FormGroup row>
-                                <Label for="example-url-input" className="col-sm-2 col-form-label">Created At</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="date"  id="example-url-input"/>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-url-input" className="col-sm-2 col-form-label">Updated At</Label>
-                                <Col sm="10">
-                                    <Input className="form-control" type="date"  id="example-url-input"/>
-                                </Col>
-                            </FormGroup>                     
                         </ModalBody>
                         <ModalFooter>
                             <Button type="button" color="secondary" className="waves-effect" onClick={this.tog_standard}>Close</Button>
-                            <Button type="button" color="primary" className="waves-effect waves-light">Save changes</Button>
+                            <Button type="button" color="primary" className="waves-effect waves-light">Add User</Button>
                         </ModalFooter>                      
                     </Modal>
                 </Row>
