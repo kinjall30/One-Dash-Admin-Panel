@@ -135,10 +135,13 @@ import IpManagement from "../pages/ip management/index"
 
 import NoAccess from "../pages/noexcess"
 
+import Dummy from "../pages/dummy"
+
 
 const authProtectedRoutes = [
 
   //My Pages
+  {path: "/dummy", component: Dummy},
   { path: "/rolesmanagement", component: Rolesmanagement},
 
   { path: "/stripeintegration", component: StripeIntegration},

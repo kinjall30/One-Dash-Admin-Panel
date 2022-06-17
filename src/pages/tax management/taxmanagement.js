@@ -25,49 +25,22 @@ import cellEditFactory from "react-bootstrap-table2-editor";
 class Tax extends Component {
     constructor(props) {
         super(props);
+   
         this.state = {
-            breadcrumbItems : [
-                { title : "One Dash", link : "#" },
-                { title : "Tax", link : "#" },
-                { title : "Management", link : "#" },
-            ],
             
-        }
-       
-    }  
+        };
+    }
+    
 
-    componentDidMount(){
-      this.props.setBreadcrumbItems("FAQ", this.state.breadcrumbItems);
-      fetch(
-        "https://jsonplaceholder.typicode.com/users")
-                    .then((res) => res.json())
-                    .then((json) => {
-                        this.setState({
-                            items: json,
-                            DataisLoaded: true
-                        });
-                    })
+    componentDidMount() {
+        
     }
 
   
     render() {
-        const { DataisLoaded, items } = this.state;
-        if (!DataisLoaded) return <div>
-            <h1> Pleses wait some time.... </h1> </div> ;
-
         return (
             <React.Fragment>
-            <div className = "App">
-            <h1> Fetch data from an api in react </h1>  {
-                items.map((item) => ( 
-                <ol key = { item.id } >
-                    User_Name: { item.username }, 
-                    Full_Name: { item.name }, 
-                    User_Email: { item.email } 
-                    </ol>
-                ))
-            }
-        </div>   
+            <p>Hello</p>
             </React.Fragment>
         );
     }

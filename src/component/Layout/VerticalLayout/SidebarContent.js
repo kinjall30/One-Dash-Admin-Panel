@@ -193,6 +193,12 @@ class SidebarContent extends Component {
                 <span>No access</span>
             </Link>
         </li>
+        <li>
+        <Link to="dummy" className=" waves-effect">
+            <i className="mdi mdi-calendar-check"></i>
+            <span>Dummy</span> 
+        </Link>
+    </li>
         {/*
         <li>
             <Link to="/#" className=" waves-effect">

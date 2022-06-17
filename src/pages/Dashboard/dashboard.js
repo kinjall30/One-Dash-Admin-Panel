@@ -42,6 +42,7 @@ class Dashboard extends Component {
 
     componentDidMount(){
         this.props.setBreadcrumbItems("Dashboard", this.state.breadcrumbItems);
+        console.log(localStorage.getItem("token"))
     }
 
     render() {
