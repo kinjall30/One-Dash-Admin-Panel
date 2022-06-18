@@ -1,0 +1,224 @@
+<ul className="metismenu list-unstyled" id="side-menu">
+        <li className="menu-title">Main</li>
+
+        <li>
+            <Link to="/dashboard" className="waves-effect">
+                <i className="mdi mdi-view-dashboard"></i><span className="badge badge-pill badge-primary float-right">2</span>
+                <span>Dashboard</span>
+            </Link>
+        </li>
+
+        <li className="menu-title">Managements</li>
+
+        <li>
+            <Link to="rolesmanagement" className=" waves-effect">
+                <i className="fas fa-user"></i>
+                <span>Portal Users</span>
+            </Link>
+        </li>
+
+        <li>
+            <Link to="/#" className=" waves-effect">
+                <i className="far fa-user"></i>
+                <span>User Management</span> 
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="user">User Management</Link></li>
+                <li><Link to="integration">Integration</Link></li>
+                <li><Link to="project">Projects</Link></li>
+                {/*<li><Link to="userprofile">Profile</Link></li>
+                 <li><Link to="ireport">Individual Report</Link></li> */}
+                
+            </ul>
+        </li>
+
+        <li>
+            <Link to="/#" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>Subscriptions</span> 
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="subscription">Subscription Management</Link></li>
+                {/* <li><Link to="subscriptionreport">Report</Link></li>
+                <li><Link to="ireport">Individual Report</Link></li> */}
+            </ul>
+        </li>
+
+       
+
+        <li>
+            <Link to="productreport" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>Product Management</span> 
+            </Link>
+        </li>
+
+        
+        <li>
+        <Link to="/#" className=" waves-effect">
+            <i className="mdi mdi-calendar-check"></i>
+            <span>Payment Gateway</span> 
+        </Link>
+        <ul className="sub-menu" aria-expanded="false">
+            <li><Link to="plans">Plan</Link></li>
+        </ul>
+    </li>
+ 
+
+        <li className="menu-title">Others</li>
+        <li>
+        <Link to="/#" className=" waves-effect">
+            <i className="mdi mdi-calendar-check"></i>
+            <span>Marketing</span> 
+        </Link>
+        <ul className="sub-menu" aria-expanded="false">
+            <li><Link to="existingcampaign">Campaign</Link></li>
+            <li><Link to="marketing">New Campaign</Link></li>
+        </ul>
+    </li>
+        
+
+        <li>
+            <Link to="ipmanagemnet" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>IP Management</span>
+            </Link>
+        </li>
+         <li>
+            <Link to="calendar" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>Customer Support</span>
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="customerservice">Ticket Management</Link></li>
+                <li><Link to="mysupport">My Support</Link></li>
+                <li><Link to="customerservicereport">Report</Link></li>
+            </ul>
+        </li>
+
+        <li>
+            <Link to="noaccess">
+                <span>No access</span>
+            </Link>
+        </li>
+        {/*
+        <li>
+            <Link to="/#" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>Project Management</span> 
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="interactive">Interactive</Link></li>
+                <li><Link to="campaign">Campaign</Link></li>
+                <li><Link to="email">Email</Link></li>
+            </ul>
+        </li>
+
+        <li>
+            <Link to="productreport" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>Product Management</span> 
+            </Link>
+        </li>
+
+       
+        <li>
+            <Link to="/#" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>Project Management</span> 
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="interactive">Interactive</Link></li>
+                <li><Link to="campaign">Campaign</Link></li>
+                <li><Link to="email">Email</Link></li>
+            </ul>
+        </li>
+        
+        
+    
+        <li>
+        <Link to="/#" className=" waves-effect">
+            <i className="mdi mdi-calendar-check"></i>
+            <span>Payment Gateway</span> 
+        </Link>
+        <ul className="sub-menu" aria-expanded="false">
+            <li><Link to="plans">Plan</Link></li>
+        </ul>
+    </li>
+
+        
+        <li>
+            <Link to="/#" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>Tax Management</span> 
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="taxmanagement">Tax Management</Link></li>
+            </ul>
+        </li> 
+{/* 
+        <li>
+            <Link to="/#" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>Tax Management</span> 
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="taxmanagement">Tax Management</Link></li>
+            </ul>
+        </li> 
+            
+         <li>
+            <Link to="/#" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>Media Management</span> 
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="media">Media</Link></li>
+            </ul>
+        </li>
+        <li className="menu-title">Others</li>
+        <li>
+        <Link to="/#" className=" waves-effect">
+            <i className="mdi mdi-calendar-check"></i>
+            <span>Marketing</span> 
+        </Link>
+        <ul className="sub-menu" aria-expanded="false">
+            <li><Link to="existingcampaign">Campaign</Link></li>
+            <li><Link to="marketing">New Campaign</Link></li>
+        </ul>
+    </li>
+        
+
+        <li>
+            <Link to="ipmanagemnet" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>IP Management</span>
+            </Link>
+        </li>
+         <li>
+            <Link to="calendar" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>Customer Support</span>
+            </Link>
+            <ul className="sub-menu" aria-expanded="false">
+                <li><Link to="customerservice">Ticket Management</Link></li>
+                <li><Link to="mysupport">My Support</Link></li>
+                <li><Link to="customerservicereport">Report</Link></li>
+            </ul>
+        </li>
+    
+*/}
+
+
+{/*
+    */}
+       
+
+        <li>
+            <Link to="faq" className=" waves-effect">
+                <i className="mdi mdi-calendar-check"></i>
+                <span>FAQ</span>
+            </Link>
+        </li> 
+        
+    </ul>
