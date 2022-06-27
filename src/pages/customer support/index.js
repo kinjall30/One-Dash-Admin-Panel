@@ -15,6 +15,7 @@ import {
     ModalBody,
     ModalFooter,
     Button,
+    Table
   } from "reactstrap";
   import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -37,86 +38,38 @@ class CustomerService extends Component {
                 { title : "Customer", link : "#" },
                 { title : "Service", link : "#" },
             ],
+            tickets: []
         }
+       
     }  
 
     componentDidMount(){
       this.props.setBreadcrumbItems("Customer Service", this.state.breadcrumbItems);
+       var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer "+ localStorage.getItem("token"));
+
+        var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
+
+        fetch("http://44.196.105.0:3000/support/log", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            this.setState({
+                tickets: result.body
+            })
+            console.log(result.body)
+            console.log("hello")
+        })
+        .catch(error => console.log('error', error));
     }
   
     render() {
-        const data = {
-            columns: [
-                {
-                    label: 'Priority',
-                    field: 'priority',
-                    sort: 'asc',
-                    width: 150
-                },
-                {
-                    label: 'Ticket Key',
-                    field: 'tkey',
-                    sort: 'asc',
-                    width: 270
-                },
-                {
-                    label: 'Ticket Name',
-                    field: 'tname',
-                    sort: 'asc',
-                    width: 200
-                },
-                {
-                    label: 'Created',
-                    field: 'created',
-                    sort: 'asc',
-                    width: 100
-                },
-                {
-                    label: 'Owners Name',
-                    field: 'oname',
-                    sort: 'asc',
-                    width: 150
-                },
-                {
-                    label: '',
-                    field: 'buttons',
-                    sort: 'but',
-                    width: 250
-                },
-            ],rows: [
-                {
-                    priority: 'Urgent',
-                    tkey: 'T-12356',
-                    tname: 'Need Help with Downloading',
-                    created: '10th May 2022',
-                    oname: 'Kinjal Prajapati',
-                    buttons: [ <Link to="customercomplain"><Button type="button" onClick={this.tog_standard} style = {{marginRight: 10}} color="primary" className="waves-effect waves-light">Open</Button> </Link>, 
-                    ],
-                   
-                },
-                {
-                    priority: 'Urgent',
-                    tkey: 'T-85974',
-                    tname: 'Update Email',
-                    created: '9th May 2022',
-                    oname: 'Atul Shah',
-                    buttons: [ <Link to="customercomplain"><Button type="button" onClick={this.tog_standard} style = {{marginRight: 10}} color="primary" className="waves-effect waves-light">Open</Button> </Link>, 
-                    ],
-                   
-                },
-                {
-                    priority: 'On hold',
-                    tkey: 'T-25478',
-                    tname: 'Billing needs update',
-                    created: '8th May 2022',
-                    oname: 'Shivani Patel',
-                    buttons: [ <Link to="customercomplain"><Button type="button" onClick={this.tog_standard} style = {{marginRight: 10}} color="primary" className="waves-effect waves-light">Open</Button> </Link>, 
-                    ],
-                   
-                },
-            ]
-        }
-
+        const {tickets} = this.state
+        console.log(tickets)
+        // this.viewSupportLog()
         return (
             <React.Fragment>
                 <Row> 
@@ -128,7 +81,7 @@ class CustomerService extends Component {
                             </div>
                             
                                 <h5>Unsolved</h5>
-                                <h5>50</h5>
+                                <h5>10</h5>
                             </CardBody>
                         </Card>
                     </Col>
@@ -140,7 +93,7 @@ class CustomerService extends Component {
                             </div>
                             
                                 <h5>OverDue</h5>
-                                <h5>10</h5>
+                                <h5>2</h5>
                             </CardBody>
                         </Card>
                     </Col>
@@ -153,19 +106,7 @@ class CustomerService extends Component {
                                 
                                 <h5>Due Today</h5>
                                 <p>                       </p>
-                                <h5>5</h5>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md='3'>
-                        <Card className="mini-stat" style={{backgroundColor: "#e83e8c"}}>
-                            <CardBody className="mini-stat-img">
-                            <div className='mini-stat-icon'>
-                            
-                            </div>
-                        
-                                <h5>Open</h5>
-                                <h5>60</h5>
+                                <h5>1</h5>
                             </CardBody>
                         </Card>
                     </Col>
@@ -177,22 +118,51 @@ class CustomerService extends Component {
                             </div>
                         
                                 <h5>Onhold</h5>
-                                <h5>50</h5>
+                                <h5>5</h5>
                             </CardBody>
                         </Card>
                     </Col>
                 </Row>   
-                
-                <Row lg="12">
-                    <Col lg = "12">
-                        <MDBDataTable
-                            responsive
-                            btn
-                            hover
-                            bordered
-                            data={data}
-                        />
+                 <Row>
+                    <Col lg="12">
+                        <Card>
+                            <CardBody>
+                                <div className="table-responsive">
+                                    <Table className="table table-hover table-bordered  mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Ticket Name</th>
+                                                <th>Ticket Description</th>
+                                                <th>Status</th>
+                                                <th>Priority</th>
+                                                <th>Category</th>
+                                                <th>Created At</th>
+                                                <th>updated At</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> 
+                                          {
+                                            tickets.map((ticket) => (
+                                                <tr>
+                                                    <td> {ticket.ticket_name} </td>
+                                                    <td> {ticket.ticket_description} </td>
+                                                    <td> {ticket.ticket_status} </td>
+                                                    <td> {ticket.priority_name} </td>
+                                                    <td> {ticket.category_name} </td>
+                                                    <td> {ticket.created_at} </td>
+                                                    <td> {ticket.updated_at} </td>
+                                                    <td><Link to="customercomplain"><Button type="button" style = {{marginRight: 10}} color="primary" className="waves-effect waves-light">Open</Button> </Link></td>
+                                                </tr>
+                                            ))
+                                          }
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </CardBody>
+                        </Card>
                     </Col>
+
                 </Row> 
             </React.Fragment>
         );

@@ -222,3 +222,43 @@
         </li> 
         
     </ul>
+
+
+
+
+
+
+
+{
+    items.map((item) => (<tr> {
+
+        item.Attributes.map((para) => ((para.Name == "given_name" ? <th> {
+                para.Value
+        } < /th> : null)
+                                                        ))
+                                                    }
+                                                    
+                                                        <td>
+                                                            <Button type="button" onClick={this.tog_edit} style = {{marginRight: 10}} color="primary" className="waves-effect waves-light"><i className="ti-pencil"></i > </Button> < Button type = "button" onClick = {
+            () => this.setState(
+                {alert_confirm: true}
+            )
+        }
+        color = "danger" className = "waves-effect waves-light" > <i className="ti-trash"> < /i></Button > {
+            this.state.alert_confirm ? (<SweetAlert title="Are you sure you want to delete this user?" warning showCancel confirmBtnBsStyle="success" cancelBtnBsStyle="danger"
+                onConfirm={
+                    () => this.setState({success_confirm: true, alert_confirm: false, dynamic_title: "Deleted!", dynamic_description: "This user has been deleted."})
+                }
+                onCancel={
+                    () => this.setState({alert_confirm: false})
+            }>
+                You won't be able to revert this!
+            </SweetAlert>) : null
+        } < Button type = "button" onClick = {
+            this.tog_resetpassword
+        }
+        style = {{marginLeft: 10}}
+        color = "primary" className = "waves-effect waves-light" > <i className="mdi mdi-lock-open-variant-outline"></i>
+    </Button>
+</td></tr>
+    ))}

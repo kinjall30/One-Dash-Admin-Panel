@@ -17,7 +17,6 @@ import {
 // MetisMenu
 import MetisMenu from "metismenujs";
 
-
 class SidebarContent extends Component {
     constructor(props) {
         super(props);
@@ -29,7 +28,7 @@ class SidebarContent extends Component {
             layoutWidth: this.props.layoutWidth,
             sidebarType: this.props.leftSideBarType,
             isPreloader: this.props.isPreloader,
-            roleLogin: ""
+            roleLogin: ''
         }
         this.changeLayout = this.changeLayout.bind(this);
         this.changeTopbarTheme = this.changeTopbarTheme.bind(this);
@@ -42,11 +41,13 @@ class SidebarContent extends Component {
     componentDidMount() {
         document.body.setAttribute('data-sidebar', 'dark');
         this.initMenu();
-        console.log(localStorage.getItem("role"))
+        console.log("role", localStorage.getItem("role" + "sidebar"))
         this.setState({
-            roleLogin: localStorage.getItem("role") || ''
+            roleLogin: localStorage.getItem("role") || '',
         })
+        this.forceUpdate();
     }
+
 
     // update local state after changing layout
     componentDidUpdate(prevProps) {
@@ -133,6 +134,8 @@ class SidebarContent extends Component {
          else 
             this.props.changeLayoutWidth("boxed", this.state.layoutType);
         
+
+
     }
 
     // change topbar theme and dispatch action
@@ -150,6 +153,13 @@ class SidebarContent extends Component {
         if (this.state.roleLogin == "support") {
             sidebarMenu = <ul className="metismenu list-unstyled" id="side-menu">
                 <li>
+                    <Link to="/dashboard" className="waves-effect">
+                        <i className="mdi mdi-view-dashboard"></i>
+                        <span className="badge badge-pill badge-primary float-right">2</span>
+                        <span>Dashboard</span>
+                    </Link>
+                </li>
+                <li>
                     <Link to="calendar" className=" waves-effect">
                         <i className="mdi mdi-calendar-check"></i>
                         <span>Customer Support</span>
@@ -162,13 +172,20 @@ class SidebarContent extends Component {
                             <Link to="mysupport">My Support</Link>
                         </li>
                         <li>
-                            <Link to="customerservicereport">Report</Link>
+                            <Link to="settings">Settings</Link>
                         </li>
                     </ul>
                 </li>
             </ul>
         } else if (this.state.roleLogin == "marketing") {
             sidebarMenu = <ul className="metismenu list-unstyled" id="side-menu">
+                <li>
+                    <Link to="/dashboard" className="waves-effect">
+                        <i className="mdi mdi-view-dashboard"></i>
+                        <span className="badge badge-pill badge-primary float-right">2</span>
+                        <span>Dashboard</span>
+                    </Link>
+                </li>
                 <li>
                     <Link to="/#" className=" waves-effect">
                         <i className="mdi mdi-calendar-check"></i>
@@ -243,6 +260,13 @@ class SidebarContent extends Component {
                         <span>No access</span>
                     </Link>
                 </li>
+                <li>
+                    <Link to="dummy">
+                        <span>Dummy</span>
+                    </Link>
+                </li>
+                
+                
                 {/*
                 <li>
                     <Link to="/#" className=" waves-effect">
@@ -348,7 +372,7 @@ class SidebarContent extends Component {
                             <Link to="mysupport">My Support</Link>
                         </li>
                         <li>
-                            <Link to="customerservicereport">Report</Link>
+                            <Link to="settings">Settings</Link>
                         </li>
                     </ul>
                 </li>
@@ -362,16 +386,16 @@ class SidebarContent extends Component {
 
             </ul>
             }
-                    return (
+                                                        return (
             <React.Fragment>
                 <div id="sidebar-menu">
                     {sidebarMenu} </div>
             </React.Fragment>
             );
-                }
-            }
-            
-            const mapStatetoProps = state => {
+                                                    }
+                                                }
+                                                
+                                                const mapStatetoProps = state => {
             const {
                 is_toggle,
                 leftSideBarType,

@@ -104,6 +104,7 @@ import Userprofile from "../pages/User Management/userprofile";
 import Integration from "../pages/User Management/integration"
 import Project from "../pages/User Management/project"
 import UserProject from "../pages/User Management/userproject"
+import SettingsCustSupport from "../pages/customer support/settings"
 
 
 import Faq from "../pages/faq/faq"
@@ -163,6 +164,7 @@ const authProtectedRoutes = [
   {path: "/integration", component: Integration},
   {path: "/project", component: Project},
   {path: "/userproject", component: UserProject},
+  {path: "/settings", component: SettingsCustSupport},
 
   { path: "/faq", component: Faq},
   {path: "/noaccess", component: NoAccess},

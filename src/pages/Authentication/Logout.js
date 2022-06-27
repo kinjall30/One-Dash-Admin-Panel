@@ -8,14 +8,14 @@ class Logout extends Component {
     }
 
     componentDidMount() {
-     
         // Remove all Item from localstorage and redirect to login page
         localStorage.removeItem('token');
-        localStorage.removeItem('role')
+        sessionStorage.clear();
         this.props.history.push('/login');
+        console.log(sessionStorage)
     }
 
-    
+
 
     render() {
         return (

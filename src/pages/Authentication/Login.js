@@ -17,6 +17,7 @@ import axios from 'axios'
 import email from '../project management/email';
 import url from '../../helpers/apiUrl';
 
+
 class Pageslogin extends Component {
 
     constructor(props) {
@@ -53,14 +54,19 @@ class Pageslogin extends Component {
             if (data.statusCode == "200") { // window.location.assign("/dashboard");
                 this.props.history.push('/dashboard');
                 localStorage.setItem("token", data.body.accessToken)
+                // sessionStorage.clear()
                 localStorage.setItem("role", data.body.user[0].role)
+                console.log(localStorage.getItem("role" + "login console"))
+            }else{
+                this.props.checkLogin(values.email, values.password, this.props.history);
             }
 
-            this.setState({items: data})
-            this.props.checkLogin(values.email, values.password, this.props.history);
+            this.setState({items: data}) 
         })
     }
-    componentDidMount() {}
+    componentDidMount() {
+
+    }
 
     render() {
 
@@ -147,5 +153,8 @@ const mapStatetoProps = state => {
     const {user, loginError, loading} = state.Login;
     return {user, loginError, loading};
 }
+
+
+
 
 export default withRouter(connect(mapStatetoProps, {checkLogin, clearErrorLogin, clearError})(Pageslogin));
