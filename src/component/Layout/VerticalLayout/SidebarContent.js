@@ -43,7 +43,7 @@ class SidebarContent extends Component {
         this.initMenu();
         console.log("role", localStorage.getItem("role" + "sidebar"))
         this.setState({
-            roleLogin: localStorage.getItem("role") || '',
+            roleLogin: localStorage.getItem("role") || ''
         })
         this.forceUpdate();
     }
@@ -223,23 +223,11 @@ class SidebarContent extends Component {
                 </li>
 
                 <li>
-                    <Link to="/#" className=" waves-effect">
+                    <Link to="user" className=" waves-effect">
                         <i className="far fa-user"></i>
                         <span>User Management</span>
                     </Link>
-                    <ul className="sub-menu" aria-expanded="false">
-                        <li>
-                            <Link to="user">User Management</Link>
-                        </li>
-                        <li>
-                            <Link to="integration">Integration</Link>
-                        </li>
-                        <li>
-                            <Link to="project">Projects</Link>
-                        </li>
 
-
-                    </ul>
                 </li>
 
                 <li>
@@ -256,17 +244,43 @@ class SidebarContent extends Component {
                 </li>
 
                 <li>
-                    <Link to="noaccess">
-                        <span>No access</span>
+                    <Link to="calendar" className=" waves-effect">
+                        <i className="fas fa-headset"></i>
+                        <span>Customer Support</span>
                     </Link>
+                    <ul className="sub-menu" aria-expanded="false">
+                        <li>
+                            <Link to="customerservice">Ticket Management</Link>
+                        </li>
+                        <li>
+                            <Link to="supportCategory">Add Category</Link>
+                        </li>
+                        <li>
+                            <Link to="supportPriority">Add Priority</Link>
+                        </li>
+                    </ul>
                 </li>
+
                 <li>
-                    <Link to="dummy">
-                        <span>Dummy</span>
+                    <Link to="/" className=" waves-effect">
+                        <i className="mdi mdi-comment-question-outline"></i>
+                        <span>FAQ</span>
                     </Link>
+                    <ul className="sub-menu" aria-expanded="false">
+                    <li>
+                        <Link to="faq">Faq</Link>
+                    </li>
+                        <li>
+                            <Link to="faqCategory">Add Category</Link>
+                        </li>
+
+                    </ul>
                 </li>
-                
-                
+
+          
+
+        
+               
                 {/*
                 <li>
                     <Link to="/#" className=" waves-effect">
@@ -279,7 +293,17 @@ class SidebarContent extends Component {
                         <li><Link to="email">Email</Link></li>
                     </ul>
                 </li>
-        
+                
+                <li>
+                    <Link to="noaccess">
+                        <span>No access</span>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="dummy">
+                        <span>Dummy</span>
+                    </Link>
+                </li>
                 <li>
                     <Link to="productreport" className=" waves-effect">
                         <i className="mdi mdi-calendar-check"></i>
@@ -357,45 +381,18 @@ class SidebarContent extends Component {
                     </ul>
                 </li>
             
-        */}
-
-                <li>
-                    <Link to="calendar" className=" waves-effect">
-                        <i className="mdi mdi-calendar-check"></i>
-                        <span>Customer Support</span>
-                    </Link>
-                    <ul className="sub-menu" aria-expanded="false">
-                        <li>
-                            <Link to="customerservice">Ticket Management</Link>
-                        </li>
-                        <li>
-                            <Link to="mysupport">My Support</Link>
-                        </li>
-                        <li>
-                            <Link to="settings">Settings</Link>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <Link to="faq" className=" waves-effect">
-                        <i className="mdi mdi-calendar-check"></i>
-                        <span>FAQ</span>
-                    </Link>
-                </li>
-
-            </ul>
+        */} </ul>
             }
-                                                        return (
+                                                                                                                    return (
             <React.Fragment>
                 <div id="sidebar-menu">
                     {sidebarMenu} </div>
             </React.Fragment>
             );
-                                                    }
-                                                }
-                                                
-                                                const mapStatetoProps = state => {
+                                                                                                                }
+                                                                                                            }
+                                                                                                            
+                                                                                                            const mapStatetoProps = state => {
             const {
                 is_toggle,
                 leftSideBarType,

@@ -11,71 +11,74 @@ import {
     NavItem,
     Nav,
     Button,
-    Modal,
-    Table,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
+    FormGroup,
     Input,
     Label,
-    FormGroup
+     ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Modal
   } from "reactstrap";
   import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-
+import SweetAlert from "react-bootstrap-sweetalert";
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
-import SweetAlert from "react-bootstrap-sweetalert";
-import { MDBDataTable } from 'mdbreact';
+
+
+import {MDBDataTable} from 'mdbreact';
 
 // Import datatable css
 import "../Tables/datatables.scss";
+
 // Editable
 import BootstrapTable from "react-bootstrap-table-next";
 import cellEditFactory from "react-bootstrap-table2-editor";
 
-class Faq extends Component {
+class AddFaqCategory extends Component {
     constructor(props) {
         super(props);
         this.state = {
             breadcrumbItems : [
                 { title : "One Dash", link : "#" },
-                { title : "FAQ", link : "#" },
+                { title : "Faq", link : "#" },
+                { title : "Add Category", link : "#" },
             ],
             category:[],
-             modal_add_faq: false,
-             modal_edit_faq: false,
+             modal_edit: false,
+             modal_add: false,
+             category_name:'',
+             category_description:"",
              id:'',
+             category_status: '',
              created_at: '',
              updated_at:'',
-             faq_topic:'',
-             faq_answer: '',
-             faq_status: '',
-             category_id: '',
-             faq:[],
+             category_id: '', 
              success_confirm: false,
             alert_confirm: false,
             dynamic_title: "",
             dynamic_description: ""
         }
-        this.viewAllFaq = this.viewAllFaq.bind(this);
-        this.createFaq = this.createFaq.bind(this);
-        this.deleteFaq = this.deleteFaq.bind(this);
-        this.updateFaq = this.updateFaq.bind(this);
-        this.faqById = this.faqById.bind(this);
-        this.tog_add_faq = this.tog_add_faq.bind(this);
-        this.tog_edit_faq = this.tog_edit_faq.bind(this);
-        this.fillFaq = this.fillFaq.bind(this);
+        this.tog_add = this.tog_add.bind(this);
+        this.tog_edit = this.tog_edit.bind(this);
+        this.viewFaqCategory = this.viewFaqCategory.bind(this);
+        this.changeHandler = this.changeHandler.bind(this);
+        this.fillCategory = this.fillCategory.bind(this);
+        this.updateFaqCategory = this.updateFaqCategory.bind(this);
+        this.deleteFaqCategory = this.deleteFaqCategory.bind(this);
+        this.createFaqCategory = this.createFaqCategory.bind(this);
     }  
 
     componentDidMount(){
-      this.props.setBreadcrumbItems("FAQ", this.state.breadcrumbItems);
-      this.viewAllFaq()
+      this.props.setBreadcrumbItems("Faq", this.state.breadcrumbItems);
+        this.viewFaqCategory();
     }
 
-     viewAllFaq(){
-        var myHeaders = new Headers();
+    viewFaqCategory(){
+       var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer "+ localStorage.getItem("token"));
+
+        var raw = "";
 
         var requestOptions = {
         method: 'GET',
@@ -83,32 +86,30 @@ class Faq extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/faq/", requestOptions)
+        fetch("http://44.196.105.0:3000/category/faq", requestOptions)
         .then(response => response.json())
         .then(data => {
             var array = []
                 for(let i=0; i< data.body.length; i++){
                     array.push({
                         id: data.body[i].id,
-                        category_id: data.body[i].category_id,
                         category_name: data.body[i].category_name,
-                        faq_topic: data.body[i].faq_topic,
-                        faq_answer: data.body[i].faq_answer,
-                        faq_status: data.body[i].faq_status,
+                        category_description: data.body[i].category_description,
+                        category_status: data.body[i].category_status,
                         created_at: data.body[i].created_at,
                         updated_at: data.body[i].updated_at,
                         button: 
                             <div>
                                 <Button type="button"
                                     onClick={
-                                        () => this.fillFaq(data.body[i])
+                                        () => this.fillCategory(data.body[i])
                                     }
                                     style={
                                         {marginRight: 10}
                                     }
                                     color="primary"
                                     className="waves-effect waves-light">
-                                    <i className="ti-pencil"></i>
+                                   <i className="ti-pencil"></i>
                                 </Button>
                                  <Button type="button" color="danger"
                                     onClick={
@@ -121,111 +122,38 @@ class Faq extends Component {
                         
                     })
                 }
-                  this.setState({faq: array})
-        })
-        .catch(error => console.log('error', error));
-        }
-            
-
-   createFaq(){
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer "+ localStorage.getItem("token"));
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify({
-        "category_id": this.state.category_id,
-        "faq_topic": this.state.faq_topic,
-        "faq_answer": this.state.faq_answer,
-        "faq_status": this.state.faq_status
-        });
-
-        var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-        };
-
-        fetch("http://44.196.105.0:3000/faq/create", requestOptions)
-        .then(response => response.json())
-        .then(result =>{
-                if(result.statusCode == "200"){
-                this.viewAllFaq()
-                this.tog_add_faq()
-                
-                this.setState({
-                    category_id: '',
-                    faq_topic: '',
-                    faq_answer: '',
-                    faq_status: ''
-            })
-            }else{
-                alert("Creation failed")
-            }
-            
-        })
-        .catch(error => console.log('error', error));
-   }
-
-   deleteFaq(){
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer "+ localStorage.getItem("token"));
-
-        var requestOptions = {
-            method: 'DELETE',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
-
-        fetch("http://44.196.105.0:3000/faq/" + this.state.id, requestOptions)
-        .then(response => response.json())
-        .then(result => {
-            this.viewAllFaq()
+                  this.setState({category: array})
         })
         .catch(error => console.log('error', error));
 
    }
-
-   faqById(){
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
-
-        var requestOptions = {
-            method: 'GET',
-            headers: myHeaders,
-            redirect: 'follow'
-        };
-
-        fetch("http://44.196.105.0:3000/faq/3", requestOptions)
-        .then(response => response.json())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-
-   }
-
-   fillFaq = (faq) => {
-          this.setState({
-            id: faq.id,
-           category_id: faq.category_id ,
-           faq_topic: faq.faq_topic,
-           faq_answer: faq.faq_answer,
-           faq_status: faq.faq_status,
-           created_at: faq.created_at,
-           updated_at: faq.updated_at
-        })
-        this.tog_edit_faq();
+  
+    changeHandler = (e) => {
+        this.setState({[e.target.name]: e.target.value})
     }
 
-   updateFaq(id){
+    
+     fillCategory = (category) => {
+          this.setState({
+           id: category.id ,
+           category_name: category.category_name,
+           category_description: category.category_description,
+           category_status: category.category_status,
+           created_at: category.created_at,
+           updated_at: category.updated_at
+        })
+        this.tog_edit();
+    }
+
+     updateFaqCategory(){
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer "+ localStorage.getItem("token"));
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-            "category_id": this.state.category_id, 
-            "faq_topic": this.state.faq_topic, 
-            "faq_answer": this.state.faq_answer, 
-            "faq_status": this.state.faq_status
+            "category_name": this.state.category_name, 
+            "category_description": this.state.category_description, 
+            "category_status": this.state.category_status
         });
 
         var requestOptions = {
@@ -235,51 +163,105 @@ class Faq extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/faq/create/" + id, requestOptions)
+        fetch("http://44.196.105.0:3000/category/faq/create/" + this.state.id, requestOptions)
         .then(response => response.json())
         .then(result =>{
-             if(result.statusCode == "200"){
-                this.tog_edit_faq()
-                this.viewAllFaq()
+            if(result.statusCode == "200"){
+                this.tog_edit()
+                this.viewFaqCategory()
                 this.setState({
-                category_id: '',
-                faq_topic:'',
-                faq_answer:'',
-                faq_status: ''
+                id: '',
+                category_name:'',
+                category_description:'',
+                category_status: ''
             })
             }
             else{
                 alert("Update failed!")
             }
+            
         })
         .catch(error => console.log('error', error));
 
    }
 
-    
+   deleteFaqCategory(){
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer "+ localStorage.getItem("token"));
 
-    changeHandler = (e) => {
-        this.setState({[e.target.name]: e.target.value})
-    }
+        var requestOptions = {
+            method: 'DELETE',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
 
+        fetch("http://44.196.105.0:3000/category/faq/" + this.state.id, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            //  this.setState({
+            //     category: this.state.category.filter(cat => cat.id !== id)
+            // })
+            this.viewFaqCategory()
+        })
+        .catch(error => console.log('error', error));
 
-  
-    tog_edit_faq() {
+   }
+
+   createFaqCategory(){
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "category_name": this.state.category_name, 
+            "category_description": this.state.category_description, 
+            "category_status":this.state.category_status
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("http://44.196.105.0:3000/category/faq/create", requestOptions)
+        .then(response => response.json())
+        .then(result =>{
+            if(result.statusCode == "200"){
+                this.viewFaqCategory()
+                this.tog_add()
+                
+                this.setState({
+                    category_name: '',
+                    category_description: '',
+                    category_status: ''
+            })
+            }else{
+                alert("Creation failed")
+            }
+            
+            
+        })
+        .catch(error => console.log('error', error));
+
+   }
+
+     tog_edit() {
         this.setState(prevState => ({
-            modal_edit_faq: !prevState.modal_edit_faq
+            modal_edit: !prevState.modal_edit
         }));
     }
-    tog_add_faq() {
+    tog_add() {
         this.setState(prevState => ({
-            modal_add_faq: !prevState.modal_add_faq
+            modal_add: !prevState.modal_add
         }));
     }
 
-   
 
     render() {
 
-         const faq = {
+          const data = {
             columns: [
                 {
                     label: 'Id',
@@ -287,30 +269,23 @@ class Faq extends Component {
                     sort: 'asc',
                     width: 150
                 },
-                 
-                {
-                    label: 'Faq Topic',
-                    field: 'faq_topic',
-                    sort: 'asc',
-                    width: 270
-                },
-                {
-                    label: 'Faq Answer',
-                    field: 'faq_answer',
-                    sort: 'asc',
-                    width: 200
-                },
-                {
-                    label: 'Faq Status',
-                    field: 'faq_status',
-                    sort: 'asc',
-                    width: 200
-                },
-                {
+                 {
                     label: 'Category Name',
                     field: 'category_name',
                     sort: 'asc',
                     width: 100
+                },
+                {
+                    label: 'Category Description',
+                    field: 'category_description',
+                    sort: 'asc',
+                    width: 270
+                },
+                {
+                    label: 'Category Status',
+                    field: 'category_status',
+                    sort: 'asc',
+                    width: 200
                 },
                  {
                     label: 'Created At',
@@ -331,10 +306,8 @@ class Faq extends Component {
                     width: 100
                 }
             ],
-            rows: this.state.faq
+            rows: this.state.category
         };
-        
-       
         return (
             <React.Fragment>
                 {this.state.alert_confirm ? (
@@ -345,7 +318,7 @@ class Faq extends Component {
                     confirmBtnBsStyle="success"
                     cancelBtnBsStyle="danger"
                     onConfirm={() =>{
-                        this.deleteFaq()
+                        this.deleteFaqCategory()
                         this.setState({
                             success_confirm: true,
                             alert_confirm : false,
@@ -376,7 +349,7 @@ class Faq extends Component {
                     )
                     : null
                 }
-                 <div style={
+                <div style={
                     {
                         marginTop: 20,
                         marginBottom: 30
@@ -384,11 +357,11 @@ class Faq extends Component {
                 }>
                     <Button type="button"
                         onClick={
-                            ()=> this.tog_add_faq()
+                            ()=> this.tog_add()
                         }
                         color="info"
                         className="waves-effect waves-light">
-                        Add Faq</Button>
+                        Add Category</Button>
                 </div>
                 <Row>
                     <Col xs="12">
@@ -398,7 +371,8 @@ class Faq extends Component {
                                     responsive
                                     bordered
                                     striped
-                                    data={faq}      
+                                    data={data}
+                                        
                                 />
                             </CardBody>
                         </Card>
@@ -407,15 +381,15 @@ class Faq extends Component {
 
                 <Row>
                     <Modal isOpen={
-                            this.state.modal_edit_faq
+                            this.state.modal_edit
                         }
                         toggle={
-                            this.tog_edit_faq
+                            this.tog_edit
                         }
                         autoFocus={true}
                         size="lg">
                         <ModalHeader toggle={
-                            this.tog_edit_faq
+                            this.tog_edit
                         }>
                             Edit Details
                         </ModalHeader>
@@ -434,13 +408,26 @@ class Faq extends Component {
                                         id="example-text-input"/>
                                 </Col>
                             </FormGroup>
-                            
                             <FormGroup row>
-                                <Label for="example-tel-input" className="col-sm-2 col-form-label">Faq Topic</Label>
+                                <Label for="example-text-input" className="col-sm-2 col-form-label">Category Name</Label>
                                 <Col sm="10">
-                                    <Input className="form-control" name="faq_topic" type="text"
+                                    <Input className="form-control" name="category_name"
                                         value={
-                                            this.state.faq_topic
+                                            this.state.category_name
+                                        }
+                                        type="text"
+                                        onChange={
+                                            this.changeHandler
+                                        }
+                                        id="example-text-input"/>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label for="example-tel-input" className="col-sm-2 col-form-label">Category Description</Label>
+                                <Col sm="10">
+                                    <Input className="form-control" name="category_description" type="text"
+                                        value={
+                                            this.state.category_description
                                         }
                                         onChange={
                                             this.changeHandler
@@ -449,41 +436,11 @@ class Faq extends Component {
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
-                                <Label for="example-tel-input" className="col-sm-2 col-form-label">Faq Answer</Label>
+                                <Label for="example-password-input" className="col-sm-2 col-form-label">Status</Label>
                                 <Col sm="10">
-                                    <Input className="form-control" name="faq_answer" type="text"
+                                    <select className="form-control" name='category_status'
                                         value={
-                                            this.state.faq_answer
-                                        }
-                                        onChange={
-                                            this.changeHandler
-                                        }
-                                        id="example-search-input"/>
-                                </Col>
-                            </FormGroup>
-                           <FormGroup row>
-                                <Label for="example-password-input" className="col-sm-2 col-form-label">Category</Label>
-                                <Col sm="10">
-                                    <select className="form-control" name='category_id'
-                                        value={
-                                            this.state.category_id
-                                        }
-                                        onChange={
-                                            this.changeHandler
-                                    }>
-                                    {this.state.category.map((cat)=> (
-                                        <option value={cat.id}>{cat.category_name}</option>
-                                    ))}
-                                        
-                                    </select>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-password-input" className="col-sm-2 col-form-label">Faq Status</Label>
-                                <Col sm="10">
-                                    <select className="form-control" name='faq_status'
-                                        value={
-                                            this.state.faq_status
+                                            this.state.category_status
                                         }
                                         onChange={
                                             this.changeHandler
@@ -498,11 +455,11 @@ class Faq extends Component {
                         <ModalFooter>
                             <Button type="button" color="secondary" className="waves-effect"
                                 onClick={
-                                    this.tog_edit_faq
+                                    this.tog_edit
                             }>Close</Button>
                             <Button type="button" color="primary"
                                 onClick={
-                                    () => this.updateFaq(this.state.id)
+                                    () => this.updateFaqCategory()
                                 }
                                 className="waves-effect waves-light">Save changes</Button>
                         </ModalFooter>
@@ -511,26 +468,39 @@ class Faq extends Component {
                 
                  <Row>
                     <Modal isOpen={
-                            this.state.modal_add_faq
+                            this.state.modal_add
                         }
                         toggle={
-                            this.tog_add_faq
+                            this.tog_add
                         }
                         autoFocus={true}
                         size="lg">
                         <ModalHeader toggle={
-                            this.tog_add_faq
+                            this.tog_add
                         }>
                             Add Details
                         </ModalHeader>
                         <ModalBody>
-                            
                             <FormGroup row>
-                                <Label for="example-tel-input" className="col-sm-2 col-form-label">Faq Topic</Label>
+                                <Label for="example-text-input" className="col-sm-2 col-form-label">Category Name</Label>
                                 <Col sm="10">
-                                    <Input className="form-control" name="faq_topic" type="text"
+                                    <Input className="form-control" name="category_name"
                                         value={
-                                            this.state.faq_topic
+                                            this.state.category_name
+                                        }
+                                        type="text"
+                                        onChange={
+                                            this.changeHandler
+                                        }
+                                        id="example-text-input"/>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label for="example-tel-input" className="col-sm-2 col-form-label">Category Description</Label>
+                                <Col sm="10">
+                                    <Input className="form-control" name="category_description" type="text"
+                                        value={
+                                            this.state.category_description
                                         }
                                         onChange={
                                             this.changeHandler
@@ -539,41 +509,11 @@ class Faq extends Component {
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
-                                <Label for="example-tel-input" className="col-sm-2 col-form-label">Faq Answer</Label>
+                                <Label for="example-password-input" className="col-sm-2 col-form-label">Status</Label>
                                 <Col sm="10">
-                                    <Input className="form-control" name="faq_answer" type="text"
+                                    <select className="form-control" name='category_status'
                                         value={
-                                            this.state.faq_answer
-                                        }
-                                        onChange={
-                                            this.changeHandler
-                                        }
-                                        id="example-search-input"/>
-                                </Col>
-                            </FormGroup>
-                             <FormGroup row>
-                                <Label for="example-password-input" className="col-sm-2 col-form-label">Category</Label>
-                                <Col sm="10">
-                                    <select className="form-control" name='category_id'
-                                        value={
-                                            this.state.category_id
-                                        }
-                                        onChange={
-                                            this.changeHandler
-                                    }>
-                                    {this.state.category.map((cat)=> (
-                                        <option value={cat.id}>{cat.category_name}</option>
-                                    ))}
-                                        
-                                    </select>
-                                </Col>
-                            </FormGroup>
-                            <FormGroup row>
-                                <Label for="example-password-input" className="col-sm-2 col-form-label">Faq Status</Label>
-                                <Col sm="10">
-                                    <select className="form-control" name='faq_status'
-                                        value={
-                                            this.state.faq_status
+                                            this.state.category_status
                                         }
                                         onChange={
                                             this.changeHandler
@@ -588,11 +528,11 @@ class Faq extends Component {
                         <ModalFooter>
                             <Button type="button" color="secondary" className="waves-effect"
                                 onClick={
-                                    this.tog_add_faq
+                                    this.tog_edit
                             }>Close</Button>
                             <Button type="button" color="primary"
                                 onClick={
-                                    () => this.createFaq()
+                                    () => this.createFaqCategory()
                                 }
                                 className="waves-effect waves-light">Save changes</Button>
                         </ModalFooter>
@@ -603,4 +543,4 @@ class Faq extends Component {
     }
 }
 
-export default connect(null, { setBreadcrumbItems })(Faq);
+export default connect(null, { setBreadcrumbItems })(AddFaqCategory);

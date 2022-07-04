@@ -15,7 +15,10 @@ import {
     Input
 } from "reactstrap";
 import {connect} from "react-redux";
+import {MDBDataTable} from 'mdbreact';
 
+// Import datatable css
+import "../Tables/datatables.scss";
 
 import SweetAlert from "react-bootstrap-sweetalert";
 
@@ -51,7 +54,12 @@ class Rolesmanagement extends Component {
             role: '',
             passwords: '',
             status: '',
-            id: ''
+            id: '',
+            success_confirm: false,
+            alert_confirm: false,
+            dynamic_title: "",
+            dynamic_description: ""
+
         }
         this.tog_edit = this.tog_edit.bind(this);
         this.tog_add = this.tog_add.bind(this);
@@ -80,7 +88,56 @@ class Rolesmanagement extends Component {
             headers: myHeaders
 
         }).then((response) => response.json()).then(data => {
-            this.setState({items: data.body})
+            var array = []
+            for (let i = 0; i < data.body.length; i++) {
+                array.push({
+                    id: data.body[i].id,
+                    first_name: data.body[i].first_name,
+                    last_name: data.body[i].last_name,
+                    email: data.body[i].email,
+                    password: data.body[i].password,
+                    phone: data.body[i].phone,
+                    role: data.body[i].role == '1' ? 'admin' : data.body[i].role == '2' ? 'support' : 'marketing',
+                    status: data.body[i].status,
+                    created_at: data.body[i].created_at,
+                    updated_at: data.body[i].updated_at,
+                    button: <div>
+                        <Button type="button"
+                            onClick={
+                                () => this.fillUser(data.body[i])
+                            }
+                            style={
+                                {marginRight: 10}
+                            }
+                            color="primary"
+                            className="waves-effect waves-light">
+                            <i className="ti-pencil"></i>
+                        </Button>
+                    {/*
+                        <Button type="button" color="danger"
+                            onClick={
+                                () => this.handleDelete(data.body[i].id)
+                            }
+                            className="waves-effect waves-light">
+                            <i className="ti-trash"></i>
+                        </Button> 
+                    */}
+                        <Button type="button" color="danger"
+                            onClick={
+                                () => this.setState({alert_confirm: true, id: data.body[i].id})
+                            }
+                            className="waves-effect waves-light"
+                            id="sa-warning"><i className="ti-trash"></i>
+                        </Button>
+
+                    </div>
+
+                })
+            }
+            // this.setState({items: data.body})
+            // this.setState({items: data.body})
+            // this.setState({items: data.body})
+            this.setState({items: array})
         })
 
     }
@@ -96,7 +153,44 @@ class Rolesmanagement extends Component {
             headers: myHeaders
 
         }).then((response) => response.json()).then(data => {
-            this.setState({items: data.body})
+            var array = []
+            for (let i = 0; i < data.body.length; i++) {
+                array.push({
+                    id: data.body[i].id,
+                    first_name: data.body[i].first_name,
+                    last_name: data.body[i].last_name,
+                    email: data.body[i].email,
+                    password: data.body[i].password,
+                    phone: data.body[i].phone,
+                    role: data.body[i].role == '1' ? 'admin' : data.body[i].role == '2' ? 'support' : 'marketing',
+                    status: data.body[i].status,
+                    created_at: data.body[i].created_at,
+                    updated_at: data.body[i].updated_at,
+                    button: <div>
+                        <Button type="button"
+                            onClick={
+                                () => this.fillUser(data.body[i])
+                            }
+                            style={
+                                {marginRight: 10}
+                            }
+                            color="primary"
+                            className="waves-effect waves-light">
+                            <i className="ti-pencil"></i>
+                        </Button>
+                        <Button type="button" color="danger"
+                            onClick={
+                                () => this.setState({alert_confirm: true, id: data.body[i].id})
+                            }
+                            className="waves-effect waves-light"
+                            id="sa-warning"><i className="ti-trash"></i>
+                        </Button>
+                    </div>
+
+                })
+            }
+            // this.setState({items: data.body})
+            this.setState({items: array})
 
         })
     }
@@ -105,17 +199,50 @@ class Rolesmanagement extends Component {
         this.setState({[e.target.name]: e.target.value})
     }
 
-    handleDelete(id) {
-        ApiServices.deleteUsers(id).then(res => {
+    handleDelete() {
+        ApiServices.deleteUsers(this.state.id).then(res => {
             this.setState({
-                items: this.state.items.filter(item => item.id !== id)
+                items: this.state.items.filter(item => item.id !== this.state.id)
             })
         })
     }
 
-    fillUser = (id) => {
+    fillUser = (user) => {
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
+        myHeaders.append("Content-Type", "application/json");
 
+        var raw = JSON.stringify({
+        "userid": user.id
+        });
+
+        var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+        };
+
+        fetch("http://44.196.105.0:3000/adminusers/userdetails", requestOptions)
+        .then(response => response.json())
+        .then(result =>{
+            this.setState({
+            id: result.body.id,
+            first_name:  result.body.first_name,
+            last_name:  result.body.last_name,
+            password:  result.body.password,
+            email:  result.body.email,
+            phone:  result.body.phone,
+            role:  result.body.role,
+            status:  result.body.status,
+            created_at:  result.body.created_at,
+            updated_at:  result.body.updated_at
+        })
         this.tog_edit();
+
+        })
+  .catch(error => console.log('error', error));
+        
     }
 
     editUser(id) {
@@ -227,26 +354,108 @@ class Rolesmanagement extends Component {
     render() {
         const {items} = this.state
         console.log(items)
+
+        const data = {
+            columns: [
+                {
+                    label: 'ID',
+                    field: 'id',
+                    sort: 'asc',
+                    width: 150
+                },
+                {
+                    label: 'First Name',
+                    field: 'first_name',
+                    sort: 'asc',
+                    width: 270
+                },
+                {
+                    label: 'Last Name',
+                    field: 'last_name',
+                    sort: 'asc',
+                    width: 200
+                },
+                {
+                    label: 'Email',
+                    field: 'email',
+                    sort: 'asc',
+                    width: 100
+                },  {
+                    label: 'Phone No.',
+                    field: 'phone',
+                    sort: 'asc',
+                    width: 150
+                }, {
+                    label: 'Roles',
+                    field: 'role',
+                    sort: 'asc',
+                    width: 100
+                }, {
+                    label: 'Status',
+                    field: 'status',
+                    sort: 'asc',
+                    width: 100
+                }, {
+                    label: 'Created At',
+                    field: 'created_at',
+                    sort: 'asc',
+                    width: 100
+                }, {
+                    label: 'Updated At',
+                    field: 'updated_at',
+                    sort: 'asc',
+                    width: 100
+                }, {
+                    label: 'Action',
+                    field: 'button',
+                    sort: 'asc',
+                    width: 100
+                }
+            ],
+            rows: this.state.items
+        };
         return (
-            <React.Fragment>
-            
-            {
-                this.state.success_confirm ? (
-                    <SweetAlert success
-                        title={
-                            this.state.dynamic_title
-                        }
+            <React.Fragment> 
+                {this.state.alert_confirm ? (
+                    <SweetAlert
+                        title="Are you sure?"
+                        warning
+                        showCancel
                         confirmBtnBsStyle="success"
                         cancelBtnBsStyle="danger"
-                        onConfirm={
-                            () => this.setState({success_confirm: false, alert_confirm: false})
-                    }>
-                        {
-                        this.state.dynamic_description
-                    } </SweetAlert>
-                ) : null
-            }
-                {/*  <h4 className="card-title" >Permission Details</h4> */}
+                        onConfirm={() =>{
+                            this.handleDelete()
+                            this.setState({
+                                success_confirm: true,
+                                alert_confirm : false,
+                                dynamic_title: "Deleted!",
+                                dynamic_description: "User has been deleted."
+                            })}
+                        }
+                        onCancel={() =>
+                            this.setState({
+                                alert_confirm: false,
+                        })
+                        }
+                    >
+                        You won't be able to revert this!
+                    </SweetAlert>
+                ) : null}
+                {
+                        this.state.success_confirm ? (
+                            <SweetAlert
+                            success
+                            title={this.state.dynamic_title}
+                            confirmBtnBsStyle="success"
+                            cancelBtnBsStyle="danger"
+                            onConfirm={() => this.setState({ success_confirm: false, alert_confirm : false })}
+                            >
+                                {this.state.dynamic_description}
+                            </SweetAlert>
+                        )
+                        : null
+                    }
+                                        
                 <div style={
                     {
                         marginTop: 20,
@@ -264,98 +473,18 @@ class Rolesmanagement extends Component {
                                 {marginRight: 10}
                         }></i>Add User</Button>
                 </div>
-                
-                {/* Table */}
+
                 <Row>
-                    <Col lg="12">
+                    <Col xs="12">
                         <Card>
                             <CardBody>
-                                <div className="table-responsive">
-                                    <Table className="table table-hover table-bordered  mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Email</th>
-                                                <th>Phone No</th>
-                                                <th>Password</th>
-                                                <th>Role</th>
-                                                <th>Status</th>
-                                                <th>Created At</th>
-                                                <th>updated At</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody> {
-                                            items.map((item) => (
-                                                <tr>
-                                                    <th scope="row"
-                                                        key={
-                                                            item.id
-                                                    }>
-                                                        {
-                                                        item.id
-                                                    }</th>
-                                                    <td>{
-                                                        item.first_name
-                                                    }</td>
-                                                    <td>{
-                                                        item.last_name
-                                                    }</td>
-                                                    <td>{
-                                                        item.email
-                                                    }</td>
-                                                    <td>{
-                                                        item.phone
-                                                    }</td>
-                                                    <td>{
-                                                        this.state.hidden ? '*********' : item.password
-                                                    }</td>
-                                                    <td> {
-                                                        item.role == '1' ? 'admin' : item.role == '2' ? 'support' : 'marketing'
-                                                    } </td>
-                                                    <td>{
-                                                        item.status
-                                                    }</td>
-                                                    <td> {
-                                                        item.created_at
-                                                    }</td>
-                                                    <td>{
-                                                        item.updated_at
-                                                    }</td>
-                                                    <td>
-                                                        <Button type="button"
-                                                            onClick={
-                                                                () => this.fillUser(item.id)
-                                                            }
-                                                            style={
-                                                                {marginRight: 10}
-                                                            }
-                                                            color="primary"
-                                                            className="waves-effect waves-light">
-                                                            <i className="ti-pencil"></i>
-                                                        </Button>
-                                                        <Button type="button" color="danger"
-                                                            onClick={
-                                                                () => this.handleDelete(item.id)
-                                                            }
-                                                            className="waves-effect waves-light">
-                                                            <i className="ti-trash"></i>
-                                                        </Button>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                        } </tbody>
-                                    </Table>
-                                </div>
+                                <MDBDataTable responsive bordered striped
+                                    data={data}/>
                             </CardBody>
                         </Card>
                     </Col>
-
                 </Row>
 
-                {/* Editing Form */}
                 <Row>
                     <Modal isOpen={
                             this.state.modal_edit
@@ -485,8 +614,7 @@ class Rolesmanagement extends Component {
                         </ModalFooter>
                     </Modal>
                 </Row>
-
-                {/* Adding new role form */}
+                                
                 <Row>
                     <Modal isOpen={
                             this.state.modal_add
@@ -562,7 +690,7 @@ class Rolesmanagement extends Component {
                                         id="example-url-input"/>
                                 </Col>
                             </FormGroup>
-                             <FormGroup row>
+                            <FormGroup row>
                                 <Label for="example-password-input" className="col-sm-2 col-form-label">Role</Label>
                                 <Col sm="10">
                                     <select className="form-control" name='role'
@@ -579,17 +707,7 @@ class Rolesmanagement extends Component {
                                     </select>
                                 </Col>
                             </FormGroup>
-                            {/* <FormGroup row>
-                                <Label for="example-password-input" className="col-sm-2 col-form-label">Role</Label>
-                                <Col sm="10">
-                                    <select className="form-control">
-                                        <option>Select</option>
-                                        <option>Admin</option>
-                                        <option>Support</option>
-                                        <option>Marketing</option>
-                                    </select>
-                                </Col>
-                                        </FormGroup> */} </ModalBody>
+                        </ModalBody>
                         <ModalFooter>
                             <Button type="button" color="secondary" className="waves-effect"
                                 onClick={
@@ -607,5 +725,4 @@ class Rolesmanagement extends Component {
         );
     }
 }
-
 export default connect(null, {setBreadcrumbItems})(Rolesmanagement);

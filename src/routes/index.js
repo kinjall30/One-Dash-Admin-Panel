@@ -94,20 +94,22 @@ import AmazonIntegration from "../pages/Intergration Management/amazonintegratio
 import IntegrationReport from "../pages/Intergration Management/integrationreport"
 
 import Subscription from "../pages/Subscription Management/subscription";
-import UserSubscription from "../pages/Subscription Management/usersubscription"
-import Usermanagement from "../pages/User Management/usermanagement";
-import TableEditablePage from "../pages/User Management/table"
+import UserSubscription from "../pages/Subscription Management/usersubscription";
 import Subscriptionreport from "../pages/Subscription Management/report"
 import Dailysubscriber from "../pages/Subscription Management/dailysubscriber"
 import Individualreport from "../pages/Subscription Management/individualreport";
+import UserProject from "../pages/User Management/userproject"
+
+
+import UserDetails from "../pages/User Management/details"
 import Userprofile from "../pages/User Management/userprofile";
 import Integration from "../pages/User Management/integration"
 import Project from "../pages/User Management/project"
-import UserProject from "../pages/User Management/userproject"
-import SettingsCustSupport from "../pages/customer support/settings"
-
+import Usermanagement from "../pages/User Management/usermanagement";
+import TableEditablePage from "../pages/User Management/table";
 
 import Faq from "../pages/faq/faq"
+import AddFaqCategory from "../pages/faq/addFaqCategory"
 
 import Tax from "../pages/tax management/taxmanagement"
 
@@ -131,6 +133,8 @@ import CustomerService from "../pages/customer support/index"
 import CustomerServiceReport from "../pages/customer support/report"
 import ComplainDetails from "../pages/customer support/details"
 import MySupport from "../pages/customer support/mysupport"
+import AddSupportPriority from "../pages/customer support/addpriority";
+import AddSupportCategory from "../pages/customer support/addcategory"
 
 import IpManagement from "../pages/ip management/index"
 
@@ -164,9 +168,10 @@ const authProtectedRoutes = [
   {path: "/integration", component: Integration},
   {path: "/project", component: Project},
   {path: "/userproject", component: UserProject},
-  {path: "/settings", component: SettingsCustSupport},
-
+  {path: "/userdetails", component: UserDetails},
+  
   { path: "/faq", component: Faq},
+  {path: "/faqCategory", component: AddFaqCategory},
   {path: "/noaccess", component: NoAccess},
 
   { path: "/taxmanagement", component: Tax},
@@ -192,6 +197,8 @@ const authProtectedRoutes = [
   { path: "/customerservicereport", component: CustomerServiceReport},
   { path: "/customercomplain", component: ComplainDetails},
   {path: "/mysupport", component: MySupport},
+  {path: "/supportCategory", component: AddSupportCategory},
+  {path: "/supportPriority", component: AddSupportPriority},
 
   {path: "/ipmanagemnet", component: IpManagement},
 

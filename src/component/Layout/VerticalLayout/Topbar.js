@@ -76,14 +76,14 @@ class Topbar extends Component {
 
                         <div className="d-flex">
 
-                            <SearchBar/>
+                            
 
-                            {/* <LanguageMenu class="d-md-block"/> */}
+                            {/* <SearchBar/> <LanguageMenu class="d-md-block"/> */}
 
-                            {/* <FullScreen/> */}
+                            {/* <FullScreen/> <NotificationMenu/> */}
 
-                            <NotificationMenu/>
-                    
+                            
+                            
                             <ProfileMenu/>
 
                             {/* <SettingsButton/> */}

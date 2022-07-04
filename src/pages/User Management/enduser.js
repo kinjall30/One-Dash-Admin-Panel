@@ -14,19 +14,22 @@ import {
     Input,
     Form,
     Modal,
-Pagination,
-PaginationItem,
-PaginationLink
+ Pagination,
+  PaginationItem,
+  PaginationLink
 
 } from "reactstrap";
 import { connect } from "react-redux";
+import {Link} from "react-router-dom";
 
 import SearchBar from "../../component/Layout/Menus/search-bar";
 
 import SweetAlert from "react-bootstrap-sweetalert";
 
-//Import datatable css
+import { MDBDataTable } from 'mdbreact';
 
+// Import datatable css
+import "../Tables/datatables.scss";
 
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
@@ -50,7 +53,12 @@ class Enduser extends Component {
             familyName: '',
             email: '', 
             username: '',
-            pagination: ''
+            nextPagination: '',
+            prevPagination: '',
+            success_confirm: false,
+            alert_confirm: false,
+            dynamic_title: "",
+            dynamic_description: ""
         }
         this.tog_edit = this.tog_edit.bind(this);
         this.tog_add = this.tog_add.bind(this);
@@ -58,88 +66,155 @@ class Enduser extends Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.toggleShow = this.toggleShow.bind(this);
         this.getUsers = this.getUsers.bind(this);
-        this.searchUser = this.searchUser.bind(this);
+        // this.searchUser = this.searchUser.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
         this.fillUser = this.fillUser.bind(this);
         this.changeHandler = this.changeHandler.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.getUserOnRender = this.getUserOnRender.bind(this);
         this.updatePassword = this.updatePassword.bind(this);
-        this.fillUser2 = this.fillUser2.bind(this)
+        this.fillUser2 = this.fillUser2.bind(this);
+        this.previousPagination = this.previousPagination.bind(this);
+        this.nextPaginations = this.nextPaginations.bind(this);
     }
 
     componentDidMount(){
         // this.props.setBreadcrumbItems("User Management", this.state.breadcrumbItems);
         if (this.props.password) {
             this.setState({ password: this.props.password });
-          }
+        }
 
-          var myHeaders = new Headers();
-          myHeaders.append("Content-Type", "application/json");
-          myHeaders.append("Authorization", "Bearer "+localStorage.getItem("token"));
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer "+localStorage.getItem("token"));
   
   
           fetch("http://44.196.105.0:3000/endusers", {
               method: 'GET',
               headers: myHeaders,
-            
           })
-              .then((response) => response.json())
-              .then(data => {
-                  this.setState({users: data.body, pagination: data.paginationToken})
-              })
+        .then((response) => response.json())
+        .then(data => {
+        var array = []
+        for(let i=0; i< data.body.length; i++){
+            array.push({
+                sub: data.body[i].sub,
+                Username: data.body[i].Username,
+                given_name: data.body[i].given_name,
+                family_name: data.body[i].family_name,
+                email: data.body[i].email,
+                email_verified: data.body[i].email_verified,
+                UserStatus: data.body[i].UserStatus,
+                UserCreateDate: data.body[i].UserCreateDate,
+                UserLastModifiedDate: data.body[i].UserLastModifiedDate,
+                button: 
+                    <div>
+                    <Link to ={{
+                        pathname: "/userdetails", 
+                        state: { 
+                            user: data.body[i]    
+                        }
+                    }}>
+                        <Button type="button"
+                            onClick={
+                                () => this.fillUser(data.body[i])
+                            }
+                            style={
+                                {marginRight: 10}
+                            }
+                            color="primary"
+                            className="waves-effect waves-light">
+                            <i className="ion ion-md-arrow-round-forward"></i>
+                        </Button>
+                        </Link>
+                        <Button type="button" color="danger"
+                            onClick={
+                                () => this.setState({alert_confirm: true, username: data.body[i].Username})
+                            }
+                            className="waves-effect waves-light"
+                            id="sa-warning"><i className="ti-trash"></i>
+                        </Button>
+                    </div>  
+            })
+        }
+            this.setState({users: array, nextPagination: data.paginationToken})
+            console.log("pagination",this.state.nextPagination)    
+        })
+       
     }
 
     getUsers(pagination){
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "Bearer "+localStorage.getItem("token"));
-
-
-        fetch("http://44.196.105.0:3000/endusers?paginationToken=" + pagination, {
+        var url = 'http://44.196.105.0:3000/endusers'
+        if(pagination == ''){
+            url ="http://44.196.105.0:3000/endusers"
+        }else{
+           url ="http://44.196.105.0:3000/endusers?paginationToken=" + pagination
+        }
+        fetch(url, {
             method: 'GET',
             headers: myHeaders,
           
         })
             .then((response) => response.json())
             .then(data => {
-                this.setState({users: data.body, pagination: data.paginationToken})
+                 var array = []
+                for(let i=0; i< data.body.length; i++){
+                    array.push({
+                        sub: data.body[i].sub,
+                        Username: data.body[i].Username,
+                        given_name: data.body[i].given_name,
+                        family_name: data.body[i].family_name,
+                        email: data.body[i].email,
+                        email_verified: data.body[i].email_verified,
+                        UserStatus: data.body[i].UserStatus,
+                        UserCreateDate: data.body[i].UserCreateDate,
+                        UserLastModifiedDate: data.body[i].UserLastModifiedDate,
+                        button: 
+                            <div>
+                            <Link to ={{
+                                pathname: "/userdetails", 
+                                state: { 
+                                    user: data.body[i]    
+                                }
+                            }}>
+                                <Button type="button"
+                                    onClick={
+                                        () => this.fillUser(data.body[i])
+                                    }
+                                    style={
+                                        {marginRight: 10}
+                                    }
+                                    color="primary"
+                                    className="waves-effect waves-light">
+                                    <i className="ion ion-md-arrow-round-forward"></i>
+                                </Button>
+                                </Link>
+                                <Button type="button" color="danger"
+                                    onClick={
+                                        () => this.setState({alert_confirm: true, username: data.body[i].Username})
+                                    }
+                                    className="waves-effect waves-light"
+                                    id="sa-warning"><i className="ti-trash"></i>
+                                </Button>
+                            </div>  
+                    })
+                }
+                this.setState({users:array, nextPagination: data.paginationToken, prevPagination: pagination })
                 console.log(data)
                 
             })
     }
 
-    searchUser(value){
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer "+localStorage.getItem("token"));
-        myHeaders.append("Content-Type", "application/json");
-
-        var raw = JSON.stringify({
-        "username": value
-        });
-
-        var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-        };
-
-        fetch("http://44.196.105.0:3000/endusers/search", requestOptions)
-        .then(response => response.json())
-        .then(data => {
-            this.setState({users: data.body})
-        })
-        .catch(error => console.log('error', error));
-    }
-
-    deleteUser(username){
+    deleteUser(){
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " +localStorage.getItem("token"));
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-        "username": username
+        "username": this.state.username
         });
 
         var requestOptions = {
@@ -153,7 +228,7 @@ class Enduser extends Component {
         .then(response => response.json())
         .then(data => 
             {
-                this.setState({users: this.state.users.filter(user => user.Username != username)})
+                this.setState({users: this.state.users.filter(user => user.Username != this.state.username)})
             })
         .catch(error => console.log('error', error));
     }
@@ -277,20 +352,33 @@ class Enduser extends Component {
         this.setState({[e.target.name]: e.target.value})
     }
 
+    previousPagination(){
+        // this.setState({
+        //     nextPagination: this.state.prevPagination
+        // })
+        this.getUsers(this.state.prevPagination)
+    }
+
+    nextPaginations(){
+        // this.setState({
+        //     prevPagination: this.state.nextPagination
+        // })
+        this.getUsers(this.state.nextPagination)
+    }
 
     handlePasswordChange(e) {
         this.setState({ password: e.target.value });
-      }
+    }
     
-      toggleShow() {
-        this.setState({ hidden: !this.state.hidden });
-      }
+    toggleShow() {
+    this.setState({ hidden: !this.state.hidden });
+    }
 
     tog_edit() {
         this.setState(prevState => ({
           modal_edit: !prevState.modal_edit
         }));
-      }
+    }
     tog_add() {
         this.setState(prevState => ({
           modal_add: !prevState.modal_add
@@ -306,9 +394,102 @@ class Enduser extends Component {
         const {users} = this.state
         console.log(users)
 
+        const data = {
+            columns: [
+                {
+                    label: 'ID',
+                    field: 'sub',
+                    sort: 'asc',
+                    width: 150
+                },
+                 {
+                    label: 'Username',
+                    field: 'Username',
+                    sort: 'asc',
+                    width: 100
+                },
+                {
+                    label: 'First Name',
+                    field: 'given_name',
+                    sort: 'asc',
+                    width: 270
+                },
+                {
+                    label: 'Last Name',
+                    field: 'family_name',
+                    sort: 'asc',
+                    width: 200
+                },
+                {
+                    label: 'Email',
+                    field: 'email',
+                    sort: 'asc',
+                    width: 100
+                },
+                 {
+                    label: 'Email Verified',
+                    field: 'email_verified',
+                    sort: 'asc',
+                    width: 100
+                },
+                {
+                    label: 'Status',
+                    field: 'UserStatus',
+                    sort: 'asc',
+                    width: 100
+                },
+                 {
+                    label: 'Created At',
+                    field: 'UserCreateDate',
+                    sort: 'asc',
+                    width: 100
+                },
+                {
+                    label: 'Updated At',
+                    field: 'UserLastModifiedDate',
+                    sort: 'asc',
+                    width: 100
+                },
+                {
+                    label: 'Action',
+                    field: 'button',
+                    sort: 'asc',
+                    width: 100
+                }
+            ],
+            rows: this.state.users
+        };
+        
+
         return (
             <React.Fragment>
-                {
+                {this.state.alert_confirm ? (
+                <SweetAlert
+                    title="Are you sure?"
+                    warning
+                    showCancel
+                    confirmBtnBsStyle="success"
+                    cancelBtnBsStyle="danger"
+                    onConfirm={() =>{
+                        this.deleteUser()
+                        this.setState({
+                            success_confirm: true,
+                            alert_confirm : false,
+                            dynamic_title: "Deleted!",
+                            dynamic_description: "User has been deleted."
+                        })}
+                    }
+                    onCancel={() =>
+                        this.setState({
+                            alert_confirm: false,
+                    })
+                    }
+                >
+                    You won't be able to revert this!
+                </SweetAlert>
+            ) : null}
+
+            {
                     this.state.success_confirm ? (
                         <SweetAlert
                         success
@@ -323,14 +504,48 @@ class Enduser extends Component {
                     : null
                 }
                 <h1>One Dash Users Details</h1>
-                <Col xs="4">
-                    <Form className="app-search d-none d-lg-block">
-                        <div className="position-relative">
-                            <Input type="text" className="form-control" onChange={() => this.searchUser(this.value)} placeholder="Search..."/>
-                            <span className="fa fa-search"></span>
-                        </div>
-                    </Form>
-                </Col>
+
+                  <Row>
+                        <Col xs="12">
+                            <Card>
+                                <CardBody>
+                                    <MDBDataTable
+                                        responsive
+                                        bordered
+                                        striped
+                                        data={data}
+                                        paging={false}
+                                    />
+                                    <Col lg="12">
+                                        <Card>
+                                            <CardBody>
+                                                <nav aria-label="...">
+                                                    <ul className="pagination mb-0 justify-content-end">
+                                                        <PaginationItem onClick={() => this.previousPagination()}>
+                                                            <span className="page-link">Previous</span>
+                                                        </PaginationItem>   
+                                                        {
+                                                          this.state.page 
+                                                        }
+                                                        {/*                                              
+                                                        <PaginationItem active><PaginationLink href="#">1</PaginationLink></PaginationItem>
+                                                        <PaginationItem ><PaginationLink href="#">2</PaginationLink></PaginationItem>
+                                                        <PaginationItem><PaginationLink href="#">3</PaginationLink></PaginationItem>
+                                                        */}  
+                                                        <PaginationItem>
+                                                            <PaginationLink onClick={()=> this.nextPaginations()}>Next</PaginationLink>
+                                                        </PaginationItem>
+                                                    </ul>
+                                                </nav>
+                                            </CardBody>
+                                        </Card>
+                                    </Col>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+{/*
+
                 <Row>
                     <Col lg="12">
                         <Card>
@@ -393,11 +608,11 @@ class Enduser extends Component {
                                                     You won't be able to revert this!
                                                     </SweetAlert>
                                                 ) : null}
-                                                        {/* 
+                                                       
                                                         <Button type="button" onClick={()=> this.deleteUser(user.Username)} color="danger"
                                                             className="waves-effect waves-light">
                                                             <i className="ti-trash"></i>
-                                                        </Button>*/}
+                                                        </Button>
                                                         <Button type = "button" onClick = {()=>this.fillUser2(user)}
                                                             style = {{marginLeft: 10}}
                                                             color = "primary" className = "waves-effect waves-light" > <i className="mdi mdi-lock-open-variant-outline"></i>
@@ -414,6 +629,8 @@ class Enduser extends Component {
                         </Card>
                     </Col>
                 </Row>
+*/}
+{/*
 
                 <Row>
 
@@ -423,11 +640,11 @@ class Enduser extends Component {
                                             <PaginationItem disabled>
                                                 <PaginationLink href="#" tabIndex="-1">Previous</PaginationLink>
                                             </PaginationItem>
-                                            {/*
+                                          
                                             <PaginationItem><PaginationLink href="#">1</PaginationLink></PaginationItem>
                                             <PaginationItem><PaginationLink href="#">2</PaginationLink></PaginationItem>
                                             <PaginationItem><PaginationLink href="#">3</PaginationLink></PaginationItem>
-                                        */}
+                                       
                                             <PaginationItem>
                                                 <PaginationLink onClick={() => this.getUsers(this.state.pagination)}>Next</PaginationLink>
                                             </PaginationItem>
@@ -435,6 +652,7 @@ class Enduser extends Component {
                                     </nav> 
                         </Col>
                     </Row>
+*/}
 
                  {/* Editing Form */}
                 <Row>     
