@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import { Row, Col } from "reactstrap";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
 
 //Import Components
 import MiniCard from "../Dashboard/mini-card";
-import MonthlyEarnings from "../Dashboard/montly-earnings";
-import EmailSent from "../Dashboard/email-sent";
-import MonthlyEarnings2 from "../Dashboard/montly-earnings2";
-import Inbox from "../Dashboard/inbox";
-import RecentActivity from "../Dashboard/recent-activity";
-import WidgetUser from "../Dashboard/widget-user";
-import YearlySales from "../Dashboard/yearly-sales";
-import LatestTransactions from "../Dashboard/latest-transactions";
-import LatestOrders from "../Dashboard/latest-orders";
+// import MonthlyEarnings from "../Dashboard/montly-earnings";
+// import EmailSent from "../Dashboard/email-sent";
+// import MonthlyEarnings2 from "../Dashboard/montly-earnings2";
+// import Inbox from "../Dashboard/inbox";
+// import RecentActivity from "../Dashboard/recent-activity";
+// import WidgetUser from "../Dashboard/widget-user";
+// import YearlySales from "../Dashboard/yearly-sales";
+// import LatestTransactions from "../Dashboard/latest-transactions";
+// import LatestOrders from "../Dashboard/latest-orders";
 import Dailysubscriber from './dailysubscriber';
 import Monthysale from './monthysale';
 

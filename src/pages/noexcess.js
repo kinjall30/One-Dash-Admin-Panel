@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {Row, Col, Card, CardBody} from "reactstrap";
+import {Row, Card, CardBody} from "reactstrap";
 
 import exclmation from "../assets/exclamation.png"
 // Import Action to copy breadcrumb items from local state to redux state
 import {setBreadcrumbItems} from "../store/actions";
-
-// Editable
-import BootstrapTable from "react-bootstrap-table-next";
-import cellEditFactory from "react-bootstrap-table2-editor";
 
 class NoAccess extends Component {
     constructor(props) {

@@ -1,39 +1,24 @@
 import React, { Component } from 'react';
 import {
     Col,
-    Row,
     Card,
     CardBody,
-    TabContent,
-    TabPane,
-    Collapse,
-    NavLink,
-    NavItem,
-    Nav,
-    Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    FormGroup,
-    Input,
-    Label,
   } from "reactstrap";
-  import { Link } from "react-router-dom";
+//   import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
 
 // Editable
-import BootstrapTable from "react-bootstrap-table-next";
-import { MDBDataTable } from 'mdbreact';
+// import BootstrapTable from "react-bootstrap-table-next";
+// import { MDBDataTable } from 'mdbreact';
 
-import DountChart from "../AllCharts/chartjs/dountchart";
-import LineChart from "../AllCharts/chartjs/linechart";
+// import DountChart from "../AllCharts/chartjs/dountchart";
+// import LineChart from "../AllCharts/chartjs/linechart";
 
-import img from "../../assets/images/img1.jpg"
-import Subscriptionreport from "./report"
+// import img from "../../assets/images/img1.jpg"
+// import Subscriptionreport from "./report"
 
 class UserSubscription extends Component {
     constructor(props) {
@@ -65,10 +50,10 @@ class UserSubscription extends Component {
             padding: "20px"
         }
 
-        const mainStyle = {
-            display: "flex",
-            justifyContent: "space-around",
-        }
+        // const mainStyle = {
+        //     display: "flex",
+        //     justifyContent: "space-around",
+        // }
         return (
             <React.Fragment>
             <div style={{marginBottom: 20}}>

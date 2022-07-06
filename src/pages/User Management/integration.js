@@ -4,12 +4,6 @@ import {
     Row,
     Card,
     CardBody,
-    TabContent,
-    TabPane,
-    Collapse,
-    NavLink,
-    NavItem,
-    Nav,
     Button,
     Modal,
     ModalHeader,
@@ -27,8 +21,8 @@ import SearchBar from "../../component/Layout/Menus/search-bar";
 import { setBreadcrumbItems } from "../../store/actions";
 
 // Editable
-import BootstrapTable from "react-bootstrap-table-next";
-import cellEditFactory from "react-bootstrap-table2-editor";
+// import BootstrapTable from "react-bootstrap-table-next";
+// import cellEditFactory from "react-bootstrap-table2-editor";
 
 class Integration extends Component {
     constructor(props) {

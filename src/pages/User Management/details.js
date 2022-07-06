@@ -7,12 +7,10 @@ import {
     CardBody,
     TabContent,
     TabPane,
-    Collapse,
     NavLink,
     NavItem,
     Nav,
     Button,
-    Table,
      Input,
     FormGroup,
     Label,
@@ -80,6 +78,7 @@ class UserDetails extends Component {
         this.getAllIntegrations = this.getAllIntegrations.bind(this);
         this.getSubscriptionDetails = this.getSubscriptionDetails.bind(this);
         this.getAllProjects = this.getAllProjects.bind(this);
+        this.bytesToSize = this.bytesToSize.bind(this);
     }  
 
     componentDidMount(){
@@ -243,7 +242,7 @@ class UserDetails extends Component {
                         projectType: data.body[i]._source.projectType,
                         status: data.body[i]._source.status,
                         type: data.body[i]._source.type,
-                        size: data.body[i]._source.size,
+                        size: this.bytesToSize(data.body[i]._source.size),
                         createdAt: data.body[i]._source.metadata.createdAt,
                         updatedAt: data.body[i]._source.metadata.updatedAt,
                         button: 
@@ -275,6 +274,13 @@ class UserDetails extends Component {
               })
               
         .catch(error => console.log('error', error));
+    }
+
+    bytesToSize(bytes) {
+        var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        if (bytes == 0) return '0 Byte';
+        var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+        return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
     }
 
     toggle1(tab) {
@@ -310,7 +316,7 @@ class UserDetails extends Component {
     }
     
     render() {
-         const {integration,shopify,stripe,bigcommerce,woocommerce} = this.state;
+        //  const {integration,shopify,stripe,bigcommerce,woocommerce} = this.state;
        // console.log(payment_details)
        const cardStyle ={
         height: "100px",
@@ -364,12 +370,7 @@ class UserDetails extends Component {
                     sort: 'asc',
                     width: 100
                 },
-                {
-                    label: 'Action',
-                    field: 'button',
-                    sort: 'asc',
-                    width: 100
-                }
+                
             ],
             rows: this.state.projects
         }; 

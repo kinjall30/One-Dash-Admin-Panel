@@ -4,12 +4,6 @@ import {
     Row,
     Card,
     CardBody,
-    TabContent,
-    TabPane,
-    Collapse,
-    NavLink,
-    NavItem,
-    Nav,
     Button,
     FormGroup,
     Input,
@@ -19,7 +13,7 @@ import {
     ModalFooter,
     Modal
   } from "reactstrap";
-  import { Link } from "react-router-dom";
+//   import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import SweetAlert from "react-bootstrap-sweetalert";
 //Import Action to copy breadcrumb items from local state to redux state
@@ -32,8 +26,8 @@ import {MDBDataTable} from 'mdbreact';
 import "../Tables/datatables.scss";
 
 // Editable
-import BootstrapTable from "react-bootstrap-table-next";
-import cellEditFactory from "react-bootstrap-table2-editor";
+// import BootstrapTable from "react-bootstrap-table-next";
+// import cellEditFactory from "react-bootstrap-table2-editor";
 
 class AddFaqCategory extends Component {
     constructor(props) {
@@ -77,8 +71,6 @@ class AddFaqCategory extends Component {
     viewFaqCategory(){
        var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer "+ localStorage.getItem("token"));
-
-        var raw = "";
 
         var requestOptions = {
         method: 'GET',

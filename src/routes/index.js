@@ -84,29 +84,14 @@ import Pages500 from "../pages/Extra Pages/pages-500";
 //My Pages
 import Rolesmanagement from "../pages/Roles Management/rolesmanagement";
 
-import StripeIntegration from "../pages/Intergration Management/stripeintegration";
-import ShofiyIntegration from "../pages/Intergration Management/shopifyintegration";
-import WooCommerceIntegration from "../pages/Intergration Management/woocommerceintegration";
-import VexproIntegration from "../pages/Intergration Management/vexprointegration";
-import OneDashSaleIntegration from "../pages/Intergration Management/onedashsalesintegration";
-import BigCommerceIntegration from "../pages/Intergration Management/bigcommerceintegration";
-import AmazonIntegration from "../pages/Intergration Management/amazonintegration";
-import IntegrationReport from "../pages/Intergration Management/integrationreport"
-
 import Subscription from "../pages/Subscription Management/subscription";
 import UserSubscription from "../pages/Subscription Management/usersubscription";
 import Subscriptionreport from "../pages/Subscription Management/report"
-import Dailysubscriber from "../pages/Subscription Management/dailysubscriber"
 import Individualreport from "../pages/Subscription Management/individualreport";
-import UserProject from "../pages/User Management/userproject"
 
 
-import UserDetails from "../pages/User Management/details"
-import Userprofile from "../pages/User Management/userprofile";
-import Integration from "../pages/User Management/integration"
-import Project from "../pages/User Management/project"
 import Usermanagement from "../pages/User Management/usermanagement";
-import TableEditablePage from "../pages/User Management/table";
+import UserDetails from "../pages/User Management/details"
 
 import Faq from "../pages/faq/faq"
 import AddFaqCategory from "../pages/faq/addFaqCategory"
@@ -119,7 +104,6 @@ import CampaignProjectMan from "../pages/project management/campaign"
 import InteractiveProjectMan from "../pages/project management/interactive"
 import ProductReport from "../pages/project management/productreport"
 import Plans from "../pages/Subscription Management/plans"
-import Media from "../pages/media management/index"
 
 import Marketing from "../pages/marketing/index"
 import SmsMarketing from '../pages/marketing/sms'
@@ -148,27 +132,15 @@ const authProtectedRoutes = [
   //My Pages
   {path: "/dummy", component: Dummy},
   { path: "/rolesmanagement", component: Rolesmanagement},
-
-  { path: "/stripeintegration", component: StripeIntegration},
-  {path: "/shofiyintegration", component: ShofiyIntegration},
-  {path: "/woocommerceintegration", component: WooCommerceIntegration},
-  {path: "/vexprointegration", component: VexproIntegration},
-  {path: "/onedashsaleintegration", component: OneDashSaleIntegration},
-  {path: "/bigcommerceintegration", component: BigCommerceIntegration},
-  {path: "/amazonintegration", component: AmazonIntegration},
-  {path: "/integrationreport", component: IntegrationReport},
   
 
   { path: "/subscription", component: Subscription},
   {path: "/usersubscription", component: UserSubscription},
   { path: "/user", component: Usermanagement},
+  {path: "/userdetails", component: UserDetails},
   { path: "/subscriptionreport", component: Subscriptionreport},
   { path: "/ireport", component: Individualreport},
-  { path: "/userprofile", component: Userprofile},
-  {path: "/integration", component: Integration},
-  {path: "/project", component: Project},
-  {path: "/userproject", component: UserProject},
-  {path: "/userdetails", component: UserDetails},
+
   
   { path: "/faq", component: Faq},
   {path: "/faqCategory", component: AddFaqCategory},
@@ -183,7 +155,6 @@ const authProtectedRoutes = [
   { path: "/productreport", component: ProductReport},
   { path: "/project", component: ProjectManagement},
   { path: "/plans", component: Plans},
-  { path: "/media", component: Media},
 
   { path: "/marketing", component: Marketing},
   { path: "/smsmarketing", component: SmsMarketing},

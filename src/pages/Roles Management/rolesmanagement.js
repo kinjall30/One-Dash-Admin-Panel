@@ -8,7 +8,6 @@ import {
     Label,
     Button,
     Modal,
-    Table,
     ModalHeader,
     ModalBody,
     ModalFooter,
@@ -24,7 +23,7 @@ import SweetAlert from "react-bootstrap-sweetalert";
 
 // Import Action to copy breadcrumb items from local state to redux state
 import {setBreadcrumbItems} from "../../store/actions";
-import axios from 'axios';
+// import axios from 'axios';
 import ApiServices from '../../helpers/ApiServices';
 
 class Rolesmanagement extends Component {
@@ -42,8 +41,6 @@ class Rolesmanagement extends Component {
             ],
             modal_edit: false,
             modal_add: false,
-            success_confirm: false,
-            alert_confirm: false,
             hidden: true,
             password: '',
             items: [],

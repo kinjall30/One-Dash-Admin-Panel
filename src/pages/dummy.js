@@ -1,22 +1,5 @@
 import React, {Component} from 'react';
-import {
-    Col,
-    Row,
-    Card,
-    CardBody,
-    FormGroup,
-    Label,
-    Button,
-    Modal,
-    Table,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    Input
-} from "reactstrap";
 import {connect} from "react-redux";
-
-import SweetAlert from "react-bootstrap-sweetalert";
 
 // Import Action to copy breadcrumb items from local state to redux state
 import {setBreadcrumbItems} from "../store/actions";
@@ -238,7 +221,6 @@ class Dummy extends Component {
        var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer "+ localStorage.getItem("token"));
 
-        var raw = "";
 
         var requestOptions = {
         method: 'GET',
@@ -322,8 +304,6 @@ class Dummy extends Component {
    viewsupportCategory(){
        var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer "+ localStorage.getItem("token"));
-
-        var raw = "";
 
         var requestOptions = {
         method: 'GET',

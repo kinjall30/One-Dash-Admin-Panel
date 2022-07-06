@@ -2,14 +2,6 @@ import React, { Component } from 'react';
 import {
     Col,
     Row,
-    Card,
-    CardBody,
-    TabContent,
-    TabPane,
-    Collapse,
-    NavLink,
-    NavItem,
-    Nav,
     Button
   } from "reactstrap";
   import { Link } from "react-router-dom";
@@ -19,9 +11,9 @@ import { connect } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 import { MDBDataTable } from 'mdbreact';
 
-// Editable
-import BootstrapTable from "react-bootstrap-table-next";
-import cellEditFactory from "react-bootstrap-table2-editor";
+// // Editable
+// import BootstrapTable from "react-bootstrap-table-next";
+// import cellEditFactory from "react-bootstrap-table2-editor";
 
 class MySupport extends Component {
     constructor(props) {

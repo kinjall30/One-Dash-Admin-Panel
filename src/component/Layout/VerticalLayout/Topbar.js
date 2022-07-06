@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 import { toggleSidebar, changeSidebarType } from '../../../store/actions';
 
 //Import Menus
-import CreateMenu from "../Menus/create-menu";
-import SearchBar from "../Menus/search-bar";
+// import CreateMenu from "../Menus/create-menu";
+// import SearchBar from "../Menus/search-bar";
 // import LanguageMenu from "../Menus/language-menu";
 // import FullScreen from "../Menus/full-screen";
-import NotificationMenu from "../Menus/notification-menu";
+// import NotificationMenu from "../Menus/notification-menu";
 import ProfileMenu from "../Menus/profile-menu";
-import SettingsButton from "../Menus/settings-button";
+// import SettingsButton from "../Menus/settings-button";
 
 //Import Images
 import logosm from "../../../assets/logo1.png";

@@ -4,36 +4,29 @@ import {
     Row,
     Card,
     CardBody,
-    TabContent,
-    TabPane,
-    Collapse,
-    NavLink,
-    NavItem,
-    Nav,
     Modal,
     ModalHeader,
     ModalBody,
     ModalFooter,
     Button,
-    Table,
     FormGroup,
     Input,
     Label,
   } from "reactstrap";
-  import { Link } from "react-router-dom";
+//   import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
 
 // Editable
-import BootstrapTable from "react-bootstrap-table-next";
+// import BootstrapTable from "react-bootstrap-table-next";
 import { MDBDataTable } from 'mdbreact';
 
-import DountChart from "../AllCharts/chartjs/dountchart";
+// import DountChart from "../AllCharts/chartjs/dountchart";
 import LineChart from "../AllCharts/chartjs/linechart";
 
-import img from "../../assets/images/img1.jpg"
+// import img from "../../assets/images/img1.jpg"
 
 
 class ProductReport extends Component {

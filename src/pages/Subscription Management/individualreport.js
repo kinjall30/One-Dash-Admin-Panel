@@ -14,7 +14,7 @@ import SearchBar from "../../component/Layout/Menus/search-bar";
 import { setBreadcrumbItems } from "../../store/actions";
 
 //Import Components
-import DonutChart from "../AllCharts/apex/dountchart";
+// import DonutChart from "../AllCharts/apex/dountchart";
 
 //Import Images
 import imgdark from "../../assets/images/users/user-1.jpg";

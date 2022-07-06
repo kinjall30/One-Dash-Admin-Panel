@@ -4,38 +4,30 @@ import {
     Row,
     Card,
     CardBody,
-    CardText,
-    TabContent,
-    TabPane,
-    Collapse,
-    NavLink,
-    NavItem,
-    Nav,
     Modal,
     ModalHeader,
     ModalBody,
     ModalFooter,
     Button,
-    Table,
     FormGroup,
     Input,
     Label,
   } from "reactstrap";
-  import { Link } from "react-router-dom";
+//   import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
 
 // Editable
-import BootstrapTable from "react-bootstrap-table-next";
-import { MDBDataTable } from 'mdbreact';
+// import BootstrapTable from "react-bootstrap-table-next";
+// import { MDBDataTable } from 'mdbreact';
 
-import DountChart from "../AllCharts/chartjs/dountchart";
-import LineChart from "../AllCharts/chartjs/linechart";
+// import DountChart from "../AllCharts/chartjs/dountchart";
+// import LineChart from "../AllCharts/chartjs/linechart";
 
-import img from "../../assets/images/img1.jpg"
-import Subscriptionreport from "./report"
+// import img from "../../assets/images/img1.jpg"
+// import Subscriptionreport from "./report"
 
 class Subscription extends Component {
     constructor(props) {
@@ -110,7 +102,7 @@ class Subscription extends Component {
                         active: (data.body[i]._source.active).toString(),
                         name: data.body[i]._source.name,
                         unitLabel: data.body[i]._source.unitLabel,
-                        price: data.body[i]._source.price,
+                        price: "$ " + data.body[i]._source.price * 0.01,
                         interval: data.body[i]._source.interval,
                         stripePriceId: data.body[i]._source.stripeId,
                         paypalId: data.body[i]._source.paypalId,
@@ -193,83 +185,83 @@ class Subscription extends Component {
     
   
     render() {
-         const plans = {
-            columns: [
-                {
-                    label: 'Plan Name',
-                    field: 'name',
-                    sort: 'asc',
-                    width: 270
-                },
-                {
-                    label: 'Plan Lable',
-                    field: 'unitLabel',
-                    sort: 'asc',
-                    width: 200
-                },
-                {
-                    label: 'Active',
-                    field: 'active',
-                    sort: 'asc',
-                    width: 200
-                },
-                {
-                    label: 'Price',
-                    field: 'price',
-                    sort: 'asc',
-                    width: 100
-                },
-                 {
-                    label: 'Duration',
-                    field: 'interval',
-                    sort: 'asc',
-                    width: 100
-                },
-                 {
-                    label: 'Stripe Id',
-                    field: 'stripeId',
-                    sort: 'asc',
-                    width: 100
-                },
-                 {
-                    label: 'Paypal Id',
-                    field: 'paypalId',
-                    sort: 'asc',
-                    width: 100
-                },
-                 {
-                    label: 'Currency',
-                    field: 'currency',
-                    sort: 'asc',
-                    width: 100
-                },
-                 {
-                    label: 'Role',
-                    field: 'role',
-                    sort: 'asc',
-                    width: 100
-                },
-                 {
-                    label: 'Created At',
-                    field: 'created_at',
-                    sort: 'asc',
-                    width: 100
-                },
-                {
-                    label: 'Updated At',
-                    field: 'updated_at',
-                    sort: 'asc',
-                    width: 100
-                },
-                {
-                    label: 'Action',
-                    field: 'button',
-                    sort: 'asc',
-                    width: 100
-                }
-            ],
-            rows: this.state.plan
-        };
+        //  const plans = {
+        //     columns: [
+        //         {
+        //             label: 'Plan Name',
+        //             field: 'name',
+        //             sort: 'asc',
+        //             width: 270
+        //         },
+        //         {
+        //             label: 'Plan Lable',
+        //             field: 'unitLabel',
+        //             sort: 'asc',
+        //             width: 200
+        //         },
+        //         {
+        //             label: 'Active',
+        //             field: 'active',
+        //             sort: 'asc',
+        //             width: 200
+        //         },
+        //         {
+        //             label: 'Price',
+        //             field: 'price',
+        //             sort: 'asc',
+        //             width: 100
+        //         },
+        //          {
+        //             label: 'Duration',
+        //             field: 'interval',
+        //             sort: 'asc',
+        //             width: 100
+        //         },
+        //          {
+        //             label: 'Stripe Id',
+        //             field: 'stripeId',
+        //             sort: 'asc',
+        //             width: 100
+        //         },
+        //          {
+        //             label: 'Paypal Id',
+        //             field: 'paypalId',
+        //             sort: 'asc',
+        //             width: 100
+        //         },
+        //          {
+        //             label: 'Currency',
+        //             field: 'currency',
+        //             sort: 'asc',
+        //             width: 100
+        //         },
+        //          {
+        //             label: 'Role',
+        //             field: 'role',
+        //             sort: 'asc',
+        //             width: 100
+        //         },
+        //          {
+        //             label: 'Created At',
+        //             field: 'created_at',
+        //             sort: 'asc',
+        //             width: 100
+        //         },
+        //         {
+        //             label: 'Updated At',
+        //             field: 'updated_at',
+        //             sort: 'asc',
+        //             width: 100
+        //         },
+        //         {
+        //             label: 'Action',
+        //             field: 'button',
+        //             sort: 'asc',
+        //             width: 100
+        //         }
+        //     ],
+        //     rows: this.state.plan
+        // };
         return (
             <React.Fragment>
                 <h1>Subscription Details</h1>
@@ -314,6 +306,8 @@ class Subscription extends Component {
                                 <h3 className="card-title">{this.state.shoppableMonthly.name}</h3><br/>
                                 <h5 className="card-subtitle font-14 text-muted">{this.state.shoppableMonthly.price}/mo</h5><br/>
                                 <Button color="primary" onClick ={()=> this.tog_edit(this.state.shoppableMonthly.planid, this.state.shoppableMonthly.stripePriceid)}>Edit</Button>
+                                <p>Strip ID: {this.state.shoppableMonthly.stripePriceId}</p>
+                                <p>Paypal ID: {this.state.shoppableMonthly.paypalId}</p>
                             </CardBody>
                             
                         </Card>
@@ -324,6 +318,8 @@ class Subscription extends Component {
                                 <h3 className="card-title">{this.state.unlimitedMonthly.name}</h3><br/>
                                 <h5 className="card-subtitle font-14 text-muted">{this.state.unlimitedMonthly.price}/mo</h5><br/>
                                 <Button color="primary"  onClick ={()=> this.tog_edit(this.state.unlimitedMonthly.planid, this.state.unlimitedMonthly.stripePriceid)}>Edit</Button>
+                                <p>Strip ID: {this.state.unlimitedMonthly.stripePriceId}</p>
+                                <p>Paypal ID: {this.state.unlimitedMonthly.paypalId}</p>
                             </CardBody>
                         </Card>
                     </Col></Row> : 
@@ -334,6 +330,8 @@ class Subscription extends Component {
                                 <h3 className="card-title">{this.state.shoppableYearly.name}</h3><br/>
                                 <h5 className="card-subtitle font-14 text-muted">{this.state.unlimitedYearly.price}/yr</h5><br/>
                                 <Button color="primary"  onClick ={()=> this.tog_edit(this.state.shoppableYearly.planid, this.state.shoppableYearly.stripePriceid)}>Edit</Button>
+                                <p>Strip ID: {this.state.shoppableYearly.stripePriceId}</p>
+                                <p>Paypal ID: {this.state.shoppableYearly.paypalId}</p>
                             </CardBody>
                             
                         </Card>
@@ -344,6 +342,8 @@ class Subscription extends Component {
                                 <h3 className="card-title">{this.state.unlimitedYearly.name}</h3><br/>
                                 <h5 className="card-subtitle font-14 text-muted">{this.state.unlimitedYearly.price}/yr</h5><br/>
                                 <Button color="primary"  onClick ={()=> this.tog_edit(this.state.unlimitedYearly.planid, this.state.unlimitedYearly.stripePriceid)}>Edit</Button>
+                                <p>Strip ID: {this.state.unlimitedYearly.stripePriceId}</p>
+                                <p>Paypal ID: {this.state.unlimitedYearly.paypalId}</p>
                             </CardBody>
                         </Card>
                     </Col>

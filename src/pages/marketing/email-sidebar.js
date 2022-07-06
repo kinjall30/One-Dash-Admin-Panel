@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Media} from "reactstrap";
+// import { Media} from "reactstrap";
 import { Link } from "react-router-dom";
 
 //Import Images
-import user2 from "../../assets/images/users/user-2.jpg";
-import user3 from "../../assets/images/users/user-3.jpg";
-import user4 from "../../assets/images/users/user-4.jpg";
-import user6 from "../../assets/images/users/user-6.jpg";
+// import user2 from "../../assets/images/users/user-2.jpg";
+// import user3 from "../../assets/images/users/user-3.jpg";
+// import user4 from "../../assets/images/users/user-4.jpg";
+// import user6 from "../../assets/images/users/user-6.jpg";
 
 class EmailSidebars extends Component {
     render() {

@@ -8,13 +8,13 @@ import {
   import ReactApexChart from 'react-apexcharts';
 
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
 
 //Import Components
-import DonutChart from "../AllCharts/apex/dountchart";
+// import DonutChart from "../AllCharts/apex/dountchart";
 
 class Monthlysale extends Component {
     constructor(props) {

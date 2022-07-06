@@ -5,15 +5,10 @@ import {
     Card,
     CardBody,
     FormGroup,
-  Label,
-  Input,
-  InputGroupAddon,
-  InputGroup,
     Button
   } from "reactstrap";
-  import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { AvForm, AvField } from "availity-reactstrap-validation";
+
 
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";

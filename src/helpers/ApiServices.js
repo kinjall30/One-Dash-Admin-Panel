@@ -1,5 +1,5 @@
-import axios from 'axios';
-import email from '../pages/project management/email';
+// import axios from 'axios';
+// import email from '../pages/project management/email';
 
 const BASE_URL = "http://44.196.105.0:3000/adminusers";
 

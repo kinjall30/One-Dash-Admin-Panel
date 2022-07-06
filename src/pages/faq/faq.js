@@ -4,15 +4,8 @@ import {
     Row,
     Card,
     CardBody,
-    TabContent,
-    TabPane,
-    Collapse,
-    NavLink,
-    NavItem,
-    Nav,
     Button,
     Modal,
-    Table,
     ModalHeader,
     ModalBody,
     ModalFooter,
@@ -20,7 +13,7 @@ import {
     Label,
     FormGroup
   } from "reactstrap";
-  import { Link } from "react-router-dom";
+//   import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 //Import Action to copy breadcrumb items from local state to redux state
@@ -31,8 +24,8 @@ import { MDBDataTable } from 'mdbreact';
 // Import datatable css
 import "../Tables/datatables.scss";
 // Editable
-import BootstrapTable from "react-bootstrap-table-next";
-import cellEditFactory from "react-bootstrap-table2-editor";
+// import BootstrapTable from "react-bootstrap-table-next";
+// import cellEditFactory from "react-bootstrap-table2-editor";
 
 class Faq extends Component {
     constructor(props) {
@@ -66,65 +59,67 @@ class Faq extends Component {
         this.tog_add_faq = this.tog_add_faq.bind(this);
         this.tog_edit_faq = this.tog_edit_faq.bind(this);
         this.fillFaq = this.fillFaq.bind(this);
+        this.viewFaqCategory = this.viewFaqCategory.bind(this);
     }  
 
     componentDidMount(){
       this.props.setBreadcrumbItems("FAQ", this.state.breadcrumbItems);
       this.viewAllFaq()
+      this.viewFaqCategory()
     }
 
-     viewAllFaq(){
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer "+ localStorage.getItem("token"));
+    viewAllFaq(){
+    var myHeaders = new Headers();
+    myHeaders.append("Authorization", "Bearer "+ localStorage.getItem("token"));
 
-        var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-        };
+    var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+    };
 
-        fetch("http://44.196.105.0:3000/faq/", requestOptions)
-        .then(response => response.json())
-        .then(data => {
-            var array = []
-                for(let i=0; i< data.body.length; i++){
-                    array.push({
-                        id: data.body[i].id,
-                        category_id: data.body[i].category_id,
-                        category_name: data.body[i].category_name,
-                        faq_topic: data.body[i].faq_topic,
-                        faq_answer: data.body[i].faq_answer,
-                        faq_status: data.body[i].faq_status,
-                        created_at: data.body[i].created_at,
-                        updated_at: data.body[i].updated_at,
-                        button: 
-                            <div>
-                                <Button type="button"
-                                    onClick={
-                                        () => this.fillFaq(data.body[i])
-                                    }
-                                    style={
-                                        {marginRight: 10}
-                                    }
-                                    color="primary"
-                                    className="waves-effect waves-light">
-                                    <i className="ti-pencil"></i>
-                                </Button>
-                                 <Button type="button" color="danger"
-                                    onClick={
-                                        () => this.setState({alert_confirm: true, id: data.body[i].id})
-                                    }
-                                    className="waves-effect waves-light"
-                                    id="sa-warning"><i className="ti-trash"></i>
-                                </Button>
-                            </div>
-                        
-                    })
-                }
-                  this.setState({faq: array})
-        })
-        .catch(error => console.log('error', error));
-        }
+    fetch("http://44.196.105.0:3000/faq/", requestOptions)
+    .then(response => response.json())
+    .then(data => {
+        var array = []
+            for(let i=0; i< data.body.length; i++){
+                array.push({
+                    id: data.body[i].id,
+                    category_id: data.body[i].category_id,
+                    category_name: data.body[i].category_name,
+                    faq_topic: data.body[i].faq_topic,
+                    faq_answer: data.body[i].faq_answer,
+                    faq_status: data.body[i].faq_status,
+                    created_at: data.body[i].created_at,
+                    updated_at: data.body[i].updated_at,
+                    button: 
+                        <div>
+                            <Button type="button"
+                                onClick={
+                                    () => this.fillFaq(data.body[i])
+                                }
+                                style={
+                                    {marginRight: 10}
+                                }
+                                color="primary"
+                                className="waves-effect waves-light">
+                                <i className="ti-pencil"></i>
+                            </Button>
+                                <Button type="button" color="danger"
+                                onClick={
+                                    () => this.setState({alert_confirm: true, id: data.body[i].id})
+                                }
+                                className="waves-effect waves-light"
+                                id="sa-warning"><i className="ti-trash"></i>
+                            </Button>
+                        </div>
+                    
+                })
+            }
+                this.setState({faq: array})
+    })
+    .catch(error => console.log('error', error));
+    }
             
 
    createFaq(){
@@ -256,7 +251,36 @@ class Faq extends Component {
 
    }
 
-    
+     viewFaqCategory(){
+       var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer "+ localStorage.getItem("token"));
+
+        var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
+
+        fetch("http://44.196.105.0:3000/category/faq", requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            var array = []
+                for(let i=0; i< data.body.length; i++){
+                    array.push({
+                        id: data.body[i].id,
+                        category_name: data.body[i].category_name,
+                        category_description: data.body[i].category_description,
+                        category_status: data.body[i].category_status,
+                        created_at: data.body[i].created_at,
+                        updated_at: data.body[i].updated_at                        
+                    })
+                }
+                  this.setState({category: array})
+        })
+        .catch(error => console.log('error', error));
+
+   }
+  
 
     changeHandler = (e) => {
         this.setState({[e.target.name]: e.target.value})

@@ -3,14 +3,7 @@ import {
     Col,
     Row,
     Card,
-    CardBody,
-    TabContent,
-    TabPane,
-    Collapse,
-    NavLink,
-    NavItem,
-    Nav,
-    Button
+    CardBody
   } from "reactstrap";
   import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -19,8 +12,8 @@ import { connect } from "react-redux";
 import { setBreadcrumbItems } from "../../store/actions";
 
 // Editable
-import BootstrapTable from "react-bootstrap-table-next";
-import cellEditFactory from "react-bootstrap-table2-editor";
+// import BootstrapTable from "react-bootstrap-table-next";
+// import cellEditFactory from "react-bootstrap-table2-editor";
 
 class Marketing extends Component {
     constructor(props) {

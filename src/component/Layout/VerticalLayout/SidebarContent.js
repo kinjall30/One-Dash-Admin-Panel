@@ -231,16 +231,10 @@ class SidebarContent extends Component {
                 </li>
 
                 <li>
-                    <Link to="/#" className=" waves-effect">
+                    <Link to="subscription" className=" waves-effect">
                         <i className="mdi mdi-calendar-check"></i>
                         <span>Subscriptions</span>
                     </Link>
-                    <ul className="sub-menu" aria-expanded="false">
-                        <li>
-                            <Link to="subscription">Subscription Management</Link>
-                        </li>
-
-                    </ul>
                 </li>
 
                 <li>

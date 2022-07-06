@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
 import {
     Col,
-    Row,
-    Card,
-    CardBody,
-    TabContent,
-    TabPane,
-    Collapse,
-    NavLink,
-    NavItem,
-    Nav,
     Button,
     Table,
     FormGroup,
     Input,
     Label,
   } from "reactstrap";
-  import { Link } from "react-router-dom";
+  // import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import SearchBar from "../../component/Layout/Menus/search-bar";
 import Switch from "react-switch";
@@ -25,8 +16,8 @@ import Switch from "react-switch";
 import { setBreadcrumbItems } from "../../store/actions";
 
 // Editable
-import BootstrapTable from "react-bootstrap-table-next";
-import cellEditFactory from "react-bootstrap-table2-editor";
+// import BootstrapTable from "react-bootstrap-table-next";
+// import cellEditFactory from "react-bootstrap-table2-editor";
 
 class IpManagement extends Component {
     constructor(props) {

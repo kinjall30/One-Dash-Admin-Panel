@@ -9,9 +9,9 @@ import {
     Input,
     Form
   } from "reactstrap";
-  import { Link } from "react-router-dom";
+//   import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import EmailCompose from "../Email/email-compose"
+// import EmailCompose from "../Email/email-compose"
 
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";

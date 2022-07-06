@@ -13,9 +13,9 @@ import {connect} from 'react-redux';
 import {checkLogin, clearErrorLogin, clearError} from '../../store/actions';
 import {AvForm, AvField} from 'availity-reactstrap-validation';
 import logodark from "../../assets/logo1.png";
-import axios from 'axios'
-import email from '../project management/email';
-import url from '../../helpers/apiUrl';
+// import axios from 'axios'
+// import email from '../project management/email';
+// import url from '../../helpers/apiUrl';
 
 
 class Pageslogin extends Component {
