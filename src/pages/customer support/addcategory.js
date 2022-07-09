@@ -25,9 +25,8 @@ import {MDBDataTable} from 'mdbreact';
 // Import datatable css
 import "../Tables/datatables.scss";
 
-// Editable
-// import BootstrapTable from "react-bootstrap-table-next";
-// import cellEditFactory from "react-bootstrap-table2-editor";
+//url
+import url from "../../helpers/apiUrl"
 
 class AddSupportCategory extends Component {
     constructor(props) {
@@ -81,7 +80,7 @@ class AddSupportCategory extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/category/support", requestOptions).then(response => response.json()).then(data => {
+        fetch(`http://${url}/category/support`, requestOptions).then(response => response.json()).then(data => {
             var array = []
             for (let i = 0; i < data.body.length; i++) {
                 array.push({
@@ -129,7 +128,7 @@ class AddSupportCategory extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/category/support/1", requestOptions).then(response => response.text()).then(result => console.log(result)).catch(error => console.log('error', error));
+        fetch(`http://${url}/category/support/1`, requestOptions).then(response => response.text()).then(result => console.log(result)).catch(error => console.log('error', error));
 
     }
 
@@ -147,7 +146,7 @@ class AddSupportCategory extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/category/support/" + this.state.id, requestOptions).then(response => response.json()).then(result => {
+        fetch(`http://${url}/category/support/` + this.state.id, requestOptions).then(response => response.json()).then(result => {
             this.setState({
                 category: this.state.category.filter(cat => cat.id != this.state.id)
             })
@@ -169,7 +168,7 @@ class AddSupportCategory extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/category/support/create", requestOptions).then(response => response.json()).then(result => {
+        fetch(`http://${url}/category/support/create`, requestOptions).then(response => response.json()).then(result => {
             if (result.statusCode == "200") {
                 this.viewsupportCategory()
                 this.tog_add()
@@ -200,7 +199,7 @@ class AddSupportCategory extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/category/support/create/" + this.state.id, requestOptions).then(response => response.json()).then(result => {
+        fetch(`http://${url}/category/support/create/` + this.state.id, requestOptions).then(response => response.json()).then(result => {
             this.viewsupportCategory();
             this.tog_edit()
             this.setState({id: '', category_name: '', category_description: '', category_status: ''})

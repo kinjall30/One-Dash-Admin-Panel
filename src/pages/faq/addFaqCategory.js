@@ -25,9 +25,8 @@ import {MDBDataTable} from 'mdbreact';
 // Import datatable css
 import "../Tables/datatables.scss";
 
-// Editable
-// import BootstrapTable from "react-bootstrap-table-next";
-// import cellEditFactory from "react-bootstrap-table2-editor";
+//url
+import url from "../../helpers/apiUrl"
 
 class AddFaqCategory extends Component {
     constructor(props) {
@@ -78,7 +77,7 @@ class AddFaqCategory extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/category/faq", requestOptions)
+        fetch(`http://${url}/category/faq`, requestOptions)
         .then(response => response.json())
         .then(data => {
             var array = []
@@ -155,7 +154,7 @@ class AddFaqCategory extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/category/faq/create/" + this.state.id, requestOptions)
+        fetch(`http://${url}/category/faq/create/` + this.state.id, requestOptions)
         .then(response => response.json())
         .then(result =>{
             if(result.statusCode == "200"){
@@ -187,7 +186,7 @@ class AddFaqCategory extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/category/faq/" + this.state.id, requestOptions)
+        fetch(`http://${url}/category/faq/` + this.state.id, requestOptions)
         .then(response => response.json())
         .then(result => {
             //  this.setState({
@@ -217,7 +216,7 @@ class AddFaqCategory extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/category/faq/create", requestOptions)
+        fetch(`http://${url}/category/faq/create`, requestOptions)
         .then(response => response.json())
         .then(result =>{
             if(result.statusCode == "200"){

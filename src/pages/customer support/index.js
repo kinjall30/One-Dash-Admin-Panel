@@ -25,10 +25,8 @@ import { MDBDataTable } from 'mdbreact';
 // Import datatable css
 import "../Tables/datatables.scss";
 
-
-// Editable
-// import BootstrapTable from "react-bootstrap-table-next";
-// import cellEditFactory from "react-bootstrap-table2-editor";
+//url
+import url from "../../helpers/apiUrl"
 
 class CustomerService extends Component {
     constructor(props) {
@@ -64,7 +62,9 @@ class CustomerService extends Component {
             customer_remarks: '',
             technician_remarks: '',
             complition_date: '',
-            technician_id: ''
+            technician_id: '',
+            technician_name: '',
+            support_log_id: ''
         }
        this.tog_technician = this.tog_technician.bind(this);
        this.tog_create_ticket = this.tog_create_ticket.bind(this);
@@ -79,6 +79,7 @@ class CustomerService extends Component {
        this.fillTicket = this.fillTicket.bind(this);
        this.assignTechnician = this.assignTechnician.bind(this);
        this.getTechnician = this.getTechnician.bind(this);
+       this.fillTechnician = this.fillTechnician.bind(this);
     }  
 
     componentDidMount(){
@@ -96,17 +97,19 @@ class CustomerService extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/support/log", requestOptions)
+        fetch(`http://${url}/support/log`, requestOptions)
         .then(response => response.json())
         .then(data => {
             var array = []
                 for(let i=0; i< data.body.length; i++){
                     array.push({
+                        support_log_id: data.body[i].id,
                         ticket_name: data.body[i].ticket_name,
                         ticket_description: data.body[i].ticket_description,
                         ticket_status: data.body[i].ticket_status,
                         customer_remarks: data.body[i].customer_remarks,
                         technician_remarks: data.body[i].technician_remarks,
+                        technician_name: data.body[i].first_name + " " + data.body[i].last_name,
                         complition_date: data.body[i].complition_date,
                         priority_name: data.body[i].priority_name,
                         category_name: data.body[i].category_name,
@@ -135,7 +138,7 @@ class CustomerService extends Component {
                                 </Button>
                                 <Button type="button"
                                 onClick={
-                                    () => this.tog_technician()
+                                    () => this.fillTechnician(data.body[i].id, data.body[i].ticket_assignment)
                                 }
                                     style={
                                         {marginRight: 10}
@@ -168,17 +171,19 @@ class CustomerService extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/support/log", requestOptions)
+        fetch(`http://${url}/support/log`, requestOptions)
         .then(response => response.json())
         .then(data => {
             var array = []
                 for(let i=0; i< data.body.length; i++){
                     array.push({
+                        support_log_id: data.body[i].id,
                         ticket_name: data.body[i].ticket_name,
                         ticket_description: data.body[i].ticket_description,
                         ticket_status: data.body[i].ticket_status,
                         priority_name: data.body[i].priority_name,
                         category_name: data.body[i].category_name,
+                        technician_name: data.body[i].first_name + " " + data.body[i].last_name,
                          customer_remarks: data.body[i].customer_remarks,
                         technician_remarks: data.body[i].technician_remarks,
                         complition_date: data.body[i].complition_date,
@@ -204,6 +209,17 @@ class CustomerService extends Component {
                                     }
                                     className="waves-effect waves-light"
                                     id="sa-warning"><i className="ti-trash"></i>
+                                </Button>
+                                <Button type="button"
+                                onClick={
+                                     () => this.fillTechnician(data.body[i].id, data.body[i].ticket_assignment)
+                                }
+                                    style={
+                                        {marginRight: 10}
+                                    }
+                                    color="success"
+                                    className="waves-effect waves-light">
+                                    <i className="fas fa-user"></i>
                                 </Button>
                             </div>
                         
@@ -235,6 +251,7 @@ class CustomerService extends Component {
         "technician_remarks": this.state.technician_remarks,
         "complition_date": this.state.complition_date
         });
+        console.log(raw)
 
         var requestOptions = {
         method: 'POST',
@@ -243,8 +260,8 @@ class CustomerService extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/support/log/create", requestOptions)
-        .then(response => response.text())
+        fetch(`http://${url}/support/log/create`, requestOptions)
+        .then(response => response.json())
         .then(data => {
             this.setState({
                 ticket_name: '',
@@ -257,6 +274,8 @@ class CustomerService extends Component {
                 technician_remarks: '',
                 complition_date: ''
             })
+            this.tog_create_ticket()
+            this.viewSupportLog()
         })
         .catch(error => console.log('error', error));
     }
@@ -271,7 +290,7 @@ class CustomerService extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/support/log/" + this.state.id, requestOptions)
+        fetch(`http://${url}/support/log/` + this.state.id, requestOptions)
         .then(response => response.json())
         .then(data => {
             this.viewSupportLog()
@@ -303,7 +322,7 @@ class CustomerService extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/support/log/create/" + this.state.id, requestOptions)
+        fetch(`http://${url}/support/log/create/` + this.state.id, requestOptions)
         .then(response => response.json())
         .then(result => {
             if(result.statusCode == "200"){
@@ -343,6 +362,14 @@ class CustomerService extends Component {
         this.tog_edit_ticket();
     }
 
+    fillTechnician = (id,ticket_assignment) => {
+        this.setState({
+            support_log_id: id,
+            ticket_assignment: ticket_assignment,
+        })
+        this.tog_technician();
+    }
+
      viewsupportCategory() {
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
@@ -353,7 +380,7 @@ class CustomerService extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/category/support", requestOptions).then(response => response.json()).then(data => {
+        fetch(`http://${url}/category/support`, requestOptions).then(response => response.json()).then(data => {
             var array = []
             for (let i = 0; i < data.body.length; i++) {
                 array.push({
@@ -382,7 +409,7 @@ class CustomerService extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/priority/support", requestOptions).then(response => response.json()).then(data => {
+        fetch(`http://${url}/priority/support`, requestOptions).then(response => response.json()).then(data => {
             var array = []
             for (let i = 0; i < data.body.length; i++) {
                 array.push({
@@ -401,6 +428,7 @@ class CustomerService extends Component {
 
      changeHandler = (e) => {
         this.setState({[e.target.name]: e.target.value})
+        console.log("cat pri",this.state.category_id, this.state.priority_id)
     }
 
     getTechnician(){
@@ -413,7 +441,7 @@ class CustomerService extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/technicians", requestOptions)
+        fetch(`http://${url}/technicians`, requestOptions)
         .then(response => response.json())
         .then(result => {
             this.setState({
@@ -429,7 +457,7 @@ class CustomerService extends Component {
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-        "ticket_assignment": "1"
+        "ticket_assignment": this.state.ticket_assignment
         });
 
         var requestOptions = {
@@ -439,20 +467,23 @@ class CustomerService extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/support/log/assignment/" + this.state.technician_id, requestOptions)
+        fetch(`http://${url}/support/log/assignment/` + this.state.support_log_id, requestOptions)
         .then(response => response.json())
         .then(result => {
             this.tog_technician()
+            this.viewSupportLog()
             this.setState({
-                technician_id: ''
+                ticket_assignment: ''
             })
+            console.log("abc", result)
         })
         .catch(error => console.log('error', error));
     }
 
       tog_technician() {
         this.setState(prevState => ({
-            modal_technician: !prevState.modal_technician
+            modal_technician: !prevState.modal_technician,
+            
         }));
     }
       tog_edit_ticket() {
@@ -493,6 +524,12 @@ class CustomerService extends Component {
                 {
                     label: 'Priority',
                     field: 'priority_name',
+                    sort: 'asc',
+                    width: 270
+                },
+                {
+                    label: 'Assign Technician',
+                    field: 'technician_name',
                     sort: 'asc',
                     width: 270
                 },
@@ -686,9 +723,9 @@ class CustomerService extends Component {
                             <FormGroup row>
                                 <Label for="example-password-input" className="col-sm-2 col-form-label">Assign Ticket To</Label>
                                 <Col sm="10">
-                                    <select className="form-control" name='technician_id'
+                                    <select className="form-control" name='ticket_assignment'
                                         value={
-                                            this.state.technician_id
+                                            this.state.ticket_assignment
                                         }
                                         onChange={
                                             this.changeHandler
@@ -766,6 +803,7 @@ class CustomerService extends Component {
                                         onChange={
                                             this.changeHandler
                                     }>
+                                    <option value="">Select</option>
                                     {this.state.category.map((cat)=> (
                                         <option value={cat.id}>{cat.category_name}</option>
                                     ))}
@@ -783,6 +821,7 @@ class CustomerService extends Component {
                                         onChange={
                                             this.changeHandler
                                     }>
+                                    <option value="">Select</option>
                                   {this.state.priority.map((cat)=> (
                                         <option value={cat.id}>{cat.priority_name}</option>
                                     ))}
@@ -817,20 +856,37 @@ class CustomerService extends Component {
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
+                                <Label for="example-password-input" className="col-sm-2 col-form-label">Assign Ticket To</Label>
+                                <Col sm="10">
+                                    <select className="form-control" name='ticket_assignment'
+                                        value={
+                                            this.state.ticket_assignment
+                                        }
+                                        onChange={
+                                            this.changeHandler
+                                    }>
+                                        <option value="">Select</option>
+                                        {this.state.technician.map((cat)=> (
+                                        <option value={cat.id}>{cat.first_name}  {cat.last_name}</option>
+                                    ))}
+                                    </select>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
                                 <Label for="example-password-input" className="col-sm-2 col-form-label">Ticket Status</Label>
                                 <Col sm="10">
-                                    <select className="form-control" name='faq_status'
+                                    <select className="form-control" name='ticket_status'
                                         value={
-                                            this.state.faq_status
+                                            this.state.ticket_status
                                         }
                                         onChange={
                                             this.changeHandler
                                     }>
                                         <option>Status</option>
-                                        <option value="Active">Open</option>
-                                        <option value="Inactive">New</option>
-                                        <option value="Inactive">Running</option>
-                                        <option value="Inactive">Completed</option>
+                                        <option value="Open">Open</option>
+                                        <option value="New">New</option>
+                                        <option value="Running">Running</option>
+                                        <option value="Completed">Completed</option>
                                     </select>
                                 </Col>
                             </FormGroup>
@@ -851,7 +907,7 @@ class CustomerService extends Component {
                         <ModalFooter>
                             <Button type="button" color="secondary" className="waves-effect"
                                 onClick={
-                                    this.tog_edit_faq
+                                    this.tog_create_ticket
                             }>Close</Button>
                             <Button type="button" color="primary"
                                 onClick={
@@ -967,18 +1023,18 @@ class CustomerService extends Component {
                             <FormGroup row>
                                 <Label for="example-password-input" className="col-sm-2 col-form-label">Ticket Status</Label>
                                 <Col sm="10">
-                                    <select className="form-control" name='faq_status'
+                                    <select className="form-control" name='ticket_status'
                                         value={
-                                            this.state.faq_status
+                                            this.state.ticket_status
                                         }
                                         onChange={
                                             this.changeHandler
                                     }>
                                         <option>Status</option>
-                                        <option value="Active">Open</option>
-                                        <option value="Inactive">New</option>
-                                        <option value="Inactive">Running</option>
-                                        <option value="Inactive">Completed</option>
+                                        <option value="Open">Open</option>
+                                        <option value="New">New</option>
+                                        <option value="Running">Running</option>
+                                        <option value="Completed">Completed</option>
                                     </select>
                                 </Col>
                             </FormGroup>

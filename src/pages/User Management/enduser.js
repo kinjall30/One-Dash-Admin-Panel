@@ -31,6 +31,9 @@ import "../Tables/datatables.scss";
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
 
+//url
+import url from "../../helpers/apiUrl"
+
 
 class Enduser extends Component {
     constructor(props) {
@@ -91,8 +94,8 @@ class Enduser extends Component {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
-        var url = 'http://44.196.105.0:3000/endusers?paginationToken=' + this.state.pageToken[pageNo]
-        fetch(url, {
+        var urll = `http://${url}/endusers?paginationToken=` + this.state.pageToken[pageNo]
+        fetch(urll, {
             method: 'GET',
             headers: myHeaders,
 
@@ -173,7 +176,7 @@ class Enduser extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/endusers", requestOptions)
+        fetch(`http://${url}/endusers`, requestOptions)
             .then(response => response.json())
             .then(data => {
                 this.setState({ users: this.state.users.filter(user => user.Username != this.state.username) })
@@ -221,7 +224,7 @@ class Enduser extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/endusers", requestOptions)
+        fetch(`http://${url}/endusers`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.statusCode == "200") {
@@ -260,7 +263,7 @@ class Enduser extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/endusers/reset-password", requestOptions)
+        fetch(`http://${url}/endusers/reset-password`, requestOptions)
             .then(response => response.json())
             .then(result => {
                 if (result.statusCode == 200) {
@@ -286,13 +289,16 @@ class Enduser extends Component {
     }
 
     previousPagination() {
-
         if (this.state.currentPage >= 1) {
             this.getUsers(this.state.currentPage - 1)
         } else {
             this.getUsers(0)
         }
-
+        var temp = this.state.pageToken
+        temp = temp.slice(0, this.state.currentPage)
+        this.setState({
+            pageToken: temp
+        })
     }
 
     nextPaginations(pageNo) {
@@ -335,7 +341,9 @@ class Enduser extends Component {
             //alert(Page_Token.slice(Page_Token/2,2))
             console.log(Page_Token.slice(Page_Token.length-5,-1))
         }
-       
+    //    var temp = pageToken.reverse()
+    //    temp = temp.slice(0,5).reverse()
+       console.log("temp",pageToken.length)
 
         const data = {
             columns: [
@@ -470,11 +478,13 @@ class Enduser extends Component {
                                                     {
                                                         pageToken.map((page, index) => {
                                                             return (
-                                                                this.state.currentPage == index ?
+                                                                // this.state.currentPage < index ? index = this.state.currentPage : null,
+                                                                pageToken.length < index + 6   ? 
+                                                                this.state.currentPage == index  ?
                                                                     <PaginationItem active><PaginationLink onClick={() => this.pageChangeHandler(index)}>{index + 1}</PaginationLink></PaginationItem>
                                                                     :
                                                                     <PaginationItem ><PaginationLink onClick={() => this.pageChangeHandler(index)}>{index + 1}</PaginationLink></PaginationItem>
-
+                                                                : null
                                                             )
                                                         })
                                                     }

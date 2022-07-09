@@ -44,12 +44,12 @@ class Dashboard extends Component {
         this.props.setBreadcrumbItems("Dashboard", this.state.breadcrumbItems);
         console.log(localStorage.getItem("token"))
 
-        // if (!localStorage.getItem("token")) {
-        //     return (
-        //         window.location.assign("/login")
-        //         // <Redirect to={{ pathname: "/login" }} exact />
-        //     );
-        // }
+        if (!localStorage.getItem("token")) {
+            return (
+                window.location.assign("/login")
+                // <Redirect to={{ pathname: "/login" }} exact />
+            );
+        }
     }
      
 

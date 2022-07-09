@@ -13,6 +13,7 @@ import {connect} from 'react-redux';
 import {checkLogin, clearErrorLogin, clearError} from '../../store/actions';
 import {AvForm, AvField} from 'availity-reactstrap-validation';
 import logodark from "../../assets/logo1.png";
+import url from "../../helpers/apiUrl"
 // import axios from 'axios'
 // import email from '../project management/email';
 // import url from '../../helpers/apiUrl';
@@ -45,7 +46,7 @@ class Pageslogin extends Component {
 
         var raw = JSON.stringify({"email": this.state.email, "password": this.state.password});
         console.log(raw)
-        fetch("http://44.196.105.0:3000/adminusers/login", {
+        fetch(`http://${url}/adminusers/login`, {
             method: 'POST',
             headers: myHeaders,
             body: raw
@@ -65,7 +66,12 @@ class Pageslogin extends Component {
         })
     }
     componentDidMount() {
-
+        if (localStorage.getItem("token")) {
+            return (
+                window.location.assign("/dashboard")
+                // <Redirect to={{ pathname: "/login" }} exact />
+            );
+        }
     }
 
     render() {
@@ -81,7 +87,8 @@ class Pageslogin extends Component {
                                         <h3 className="text-center mt-4">
                                             <Link to="\" className="logo logo-admin"><img src={logodark}
                                                     height="30"
-                                                    alt="logo"/></Link>
+                                                    alt="logo"/>
+                                            </Link>
                                         </h3>
                                         <div className="p-3">
                                             <h4 className="text-muted font-size-18 mb-1 text-center">Welcome To One Dash !</h4>

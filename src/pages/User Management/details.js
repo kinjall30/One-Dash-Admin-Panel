@@ -28,7 +28,8 @@ import classnames from "classnames";
 import { setBreadcrumbItems } from "../../store/actions";
 
 import { MDBDataTable } from 'mdbreact';
-
+//url
+import url from "../../helpers/apiUrl"
 
 
 class UserDetails extends Component {
@@ -79,12 +80,21 @@ class UserDetails extends Component {
         this.getSubscriptionDetails = this.getSubscriptionDetails.bind(this);
         this.getAllProjects = this.getAllProjects.bind(this);
         this.bytesToSize = this.bytesToSize.bind(this);
+        // this.integrations = this.integrations.bind(this)
     }  
 
     componentDidMount(){
       this.props.setBreadcrumbItems("Users Details", this.state.breadcrumbItems);
       const {user} = this.props.location.state
-      this.setState({
+     
+    //   console.log("hello")
+
+      this.getAllIntegrations(user.sub)
+      this.getSubscriptionDetails(user.sub)
+      this.getAllProjects(user.sub)
+    //   this.integrations(user.sub)
+
+     this.setState({
         sub: user.sub,
         username: user.Username,
         given_name: user.given_name,
@@ -95,11 +105,6 @@ class UserDetails extends Component {
         created_at: user.UserCreateDate,
         upated_at: user.UserLastModifiedDate
       })
-    //   console.log("hello")
-
-      this.getAllIntegrations()
-      this.getSubscriptionDetails()
-      this.getAllProjects()
     }
 
     changeHandler = (e) => {
@@ -126,7 +131,7 @@ class UserDetails extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/endusers", requestOptions)
+        fetch(`http://${url}/endusers`, requestOptions)
         .then(response => response.json())
         .then(result => {
             if (result.statusCode == "200") {
@@ -146,13 +151,13 @@ class UserDetails extends Component {
         .catch(error => console.log('error', error));
     }
 
-    getAllIntegrations(){
+    getAllIntegrations(sub){
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " +localStorage.getItem("token"));
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-        "sub": "79725476-a6a3-4467-be84-a211968a3b7d"
+        "sub": sub
         });
 
         var requestOptions = {
@@ -162,9 +167,11 @@ class UserDetails extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/endusers/integrations", requestOptions)
+        fetch(`http://${url}/endusers/integrations`, requestOptions)
         .then(response => response.json())
         .then(result => {
+            console.log("results", result)
+            console.log("sub", this.state.sub)
             console.log((result.body[0]._source.integration.stripe).length)
             var stripeCredential = (result.body[0]._source.integration.stripe).length == 0 ? []: result.body[0]._source.integration.stripe[0].credentials
             var shopifyCredential = (result.body[0]._source.integration.shopify).length == 0 ? []: result.body[0]._source.integration.shopify[0].credentials
@@ -181,18 +188,40 @@ class UserDetails extends Component {
                 bigcommerce_credential: bigcommerceCredential,
                 woocommerce_credential: woocommerceCredential
             })
-
+            
         })
         .catch(error => console.log('error', error));
     }
 
-    getSubscriptionDetails() {
+    // integrations(sub){
+    //     var myHeaders = new Headers();
+    //     myHeaders.append("Authorization", "Bearer "+localStorage.getItem("token"));
+    //     myHeaders.append("Content-Type", "application/json");
+
+    //     var raw = JSON.stringify({
+    //     "sub": sub
+    //     });
+
+    //     var requestOptions = {
+    //     method: 'POST',
+    //     headers: myHeaders,
+    //     body: raw,
+    //     redirect: 'follow'
+    //     };
+
+    //     fetch("http://44.196.105.0:3000/endusers/integrations", requestOptions)
+    //     .then(response => response.json())
+    //     .then(result => console.log(result))
+    //     .catch(error => console.log('error', error));
+    // }
+
+    getSubscriptionDetails(sub) {
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
 
         myHeaders.append("Content-Type", "application/json");
 
-        var raw = JSON.stringify({"sub": "79725476-a6a3-4467-be84-a211968a3b7d"});
+        var raw = JSON.stringify({"sub": sub});
 
         var requestOptions = {
             method: 'POST',
@@ -201,7 +230,7 @@ class UserDetails extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/endusers/subscription", requestOptions)
+        fetch(`http://${url}/endusers/subscription`, requestOptions)
         .then(response => response.json())
         .then(result => {
             // console.log("subscription",result)
@@ -216,13 +245,13 @@ class UserDetails extends Component {
 
     }
 
-    getAllProjects(){
+    getAllProjects(sub){
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer "+localStorage.getItem("token"));
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-        "sub": "79725476-a6a3-4467-be84-a211968a3b7d"
+        "sub": sub
         });
 
         var requestOptions = {
@@ -232,7 +261,7 @@ class UserDetails extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/endusers/projects", requestOptions)
+        fetch(`http://${url}/endusers/projects`, requestOptions)
         .then(response => response.json())
         .then(data => {
              var array = []
@@ -317,7 +346,7 @@ class UserDetails extends Component {
     
     render() {
         //  const {integration,shopify,stripe,bigcommerce,woocommerce} = this.state;
-       // console.log(payment_details)
+       console.log(JSON.stringify(this.state.shopify) === "[]")
        const cardStyle ={
         height: "100px",
         color: "white",
@@ -375,7 +404,7 @@ class UserDetails extends Component {
             rows: this.state.projects
         }; 
 
-    console.log("typeof",typeof this.state.shopify == 'object') 
+    // console.log("nkh",this.state.shopify.url == undefined && this.state.woocommerce.url == undefined && this.state.stripe.url == undefined && this.state.bigcommerce.url == undefined) 
         return (
             <React.Fragment>
                 {this.state.temp ? <Alert color="success">
@@ -547,8 +576,20 @@ class UserDetails extends Component {
                                     </TabPane>
                                     <TabPane tabId="6" className="p-3">
                                         <Row>
+                                        {
+                                                  JSON.stringify(this.state.shopify) === "[]" &&  JSON.stringify(this.state.stripe) === "[]" &&  JSON.stringify(this.state.woocommerce) === "[]" &&  JSON.stringify(this.state.bigcommerce) === "[]" ?
+                                                   
+                                                <Col lg="12">
+                                                <Alert color="danger" className="mb-0" >
+                                                     No integrations for this user.
+                                                </Alert>
+                                               </Col>    
+                                             : null
+                                            }
                                             <div>
-                                            { typeof this.state.shopify == 'object' ? <Col>
+                                            
+                                            {   JSON.stringify(this.state.shopify) === "[]" ? null :
+                                                 typeof this.state.shopify == 'object' ? <Col>
                                                     <Card  className="mini-stat" style={cardStyle}>
                                                         <CardBody className="mini-stat-img">
                                                             <Button color="secondary" className="float-right" onClick = {()=> this.tog_shopify()}><i className="ti-eye float-right"></i></Button>
@@ -561,7 +602,8 @@ class UserDetails extends Component {
                                                 
                                             </div>
                                             <div>
-                                            { typeof this.state.stripe == 'object' ? <Col>
+                                            {    JSON.stringify(this.state.stripe) === "[]"  ? null :
+                                                typeof this.state.stripe == 'object' ? <Col>
                                                     <Card  className="mini-stat" style={cardStyle}>
                                                         <CardBody className="mini-stat-img">
                                                             <Button className="float-right" onClick = {()=> this.tog_stripe()}><i className="ti-eye float-right"></i></Button>
@@ -574,7 +616,9 @@ class UserDetails extends Component {
                                                 
                                             </div>
                                             <div>
-                                            { typeof this.state.woocommerce == 'object' ? <Col>
+                                            { 
+                                                 JSON.stringify(this.state.woocommerce) === "[]"  ? null :
+                                                typeof this.state.woocommerce == 'object' ? <Col>
                                                     <Card  className="mini-stat" style={cardStyle}>
                                                         <CardBody className="mini-stat-img">
                                                             <Button className="float-right" onClick = {()=> this.tog_woocommerce()}><i className="ti-eye float-right"></i></Button>
@@ -588,7 +632,8 @@ class UserDetails extends Component {
                                             </div>
                                             <div>
                                             
-                                            { typeof this.state.bigcommerce == 'object' ? <Col>
+                                            {    JSON.stringify(this.state.bigcommerce) === "[]"  ? null :
+                                                typeof this.state.bigcommerce == 'object' ? <Col>
                                                     <Card  className="mini-stat" style={cardStyle}>
                                                         <CardBody className="mini-stat-img">
                                                             <Button className="float-right" onClick = {()=> this.tog_bigcommerce()}><i className="ti-eye float-right"></i></Button>
@@ -604,16 +649,24 @@ class UserDetails extends Component {
                                     </TabPane>
                                     <TabPane tabId="7" className="p-3">
                                         <Row>
-                                            <Col lg="6">
+                                        { this.state.subscription.name != undefined ? <Col lg="6">
                                                 <Card color="light">
                                                     <h4 className="card-header font-16 mt-0">{this.state.subscription.name} Plan</h4>
-                                                    <CardBody>
-                                                        
-                                                        <CardText> Your plan will be automatically renewed on { new Date(this.state.otherSub.nextBillingTime * 1000).toLocaleDateString("en-US") }. It will be charged as one payment of ${this.state.subscription.price}.</CardText>
+                                                    <CardBody>    
+                                                        <CardText> Your plan will be automatically renewed on { new Date(this.state.otherSub.nextBillingTime * 1000).toLocaleDateString("en-US") }. It will be charged as one payment of ${this.state.subscription.price * 0.01}.</CardText>
                                                         <Link to="#" className="btn btn-danger">Cancel Plan</Link>
                                                     </CardBody>
                                                 </Card>
+                                            </Col> : 
+                                            <Col lg="12">
+                                                
+                                                <Alert color="danger" className="mb-0">
+                                                     No subscription for this user.
+                                                </Alert>
+                                                   
                                             </Col>
+                                        }
+                                            
                                         </Row>
                                     </TabPane>
                                 </TabContent>

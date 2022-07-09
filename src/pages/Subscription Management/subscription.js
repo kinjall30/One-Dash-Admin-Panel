@@ -19,15 +19,8 @@ import { connect } from "react-redux";
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
 
-// Editable
-// import BootstrapTable from "react-bootstrap-table-next";
-// import { MDBDataTable } from 'mdbreact';
-
-// import DountChart from "../AllCharts/chartjs/dountchart";
-// import LineChart from "../AllCharts/chartjs/linechart";
-
-// import img from "../../assets/images/img1.jpg"
-// import Subscriptionreport from "./report"
+//url
+import url from "../../helpers/apiUrl"
 
 class Subscription extends Component {
     constructor(props) {
@@ -91,12 +84,13 @@ class Subscription extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/subscriptions/plans", requestOptions)
+        fetch(`http://${url}/subscriptions/plans`, requestOptions)
         .then(response => response.json())
         .then(data => {
             var array = []
                 for(let i=0; i< data.body.length; i++){
                     array.push({
+                        planid: data.body[i]._id,
                         productId: data.body[i]._source.productId,
                         role: data.body[i]._source.role,
                         active: (data.body[i]._source.active).toString(),
@@ -133,6 +127,7 @@ class Subscription extends Component {
                     unlimitedYearly: array[1],
                     unlimitedMonthly: array[2]
                 })
+                console.log(data)
         })
         .catch(error => console.log('error', error));
 
@@ -147,6 +142,7 @@ class Subscription extends Component {
         var raw = JSON.stringify({"planId": planid,
          "stripepriceId": stripePriceId
         });
+        console.log(raw)
 
         var requestOptions = {
             method: 'POST',
@@ -155,12 +151,20 @@ class Subscription extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/subscriptions/update-plan", requestOptions)
+        fetch(`http://${url}/subscriptions/update-plan`, requestOptions)
         .then(response => response.json())
         .then(result => {
-            this.setState({
-                stripePriceid: ''
-            })
+            if(result.statusCode == "200"){
+                this.tog_edit()
+                setTimeout(this.getAllPlans(), 3000)
+                // this.getAllPlans()
+
+                this.setState({
+                    planid: '',
+                    stripePriceid: ''
+                })
+            }
+           
         })
         .catch(error => console.log('error', error));
 
@@ -306,8 +310,6 @@ class Subscription extends Component {
                                 <h3 className="card-title">{this.state.shoppableMonthly.name}</h3><br/>
                                 <h5 className="card-subtitle font-14 text-muted">{this.state.shoppableMonthly.price}/mo</h5><br/>
                                 <Button color="primary" onClick ={()=> this.tog_edit(this.state.shoppableMonthly.planid, this.state.shoppableMonthly.stripePriceid)}>Edit</Button>
-                                <p>Strip ID: {this.state.shoppableMonthly.stripePriceId}</p>
-                                <p>Paypal ID: {this.state.shoppableMonthly.paypalId}</p>
                             </CardBody>
                             
                         </Card>
@@ -318,8 +320,6 @@ class Subscription extends Component {
                                 <h3 className="card-title">{this.state.unlimitedMonthly.name}</h3><br/>
                                 <h5 className="card-subtitle font-14 text-muted">{this.state.unlimitedMonthly.price}/mo</h5><br/>
                                 <Button color="primary"  onClick ={()=> this.tog_edit(this.state.unlimitedMonthly.planid, this.state.unlimitedMonthly.stripePriceid)}>Edit</Button>
-                                <p>Strip ID: {this.state.unlimitedMonthly.stripePriceId}</p>
-                                <p>Paypal ID: {this.state.unlimitedMonthly.paypalId}</p>
                             </CardBody>
                         </Card>
                     </Col></Row> : 
@@ -328,10 +328,8 @@ class Subscription extends Component {
                         <Card>
                             <CardBody>
                                 <h3 className="card-title">{this.state.shoppableYearly.name}</h3><br/>
-                                <h5 className="card-subtitle font-14 text-muted">{this.state.unlimitedYearly.price}/yr</h5><br/>
+                                <h5 className="card-subtitle font-14 text-muted">{this.state.shoppableYearly.price}/yr</h5><br/>
                                 <Button color="primary"  onClick ={()=> this.tog_edit(this.state.shoppableYearly.planid, this.state.shoppableYearly.stripePriceid)}>Edit</Button>
-                                <p>Strip ID: {this.state.shoppableYearly.stripePriceId}</p>
-                                <p>Paypal ID: {this.state.shoppableYearly.paypalId}</p>
                             </CardBody>
                             
                         </Card>
@@ -342,8 +340,6 @@ class Subscription extends Component {
                                 <h3 className="card-title">{this.state.unlimitedYearly.name}</h3><br/>
                                 <h5 className="card-subtitle font-14 text-muted">{this.state.unlimitedYearly.price}/yr</h5><br/>
                                 <Button color="primary"  onClick ={()=> this.tog_edit(this.state.unlimitedYearly.planid, this.state.unlimitedYearly.stripePriceid)}>Edit</Button>
-                                <p>Strip ID: {this.state.unlimitedYearly.stripePriceId}</p>
-                                <p>Paypal ID: {this.state.unlimitedYearly.paypalId}</p>
                             </CardBody>
                         </Card>
                     </Col>
@@ -365,13 +361,13 @@ class Subscription extends Component {
                          <FormGroup row>
                              <Label for="example-text-input" className="col-sm-2 col-form-label">Stripe Price ID</Label>
                              <Col sm="10">
-                                 <Input className="form-control" type="text" name="stripePriceId" value={this.state.stripePriceId} onChange={this.changeHandler} id="example-text-input"/>
+                                 <Input className="form-control" type="text" name="stripePriceId" value={this.state.stripePriceId || ''} onChange={this.changeHandler} id="example-text-input"/>
                              </Col>
                          </FormGroup>                         
                      </ModalBody>
                      <ModalFooter>
                          <Button type="button" color="secondary" className="waves-effect" onClick={this.tog_edit}>Close</Button>
-                         <Button type="button" color="primary" onClick={()=>this.updatePlane(this.state.shoppableMonthly.planid, this.state.shoppableMonthly.stripepriceId)} className="waves-effect waves-light">Save changes</Button>
+                         <Button type="button" color="primary" onClick={()=>this.updatePlane(this.state.planid, this.state.stripePriceId)} className="waves-effect waves-light">Save changes</Button>
                      </ModalFooter>                      
                  </Modal>
                 </Row>  

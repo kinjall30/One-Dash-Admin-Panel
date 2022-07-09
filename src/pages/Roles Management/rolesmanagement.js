@@ -23,6 +23,10 @@ import SweetAlert from "react-bootstrap-sweetalert";
 
 // Import Action to copy breadcrumb items from local state to redux state
 import {setBreadcrumbItems} from "../../store/actions";
+
+//url
+import url from "../../helpers/apiUrl"
+
 // import axios from 'axios';
 import ApiServices from '../../helpers/ApiServices';
 
@@ -80,7 +84,7 @@ class Rolesmanagement extends Component {
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
 
 
-        fetch("http://44.196.105.0:3000/adminusers", {
+        fetch(`http://${url}/adminusers`, {
             method: 'GET',
             headers: myHeaders
 
@@ -145,7 +149,7 @@ class Rolesmanagement extends Component {
         myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
 
 
-        fetch("http://44.196.105.0:3000/adminusers", {
+        fetch(`http://${url}/adminusers`, {
             method: 'GET',
             headers: myHeaders
 
@@ -220,7 +224,7 @@ class Rolesmanagement extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/adminusers/userdetails", requestOptions)
+        fetch(`http://${url}/adminusers/userdetails`, requestOptions)
         .then(response => response.json())
         .then(result =>{
             this.setState({
@@ -265,7 +269,7 @@ class Rolesmanagement extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/adminusers/update", requestOptions).then(response => response.json()).then((result) => {
+        fetch(`http://${url}/adminusers/update`, requestOptions).then(response => response.json()).then((result) => {
             console.log(result)
             if (result.statusCode == "200") {
                 this.getUsers()
@@ -307,7 +311,7 @@ class Rolesmanagement extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/adminusers/register", requestOptions).then((response) => response.json()).then(data => {
+        fetch(`http://${url}/adminusers/register`, requestOptions).then((response) => response.json()).then(data => {
             console.log(data.status)
             if (data.statusCode == "200") {
                 this.getUsers()

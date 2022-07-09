@@ -26,9 +26,8 @@ import {MDBDataTable} from 'mdbreact';
 import "../Tables/datatables.scss";
 
 
-// Editable
-// import BootstrapTable from "react-bootstrap-table-next";
-// import cellEditFactory from "react-bootstrap-table2-editor";
+//url
+import url from "../../helpers/apiUrl"
 
 class AddSupportPriority extends Component {
     constructor(props) {
@@ -93,7 +92,7 @@ class AddSupportPriority extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/priority/support/create", requestOptions).then(response => response.json()).then(result => {
+        fetch(`http://${url}/priority/support/create`, requestOptions).then(response => response.json()).then(result => {
             if (result.statusCode == "200") {
                 this.vieallSupportPriority();
                 this.tog_add_priority();
@@ -116,7 +115,7 @@ class AddSupportPriority extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/priority/support/create/" + this.state.id, requestOptions).then(response => response.json()).then(result => {
+        fetch(`http://${url}/priority/support/create/` + this.state.id, requestOptions).then(response => response.json()).then(result => {
             if (result.statusCode == "200") {
                 this.vieallSupportPriority()
                 this.tog_edit_priority()
@@ -136,7 +135,7 @@ class AddSupportPriority extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/priority/support", requestOptions).then(response => response.json()).then(data => {
+        fetch(`http://${url}/priority/support`, requestOptions).then(response => response.json()).then(data => {
             var array = []
             for (let i = 0; i < data.body.length; i++) {
                 array.push({
@@ -183,7 +182,9 @@ class AddSupportPriority extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/priority/support/1", requestOptions).then(response => response.text()).then(result => console.log(result)).catch(error => console.log('error', error));
+        fetch(`http://${url}/priority/support/1`, requestOptions).then(response => response.json())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
     }
 
     deletePriority() {
@@ -196,7 +197,7 @@ class AddSupportPriority extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/priority/support/" + this.state.id, requestOptions)
+        fetch(`http://${url}/priority/support/` + this.state.id, requestOptions)
         .then(response => response.json())
         .then(result => {
             this.vieallSupportPriority()

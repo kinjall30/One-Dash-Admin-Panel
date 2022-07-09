@@ -23,9 +23,9 @@ import { MDBDataTable } from 'mdbreact';
 
 // Import datatable css
 import "../Tables/datatables.scss";
-// Editable
-// import BootstrapTable from "react-bootstrap-table-next";
-// import cellEditFactory from "react-bootstrap-table2-editor";
+
+//url
+import url from "../../helpers/apiUrl"
 
 class Faq extends Component {
     constructor(props) {
@@ -78,7 +78,7 @@ class Faq extends Component {
     redirect: 'follow'
     };
 
-    fetch("http://44.196.105.0:3000/faq/", requestOptions)
+    fetch(`http://${url}/faq/`, requestOptions)
     .then(response => response.json())
     .then(data => {
         var array = []
@@ -141,7 +141,7 @@ class Faq extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/faq/create", requestOptions)
+        fetch(`http://${url}/faq/create`, requestOptions)
         .then(response => response.json())
         .then(result =>{
                 if(result.statusCode == "200"){
@@ -172,7 +172,7 @@ class Faq extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/faq/" + this.state.id, requestOptions)
+        fetch(`http://${url}/faq/` + this.state.id, requestOptions)
         .then(response => response.json())
         .then(result => {
             this.viewAllFaq()
@@ -191,7 +191,7 @@ class Faq extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/faq/3", requestOptions)
+        fetch(`http://${url}/faq/3`, requestOptions)
         .then(response => response.json())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
@@ -230,7 +230,7 @@ class Faq extends Component {
             redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/faq/create/" + id, requestOptions)
+        fetch(`http://${url}/faq/create/` + id, requestOptions)
         .then(response => response.json())
         .then(result =>{
              if(result.statusCode == "200"){
@@ -261,7 +261,7 @@ class Faq extends Component {
         redirect: 'follow'
         };
 
-        fetch("http://44.196.105.0:3000/category/faq", requestOptions)
+        fetch(`http://${url}/category/faq`, requestOptions)
         .then(response => response.json())
         .then(data => {
             var array = []
