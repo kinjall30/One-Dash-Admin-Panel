@@ -52,8 +52,9 @@ class Pageslogin extends Component {
             body: raw
         }).then((response) => response.json()).then(data => {
             console.log(data.status)
-            if (data.statusCode == "200") { // window.location.assign("/dashboard");
-                this.props.history.push('/dashboard');
+            if (data.statusCode == "200") { 
+                window.location.assign("/dashboard");
+                // this.props.history.push('/dashboard');
                 localStorage.setItem("token", data.body.accessToken)
                 // sessionStorage.clear()
                 localStorage.setItem("role", data.body.user[0].role)

@@ -629,7 +629,7 @@ class CustomerService extends Component {
                             
                             </div>
                             
-                                <h5>Unsolved</h5>
+                                <h5>Open</h5>
                                 <h5>10</h5>
                             </CardBody>
                         </Card>
@@ -641,7 +641,7 @@ class CustomerService extends Component {
                             
                             </div>
                             
-                                <h5>OverDue</h5>
+                                <h5>New</h5>
                                 <h5>2</h5>
                             </CardBody>
                         </Card>
@@ -653,7 +653,7 @@ class CustomerService extends Component {
                             
                             </div>
                                 
-                                <h5>Due Today</h5>
+                                <h5>Running</h5>
                                 <p>                       </p>
                                 <h5>1</h5>
                             </CardBody>
@@ -666,7 +666,7 @@ class CustomerService extends Component {
                             
                             </div>
                         
-                                <h5>Onhold</h5>
+                                <h5>Completed</h5>
                                 <h5>5</h5>
                             </CardBody>
                         </Card>
@@ -740,7 +740,7 @@ class CustomerService extends Component {
                         <ModalFooter>
                             <Button type="button" color="secondary" className="waves-effect"
                                 onClick={
-                                    this.tog_edit_faq
+                                    this.tog_technician
                             }>Close</Button>
                             <Button type="button" color="primary"
                                 onClick={
@@ -1055,7 +1055,7 @@ class CustomerService extends Component {
                         <ModalFooter>
                             <Button type="button" color="secondary" className="waves-effect"
                                 onClick={
-                                    this.tog_edit_faq
+                                    this.tog_edit_ticket
                             }>Close</Button>
                             <Button type="button" color="primary"
                                 onClick={

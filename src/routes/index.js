@@ -245,7 +245,7 @@ const authProtectedRoutes = [
   { path: "/pages-directory", component: PagesDirectory },
   { path: "/pages-blank", component: PagesBlank },
 
-  { path: "/", exact: true, component: () => <Redirect to="/dashboard" /> }
+  { path: "/", exact: true, component: () => <Redirect to="/login" /> }
 ];
 
 const publicRoutes = [

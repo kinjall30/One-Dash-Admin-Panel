@@ -98,7 +98,7 @@ class Rolesmanagement extends Component {
                     email: data.body[i].email,
                     password: data.body[i].password,
                     phone: data.body[i].phone,
-                    role: data.body[i].role == '1' ? 'admin' : data.body[i].role == '2' ? 'support' : 'marketing',
+                    role: data.body[i].role == '1' ? 'Admin' : data.body[i].role == '2' ? 'Support Manager' : data.body[i].role == '4' ? 'Support Engineer' :'Marketing',
                     status: data.body[i].status,
                     created_at: data.body[i].created_at,
                     updated_at: data.body[i].updated_at,
@@ -163,7 +163,7 @@ class Rolesmanagement extends Component {
                     email: data.body[i].email,
                     password: data.body[i].password,
                     phone: data.body[i].phone,
-                    role: data.body[i].role == '1' ? 'admin' : data.body[i].role == '2' ? 'support' : 'marketing',
+                    role: data.body[i].role == '1' ? 'Admin' : data.body[i].role == '2' ? 'Support Manager' : data.body[i].role == '4' ? 'Support Engineer' :'Marketing',
                     status: data.body[i].status,
                     created_at: data.body[i].created_at,
                     updated_at: data.body[i].updated_at,
@@ -580,8 +580,9 @@ class Rolesmanagement extends Component {
                                     }>
                                         <option>Select</option>
                                         <option value="1">Admin</option>
-                                        <option value="2">Support</option>
+                                        <option value="2">Support Manager</option>
                                         <option value="3">Marketing</option>
+                                        <option value="4">Support Engineer</option>
                                     </select>
                                 </Col>
                             </FormGroup>
@@ -703,8 +704,9 @@ class Rolesmanagement extends Component {
                                     }>
                                         <option>Select</option>
                                         <option value="1">Admin</option>
-                                        <option value="2">Support</option>
+                                        <option value="2">Support Manager</option>
                                         <option value="3">Marketing</option>
+                                        <option value="4">Support Engineer</option>
                                     </select>
                                 </Col>
                             </FormGroup>

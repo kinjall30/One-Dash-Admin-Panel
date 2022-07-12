@@ -13,6 +13,7 @@ class Logout extends Component {
         sessionStorage.clear();
         this.props.history.push('/login');
         console.log(sessionStorage)
+        localStorage.clear()
     }
 
 
