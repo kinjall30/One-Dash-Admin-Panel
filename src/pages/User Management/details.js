@@ -27,6 +27,8 @@ import classnames from "classnames";
 //Import Action to copy breadcrumb items from local state to redux state
 import { setBreadcrumbItems } from "../../store/actions";
 
+import SweetAlert from "react-bootstrap-sweetalert";
+
 import { MDBDataTable } from 'mdbreact';
 //url
 import url from "../../helpers/apiUrl"
@@ -80,6 +82,7 @@ class UserDetails extends Component {
         this.getSubscriptionDetails = this.getSubscriptionDetails.bind(this);
         this.getAllProjects = this.getAllProjects.bind(this);
         this.bytesToSize = this.bytesToSize.bind(this);
+        this.canclePlan  = this.canclePlan.bind(this);
         // this.integrations = this.integrations.bind(this)
     }  
 
@@ -243,6 +246,31 @@ class UserDetails extends Component {
         })
         .catch(error => console.log('error', error));
 
+    }
+
+    canclePlan(){
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "sub": this.state.sub
+        });
+        console.log("rawww", raw)
+
+        var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+        };
+
+        fetch(`http://${url}/subscriptions/cancel-user`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            
+        })
+        .catch(error => console.log('error', error));
     }
 
     getAllProjects(sub){
@@ -410,6 +438,48 @@ class UserDetails extends Component {
                 {this.state.temp ? <Alert color="success">
                     <strong>User updated successfully</strong> 
                     </Alert>: null}
+
+                {this.state.alert_confirm ? (
+                    <SweetAlert
+                        title="Are you sure?"
+                        warning
+                        showCancel
+                        confirmBtnBsStyle="success"
+                        cancelBtnBsStyle="danger"
+                        onConfirm={() => {
+                            this.canclePlan()
+                            this.setState({
+                                success_confirm: true,
+                                alert_confirm: false,
+                                dynamic_title: "Deleted!",
+                                dynamic_description: "Plan has been cancelled."
+                            })
+                        }
+                        }
+                        onCancel={() =>
+                            this.setState({
+                                alert_confirm: false,
+                            })
+                        }
+                    >
+                        You won't be able to revert this!
+                    </SweetAlert>
+                ) : null}
+
+                {
+                    this.state.success_confirm ? (
+                        <SweetAlert
+                            success
+                            title={this.state.dynamic_title}
+                            confirmBtnBsStyle="success"
+                            cancelBtnBsStyle="danger"
+                            onConfirm={() => this.setState({ success_confirm: false, alert_confirm: false })}
+                        >
+                            {this.state.dynamic_description}
+                        </SweetAlert>
+                    )
+                        : null
+                }
                 <Row>
                     <Col xs="12">
                         <Card>
@@ -653,8 +723,14 @@ class UserDetails extends Component {
                                                 <Card color="light">
                                                     <h4 className="card-header font-16 mt-0">{this.state.subscription.name} Plan</h4>
                                                     <CardBody>    
-                                                        <CardText> Your plan will be automatically renewed on { new Date(this.state.otherSub.nextBillingTime * 1000).toLocaleDateString("en-US") }. It will be charged as one payment of ${this.state.subscription.price * 0.01}.</CardText>
-                                                        <Link to="#" className="btn btn-danger">Cancel Plan</Link>
+                                                        <CardText> Your plan will be automatically renewed on { new Date(this.state.otherSub.nextBillingTime * 1000).toLocaleDateString("en-US") }. It will be charged as one payment of ${(this.state.subscription.price * 0.01).toFixed(2)}.</CardText>
+                                                        <Button type="button" color="danger"
+                                                            onClick={
+                                                                () => this.setState({ alert_confirm: true, sub: this.state.sub })
+                                                            }
+                                                            className="waves-effect waves-light"
+                                                            id="sa-warning">Cancel Plan
+                                                        </Button>
                                                     </CardBody>
                                                 </Card>
                                             </Col> : 

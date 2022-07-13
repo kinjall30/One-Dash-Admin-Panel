@@ -96,7 +96,7 @@ class Subscription extends Component {
                         active: (data.body[i]._source.active).toString(),
                         name: data.body[i]._source.name,
                         unitLabel: data.body[i]._source.unitLabel,
-                        price: "$ " + data.body[i]._source.price * 0.01,
+                        price: (data.body[i]._source.price * 0.01).toFixed(2),
                         interval: data.body[i]._source.interval,
                         stripePriceId: data.body[i]._source.stripeId,
                         paypalId: data.body[i]._source.paypalId,
@@ -189,6 +189,7 @@ class Subscription extends Component {
     
   
     render() {
+        console.log(parseInt(this.state.shoppableMonthly.price))
         //  const plans = {
         //     columns: [
         //         {

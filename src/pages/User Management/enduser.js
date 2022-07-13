@@ -13,7 +13,8 @@ import {
     Input,
     Modal,
     PaginationItem,
-    PaginationLink
+    PaginationLink,
+    Form
 
 } from "reactstrap";
 import { connect } from "react-redux";
@@ -76,6 +77,7 @@ class Enduser extends Component {
         this.previousPagination = this.previousPagination.bind(this);
         this.nextPaginations = this.nextPaginations.bind(this);
         this.pageChangeHandler = this.pageChangeHandler.bind(this);
+        this.searchUser = this.searchUser.bind(this);
     }
 
     componentDidMount() {
@@ -241,6 +243,81 @@ class Enduser extends Component {
                 }
             })
             .catch(error => console.log('error', error));
+    }
+
+    searchUser(e){
+        console.log("target value",e.target.value)
+        if(e.target.value == null || e.target.value == "" || e.target.value == undefined){
+            return this.getUsers(0)
+        }
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+        "username": e.target.value
+        });
+
+        var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+        };
+
+        fetch(`http://${url}/endusers/search`, requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            var array = []
+                for (let i = 0; i < data.body.length; i++) {
+                    array.push({
+                        sub: data.body[i].sub,
+                        Username: data.body[i].Username,
+                        given_name: data.body[i].given_name,
+                        family_name: data.body[i].family_name,
+                        email: data.body[i].email,
+                        email_verified: data.body[i].email_verified,
+                        UserStatus: data.body[i].UserStatus,
+                        UserCreateDate: data.body[i].UserCreateDate,
+                        UserLastModifiedDate: data.body[i].UserLastModifiedDate,
+                        button:
+                            <div>
+                                <Link to={{
+                                    pathname: "/userdetails",
+                                    state: {
+                                        user: data.body[i]
+                                    }
+                                }}>
+                                    <Button type="button"
+                                        onClick={
+                                            () => this.fillUser(data.body[i])
+                                        }
+                                        style={
+                                            { marginRight: 10 }
+                                        }
+                                        color="primary"
+                                        className="waves-effect waves-light">
+                                        <i className="ion ion-md-arrow-round-forward"></i>
+                                    </Button>
+                                </Link>
+                                <Button type="button" color="danger"
+                                    onClick={
+                                        () => this.setState({ alert_confirm: true, username: data.body[i].Username })
+                                    }
+                                    className="waves-effect waves-light"
+                                    id="sa-warning"><i className="ti-trash"></i>
+                                </Button>
+                            </div>
+                    })
+                }
+               
+                    this.setState({
+                        users: array
+                    })
+
+               
+        })
+        .catch(error => console.log('error', error));
     }
 
     updatePassword() {
@@ -455,6 +532,15 @@ class Enduser extends Component {
                         : null
                 }
                 <h1>One Dash Users Details</h1>
+                <Col lg="6">
+                    <Form className="app-search d-none d-lg-block">
+                        <div className="position-relative">
+                            <Input onChange ={this.searchUser} type="text" className="form-control" placeholder="Search..."/>
+                            <span className="fa fa-search"></span>
+                        </div>
+                    </Form>
+                </Col>
+                
 
                 <Row>
                     <Col xs="12">

@@ -64,7 +64,13 @@ class CustomerService extends Component {
             complition_date: '',
             technician_id: '',
             technician_name: '',
-            support_log_id: ''
+            support_log_id: '',
+            openCount: '',
+            newCount: '',
+            runningCount: '',
+            completedCount: '',
+            user_id: '',
+            users: []
         }
        this.tog_technician = this.tog_technician.bind(this);
        this.tog_create_ticket = this.tog_create_ticket.bind(this);
@@ -80,13 +86,17 @@ class CustomerService extends Component {
        this.assignTechnician = this.assignTechnician.bind(this);
        this.getTechnician = this.getTechnician.bind(this);
        this.fillTechnician = this.fillTechnician.bind(this);
+       this.supportCount = this.supportCount.bind(this);
+       this.getUsers = this.getUsers.bind(this);
     }  
 
     componentDidMount(){
+        this.supportCount()
       this.props.setBreadcrumbItems("Customer Service", this.state.breadcrumbItems);
       this.vieallSupportPriority();
       this.viewsupportCategory();
         this.getTechnician()
+        this.getUsers()
 
        var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer "+ localStorage.getItem("token"));
@@ -106,6 +116,7 @@ class CustomerService extends Component {
                         support_log_id: data.body[i].id,
                         ticket_name: data.body[i].ticket_name,
                         ticket_description: data.body[i].ticket_description,
+                        user_id: data.body[i].user_id,
                         ticket_status: data.body[i].ticket_status,
                         customer_remarks: data.body[i].customer_remarks,
                         technician_remarks: data.body[i].technician_remarks,
@@ -159,6 +170,8 @@ class CustomerService extends Component {
             // console.log("hello")
         })
         .catch(error => console.log('error', error));
+
+         this.supportCount()
     }
 
     viewSupportLog(){
@@ -180,6 +193,7 @@ class CustomerService extends Component {
                         support_log_id: data.body[i].id,
                         ticket_name: data.body[i].ticket_name,
                         ticket_description: data.body[i].ticket_description,
+                        user_id: data.body[i].user_id,
                         ticket_status: data.body[i].ticket_status,
                         priority_name: data.body[i].priority_name,
                         category_name: data.body[i].category_name,
@@ -249,7 +263,8 @@ class CustomerService extends Component {
         "ticket_status": this.state.ticket_status,
         "customer_remarks": this.state.customer_remarks,
         "technician_remarks": this.state.technician_remarks,
-        "complition_date": this.state.complition_date
+        "complition_date": this.state.complition_date,
+        "user_id": this.state.user_id
         });
         console.log(raw)
 
@@ -272,7 +287,8 @@ class CustomerService extends Component {
                 ticket_status: '',
                 customer_remarks: '',
                 technician_remarks: '',
-                complition_date: ''
+                complition_date: '',
+                user_id: ''
             })
             this.tog_create_ticket()
             this.viewSupportLog()
@@ -312,7 +328,8 @@ class CustomerService extends Component {
         "ticket_status": this.state.ticket_status,
         "customer_remarks": this.state.customer_remarks,
         "technician_remarks": this.state.technician_remarks,
-        "complition_date": this.state.complition_date
+        "complition_date": this.state.complition_date,
+        "user_id": this.state.user_id
         });
 
         var requestOptions = {
@@ -325,6 +342,7 @@ class CustomerService extends Component {
         fetch(`http://${url}/support/log/create/` + this.state.id, requestOptions)
         .then(response => response.json())
         .then(result => {
+            this.supportCount()
             if(result.statusCode == "200"){
                 this.tog_edit_ticket()
                 this.viewSupportLog()
@@ -337,7 +355,8 @@ class CustomerService extends Component {
                     ticket_status: '',
                     customer_remarks: '',
                     technician_remarks: '',
-                    complition_date: ''
+                    complition_date: '',
+                    user_id: ''
                 })
             }else{
                 alert("Updation Failed")
@@ -357,7 +376,8 @@ class CustomerService extends Component {
             ticket_status: ticket.ticket_status,
             customer_remarks: ticket.customer_remarks,
             technician_remarks: ticket.technician_remarks,
-            complition_date: ticket.complition_date
+            complition_date: ticket.complition_date,
+            user_id: ticket.user_id
         })
         this.tog_edit_ticket();
     }
@@ -480,6 +500,92 @@ class CustomerService extends Component {
         .catch(error => console.log('error', error));
     }
 
+    supportCount(){
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer "  + localStorage.getItem("token"));
+
+        var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
+
+        fetch(`http://${url}/support/count`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            var completed = '';
+            var newCounts = '';
+            var running = '';
+            var open = '';
+            var index = result.body.findIndex(e => e.ticket_status == "Completed")
+            console.log("indexx",index)
+            if(index != -1){
+                completed = result.body[index].count
+            }else{
+                completed = 0
+            }
+
+            var index = result.body.findIndex(e => e.ticket_status == "Open")
+            if(index != -1){
+                open = result.body[index].count
+            }else{
+                open = 0
+            }
+
+            var index = result.body.findIndex(e => e.ticket_status == "Running")
+            if(index != -1){
+                running = result.body[index].count
+            }else{
+                running = 0
+            }
+
+            var index = result.body.findIndex(e => e.ticket_status == "New")
+            if(index != -1){
+                newCounts = result.body[index].count
+            }else{
+                newCounts = 0
+            }
+
+            this.setState({
+                completedCount: completed,
+                openCount: open,
+                newCount: newCounts,
+                runningCount: running
+            })
+        })
+        .catch(error => console.log('error', error));
+    }
+
+    getUsers(pageNo) {
+        if(pageNo=="undefined"){
+            pageNo=pageNo-1;
+        }
+        //console.log("Currant Page: ",pageNo, "LastPage",this.state.lastPage,this.state.pageToken[pageNo])
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "Bearer " + localStorage.getItem("token"));
+        var urll = `http://${url}/endusers/all`
+        fetch(urll, {
+            method: 'GET',
+            headers: myHeaders,
+
+        })
+            .then((response) => response.json())
+            .then(data => {
+                var array = []
+                for (let i = 0; i < data.body.length; i++) {
+                    array.push({
+                        sub: data.body[i].sub,
+                        Username: data.body[i].Username,
+                        given_name: data.body[i].given_name,
+                        family_name: data.body[i].family_name,
+                    })
+                }
+                this.setState({ users: array })
+
+            })
+    }
+
       tog_technician() {
         this.setState(prevState => ({
             modal_technician: !prevState.modal_technician,
@@ -512,6 +618,12 @@ class CustomerService extends Component {
                  {
                     label: 'Ticket Description',
                     field: 'ticket_description',
+                    sort: 'asc',
+                    width: 100
+                },
+                {
+                    label: 'User Name',
+                    field: 'user_id',
                     sort: 'asc',
                     width: 100
                 },
@@ -630,7 +742,7 @@ class CustomerService extends Component {
                             </div>
                             
                                 <h5>Open</h5>
-                                <h5>10</h5>
+                                <h5>{this.state.openCount}</h5>
                             </CardBody>
                         </Card>
                     </Col>
@@ -642,7 +754,7 @@ class CustomerService extends Component {
                             </div>
                             
                                 <h5>New</h5>
-                                <h5>2</h5>
+                                <h5>{this.state.newCount}</h5>
                             </CardBody>
                         </Card>
                     </Col>
@@ -654,8 +766,7 @@ class CustomerService extends Component {
                             </div>
                                 
                                 <h5>Running</h5>
-                                <p>                       </p>
-                                <h5>1</h5>
+                                <h5>{this.state.runningCount}</h5>
                             </CardBody>
                         </Card>
                     </Col>
@@ -667,7 +778,7 @@ class CustomerService extends Component {
                             </div>
                         
                                 <h5>Completed</h5>
-                                <h5>5</h5>
+                                <h5>{this.state.completedCount}</h5>
                             </CardBody>
                         </Card>
                     </Col>
@@ -791,6 +902,25 @@ class CustomerService extends Component {
                                             this.changeHandler
                                         }
                                         id="example-search-input"/>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label for="example-password-input" className="col-sm-2 col-form-label">Username</Label>
+                                <Col sm="10">
+                                    <select className="form-control" name='user_id'
+                                        value={
+                                            this.state.user_id
+                                        }
+                                        onChange={
+                                            this.changeHandler
+                                    }>
+                                        <option>Select</option>
+                                        {
+                                            this.state.users.map((user) => (
+                                                <option value={user.Username}>{user.Username}</option>
+                                            ))
+                                        }
+                                    </select>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
@@ -958,6 +1088,25 @@ class CustomerService extends Component {
                                             this.changeHandler
                                         }
                                         id="example-search-input"/>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup row>
+                                <Label for="example-password-input" className="col-sm-2 col-form-label">Username</Label>
+                                <Col sm="10">
+                                    <select className="form-control" name='user_id'
+                                        value={
+                                            this.state.user_id
+                                        }
+                                        onChange={
+                                            this.changeHandler
+                                    }>
+                                        <option>Select</option>
+                                        {
+                                            this.state.users.map((user) => (
+                                                <option value={user.Username}>{user.Username}</option>
+                                            ))
+                                        }
+                                    </select>
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
